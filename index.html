@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Il Metodo SP — CRM</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f4f7f5;--s1:#fff;--s2:#f0f4f1;--s3:#e8efe9;--bd:#d4e4d8;--bd2:#b8d4c0;--g:#1a7a4a;--gm:#22a060;--gl:#4db87a;--g2:#e8f5ee;--t:#0d6e6e;--tl:#1a9999;--t2:#e6f5f5;--r:#c0392b;--r2:#fdecea;--y:#a07000;--y2:#fef9e7;--yl:#e0b030;--tx:#1a2e24;--mu:#5a7a66;--hi:#9ab8a4;--fn:'Inter',sans-serif;--mo:'JetBrains Mono',monospace}
+body{background:var(--bg);color:var(--tx);font-family:var(--fn);font-size:14px;min-height:100vh}
+button{cursor:pointer;font-family:var(--fn);border:none;outline:none;transition:all .15s}
+input,select,textarea{background:var(--s1);border:1.5px solid var(--bd2);color:var(--tx);border-radius:8px;padding:8px 12px;font-family:var(--fn);font-size:13px;width:100%;outline:none;transition:border-color .2s}
+input:focus,select:focus,textarea:focus{border-color:var(--gm)}
+.btn-g{background:var(--gm);color:#fff;border:none;padding:9px 18px;border-radius:9px;font-weight:600;font-size:13px}
+.btn-g:hover{background:var(--g)}
+.btn-gl{background:var(--g2);border:1.5px solid var(--gl);color:var(--g);padding:9px 18px;border-radius:9px;font-weight:600;font-size:13px}
+.btn-r{background:var(--r2);border:1.5px solid var(--r);color:var(--r);padding:7px 14px;border-radius:8px;font-size:12px}
+.btn-n{background:var(--s2);border:1.5px solid var(--bd2);color:var(--mu);padding:7px 14px;border-radius:8px;font-size:12px}
+.btn-n:hover{border-color:var(--gm);color:var(--g)}
+.btn-wa{background:none;border:1.5px solid #25a24455;color:#25a244;padding:6px 11px;border-radius:8px;font-size:11px;font-family:var(--fn)}
+.btn-wa:hover{background:#25a24415}
+.card{background:var(--s1);border:1.5px solid var(--bd);border-radius:16px;padding:18px 22px}
+.csm{background:var(--s2);border:1.5px solid var(--bd);border-radius:10px;padding:10px 13px}
+.tag{display:inline-block;padding:3px 9px;border-radius:100px;font-size:11px;font-weight:600}
+.tg{background:var(--g2);color:var(--g);border:1px solid var(--gl)}
+.tr{background:var(--r2);color:var(--r);border:1px solid #e08080}
+.ty{background:var(--y2);color:var(--y);border:1px solid var(--yl)}
+.tn{background:var(--s3);color:var(--mu);border:1px solid var(--bd)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+/* TOPBAR */
+.topbar{background:var(--s1);border-bottom:1.5px solid var(--bd);padding:0 24px;display:flex;align-items:center;height:54px;gap:12px;position:sticky;top:0;z-index:50;box-shadow:0 1px 8px #00000008}
+.logo{font-size:16px;font-weight:700;color:var(--g);letter-spacing:-.02em}
+.sep{width:1px;height:18px;background:var(--bd2)}
+.sub{font-size:11px;color:var(--mu);letter-spacing:.12em;text-transform:uppercase;font-weight:500}
+/* KPI */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:18px 24px 12px}
+.kpi{background:var(--s1);border:1.5px solid var(--bd);border-radius:16px;padding:16px 20px;position:relative;overflow:hidden}
+.kpi::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:16px 16px 0 0}
+.kg::after{background:linear-gradient(90deg,var(--gm),var(--gl))}
+.kr::after{background:linear-gradient(90deg,var(--r),#e74c3c)}
+.ky::after{background:linear-gradient(90deg,var(--y),var(--yl))}
+.kt::after{background:linear-gradient(90deg,var(--t),var(--tl))}
+.kpi-l{font-size:11px;color:var(--mu);letter-spacing:.08em;text-transform:uppercase;font-weight:600;margin-bottom:8px}
+.kpi-v{font-family:var(--mo);font-size:26px;font-weight:600;line-height:1}
+.kpi-s{font-size:11px;color:var(--hi);margin-top:4px}
+/* CLIENT ROW */
+.cl-list{padding:0 24px 80px;display:flex;flex-direction:column;gap:7px}
+.sh{display:flex;justify-content:space-between;align-items:center;padding:0 24px 12px}
+.sh-t{font-size:11px;color:var(--mu);text-transform:uppercase;letter-spacing:.1em;font-weight:600}
+.cr{background:var(--s1);border:1.5px solid var(--bd);border-radius:14px;padding:13px 18px;cursor:pointer;transition:border-color .2s,box-shadow .2s}
+.cr:hover{border-color:var(--gm);box-shadow:0 3px 16px #1a7a4a12}
+.cr.urg{border-left:3px solid var(--r)}
+.cr-g{display:grid;grid-template-columns:175px 1fr 115px 88px 68px 58px 68px 86px;align-items:center;gap:11px}
+.av{width:32px;height:32px;border-radius:50%;background:var(--g2);border:1.5px solid var(--gl);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--g);flex-shrink:0}
+/* MODAL */
+.mbg{position:fixed;inset:0;background:#00000055;z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(3px)}
+.mbx{background:var(--s1);border:1.5px solid var(--bd);border-radius:18px;padding:28px;width:100%;max-width:580px;max-height:88vh;overflow-y:auto;box-shadow:0 20px 60px #00000020}
+.mt{font-size:18px;font-weight:700;margin-bottom:20px;color:var(--tx)}
+.fl{font-size:11px;color:var(--mu);letter-spacing:.08em;text-transform:uppercase;font-weight:600;display:block;margin-bottom:4px;margin-top:11px}
+.fl:first-child{margin-top:0}
+.ma{display:flex;gap:8px;margin-top:18px}
+/* DETAIL */
+.tbar{display:flex;gap:1px;border-bottom:1.5px solid var(--bd);padding:0 24px;overflow-x:auto}
+.tb{background:none;border:none;padding:11px 15px;font-size:13px;color:var(--mu);font-weight:500;border-bottom:2px solid transparent;margin-bottom:-1.5px;cursor:pointer;white-space:nowrap;font-family:var(--fn);transition:color .2s}
+.tb.on{color:var(--gm);font-weight:700;border-bottom-color:var(--gm)}
+.tc{padding:18px 24px 60px}
+/* BARS */
+.bw{margin-bottom:11px}
+.bl{display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px;color:var(--mu)}
+.bv{font-weight:600;font-family:var(--mo)}
+.bt{height:6px;background:var(--s3);border-radius:3px;overflow:hidden}
+.bf{height:100%;border-radius:3px}
+/* CHECK CARD */
+.ck{background:var(--s2);border:1.5px solid var(--bd);border-radius:12px;padding:13px;margin-bottom:8px}
+.ckh{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
+/* NOTIF */
+.np{position:absolute;top:calc(100% + 5px);right:0;background:var(--s1);border:1.5px solid var(--bd2);border-radius:14px;width:330px;max-height:400px;overflow-y:auto;z-index:100;box-shadow:0 16px 48px #00000018}
+.ni{padding:11px 15px;border-bottom:1.5px solid var(--bd);display:flex;gap:9px;align-items:flex-start}
+.ni:last-child{border-bottom:none}
+/* LOGIN */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#e8f5ee 0%,#e6f5f5 100%)}
+.login-box{background:var(--s1);border:1.5px solid var(--bd);border-radius:20px;padding:40px;width:100%;max-width:380px;text-align:center;box-shadow:0 20px 60px #00000015}
+.login-logo{font-size:28px;font-weight:700;color:var(--g);margin-bottom:6px;letter-spacing:-.02em}
+.login-sub{font-size:13px;color:var(--mu);margin-bottom:28px}
+svg.spark{overflow:visible}
+.note-box{background:var(--y2);border:1.5px solid var(--yl);border-radius:10px;padding:10px 13px;font-size:12px;color:var(--y);font-weight:600;margin-bottom:11px}
+.plan-note{background:var(--s2);border:1.5px solid var(--bd);border-radius:10px;padding:11px 14px;font-size:12px;color:var(--mu);margin-bottom:13px;line-height:1.6}
+.integ{display:flex;align-items:center;gap:9px;background:var(--s2);border:1.5px solid var(--bd);border-left:3px solid var(--t);border-radius:9px;padding:9px 12px;margin-bottom:7px;font-size:13px}
+.row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1.5px solid var(--bd);font-size:13px}
+.row:last-child{border-bottom:none}
+.rl{color:var(--mu)}.rv{font-weight:600}
+.metric{background:var(--s2);border-radius:9px;padding:10px;text-align:center}
+.ml2{font-size:10px;color:var(--mu);margin-bottom:3px;text-transform:uppercase;letter-spacing:.06em}
+.mv{font-size:17px;font-weight:600;font-family:var(--mo)}
+@media(max-width:700px){
+  .cr-g{grid-template-columns:1fr 1fr;gap:8px}
+  .kpi-grid{grid-template-columns:1fr 1fr}
+  .g2{grid-template-columns:1fr}
+  .g3{grid-template-columns:1fr}
+  .g4{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+// ── PASSWORD ──
+const PWD = "metodosp2024";
+ 
+// ── DATI CLIENTI ──
+const DEMO=[
+{id:1,nome:"Filippo",cognome:"Montalti",email:"montalti.filippoo@gmail.com",tel:"",dob:"2006",h:194,sx:"M",obj:"Cut / Definizione",note:"No integratori. Ottima progressione nonostante cut.",euro:90,scadP:"2026-07-20",paid:true,start:"2025-10-07",integ:[],macro:{k:2200,p:180,c:200,g:65,w:3.0},checks:[{d:"2025-10-07",w:83,e:7,s:7,st:4,hy:0,adh:80,rpe:9,pf:"Migliorate",sx:"energico",hs:7,diff:"salto la colazione"},{d:"2025-10-21",w:82,e:7,s:7,st:4,hy:0,adh:80,rpe:9,pf:"Migliorate",sx:"energico",hs:7,diff:"riposo pomeridiano"},{d:"2025-11-11",w:81.9,e:7,s:8,st:4,hy:0,adh:90,rpe:9,pf:"Migliorate",sx:"energico",hs:7,diff:"colazione"},{d:"2025-12-04",w:82.7,e:5,s:7,st:4,hy:0,adh:90,rpe:9,pf:"Migliorate",sx:"energico e positivo",hs:7,diff:"spuntino mattina"},{d:"2025-12-23",w:83.2,e:7,s:7,st:4,hy:0,adh:85,rpe:9,pf:"Migliorate",sx:"energico sereno",hs:6,diff:"prendere sonno"},{d:"2026-01-12",w:83.5,e:7,s:7,st:4,hy:0,adh:75,rpe:9,pf:"Migliorate",sx:"energico",hs:7,diff:"spuntino mattina"},{d:"2026-02-11",w:85.5,e:7,s:6,st:4,hy:0,adh:80,rpe:9,pf:"Migliorate",sx:"energico tranquillo",hs:6,diff:"sonno"},{d:"2026-03-03",w:86.8,e:8,s:8,st:4,hy:0,adh:80,rpe:9,pf:"Migliorate",sx:"buone sensazioni",hs:6,diff:"nessuna"},{d:"2026-03-28",w:86.5,e:6,s:7,st:4,hy:0,adh:70,rpe:9,pf:"Migliorate",sx:"energico",hs:6,diff:"vuole cut"},{d:"2026-04-21",w:90.09,e:8,s:7,st:4,hy:0,adh:70,rpe:10,pf:"Migliorate",sx:"energico",hs:6,diff:"pasqua"},{d:"2026-05-05",w:89.5,e:6,s:7,st:4,hy:0,adh:90,rpe:10,pf:"Migliorate",sx:"energico",hs:6,diff:"percezione fisico"}]},
+{id:2,nome:"Luca",cognome:"Gentili",email:"gntlu182@gmail.com",tel:"",dob:"2008",h:182,sx:"M",obj:"Body Recomp - Gara ~2 anni",note:"Ciclizzazione calorica ON/OFF.",euro:200,scadP:"2026-08-10",paid:true,start:"2025-10-07",integ:["Whey protein isolate","Creatina monoidrato"],macro:{k:2800,p:200,c:300,g:80,w:3.0},checks:[{d:"2025-10-07",w:83.3,e:5,s:6,st:6,hy:0,adh:45,rpe:9,pf:"Migliorate",sx:"Stanchezza e fame",hs:6,diff:"Trovare tempo"},{d:"2025-10-22",w:83.6,e:6,s:8,st:6,hy:0,adh:89,rpe:7,pf:"Stabili",sx:"Stanchezza dolore buono",hs:7,diff:"Gambe"},{d:"2025-11-10",w:86,e:6,s:7,st:6,hy:0,adh:80,rpe:7,pf:"Migliorate",sx:"Fame dolore buono",hs:7,diff:"Nessuna"},{d:"2025-11-27",w:86.7,e:6,s:7,st:5,hy:0,adh:91,rpe:9,pf:"Stabili",sx:"Stanchezza",hs:6,diff:"Nulla"},{d:"2025-12-16",w:87,e:6,s:8,st:6,hy:0,adh:90,rpe:8,pf:"Stabili",sx:"Le solite",hs:7,diff:"Voglia di allenarmi"},{d:"2026-01-13",w:88.1,e:6,s:8,st:6,hy:0,adh:75,rpe:10,pf:"Migliorate",sx:"Le solite",hs:7,diff:"Calcolare macro"},{d:"2026-02-12",w:87.7,e:5,s:8,st:5,hy:0,adh:80,rpe:10,pf:"Migliorate",sx:"Come sempre",hs:7,diff:"Studio vs allenamento"},{d:"2026-03-05",w:85.8,e:4,s:6,st:5,hy:0,adh:10,rpe:10,pf:"Stabili",sx:"Solite",hs:6,diff:"Tempo"},{d:"2026-04-14",w:87.7,e:6,s:8,st:7,hy:0,adh:10,rpe:7,pf:"Peggiorate",sx:"Solite",hs:7,diff:"Tempo"}]},
+{id:3,nome:"Manuel",cognome:"Domeniconi",email:"manueldome95@gmail.com",tel:"",dob:"2003",h:172,sx:"M",obj:"Bulk progressivo con onde",note:"Piano annuale. Ha pagato 200 su 380. Deve ancora 180€.",euro:380,scadP:"2027-03-14",paid:false,debt:180,start:"2025-10-23",integ:["Magnesio bisglicinato","Omega 3 EPA/DHA","EAA 5g"],macro:{k:3000,p:180,c:350,g:90,w:3.0},checks:[{d:"2025-10-23",w:65.3,e:4,s:6,st:3,hy:0,adh:90,rpe:7,pf:"Stabili",sx:"Soddisfatto con pump",hs:6,diff:"Tutto ok"},{d:"2025-11-13",w:65.8,e:4,s:6,st:8,hy:0,adh:80,rpe:8,pf:"Stabili",sx:"Mi sento bene",hs:6,diff:"Nessuna"},{d:"2025-12-04",w:65.6,e:4,s:6,st:6,hy:0,adh:90,rpe:7,pf:"Stabili",sx:"Bene",hs:6,diff:"Nessuna"},{d:"2025-12-23",w:65.5,e:4,s:7,st:3,hy:0,adh:80,rpe:7,pf:"Stabili",sx:"Bene",hs:7,diff:"Nessuna"},{d:"2026-01-13",w:65.2,e:4,s:10,st:8,hy:0,adh:80,rpe:7,pf:"Stabili",sx:"Bene",hs:10,diff:"Nessuna"},{d:"2026-02-03",w:65.2,e:5,s:6,st:6,hy:0,adh:90,rpe:8,pf:"Stabili",sx:"Bene",hs:6,diff:"Mangiare poca fame"},{d:"2026-04-09",w:65.6,e:5,s:6,st:8,hy:0,adh:90,rpe:8,pf:"Migliorate",sx:"Bene",hs:6,diff:"Mangiare"},{d:"2026-05-19",w:63.5,e:4,s:6,st:5,hy:0,adh:80,rpe:6,pf:"Stabili",sx:"Bene",hs:6,diff:"Mangiare"}]},
+{id:4,nome:"Alessandro",cognome:"Tomè",email:"alessandrotome07@gmail.com",tel:"",dob:"2004",h:187,sx:"M",obj:"Aumento massa muscolare",note:"No integratori. Cambio stimoli 29/04.",euro:150,scadP:"2026-06-21",paid:true,start:"2025-10-16",integ:[],macro:{k:3200,p:200,c:380,g:90,w:3.5},checks:[{d:"2025-10-16",w:75.5,e:7,s:8,st:6,hy:0,adh:90,rpe:8,pf:"Migliorate",sx:"Poco indolenzito",hs:8,diff:"Coordinazione"},{d:"2025-11-06",w:76.1,e:7,s:9,st:7,hy:0,adh:90,rpe:8,pf:"Migliorate",sx:"Indolenzito",hs:8,diff:"Ansia"},{d:"2025-11-27",w:75.3,e:7,s:8,st:8,hy:0,adh:85,rpe:8,pf:"Migliorate",sx:"Leggero indolenzimento",hs:8,diff:"Stress"},{d:"2026-01-23",w:73.2,e:6,s:9,st:8,hy:0,adh:70,rpe:8,pf:"Peggiorate",sx:"Indolenzito",hs:9,diff:"Recuperare"},{d:"2026-02-14",w:75,e:7,s:9,st:7,hy:0,adh:85,rpe:8,pf:"Stabili",sx:"Leggermente indolenzito",hs:9,diff:"Nessuna"},{d:"2026-03-21",w:75,e:7,s:8,st:7,hy:0,adh:75,rpe:8,pf:"Migliorate",sx:"Indolenzito",hs:8,diff:"Dieta"},{d:"2026-04-12",w:76,e:7,s:8,st:7,hy:0,adh:70,rpe:8,pf:"Migliorate",sx:"Indolenzimento",hs:8,diff:"Seguire dieta"},{d:"2026-05-16",w:76,e:7,s:8,st:8,hy:0,adh:80,rpe:8,pf:"Migliorate",sx:"Indolenzimento leggero",hs:8,diff:"Dieta e tempo"}]},
+{id:5,nome:"Amandeep",cognome:"Singh",email:"singham1660@gmail.com",tel:"",dob:"2003",h:183,sx:"M",obj:"Definizione + performance alte",note:"Non vuole mangiare poco. Buona aderenza.",euro:120,scadP:"2026-07-15",paid:true,start:"2025-10-21",integ:["Magnesio + Collagene","Multivitaminico","Omega 3","Creatina 5g"],macro:{k:2400,p:180,c:220,g:70,w:3.0},checks:[{d:"2025-10-21",w:66,e:6,s:7,st:7,hy:0,adh:83,rpe:8,pf:"Stabili",sx:"Mi sento bene",hs:6,diff:"Nessuna"},{d:"2026-04-22",w:71,e:5,s:8,st:4,hy:0,adh:75,rpe:8,pf:"Migliorate",sx:"Molto bene",hs:7,diff:"Forza"},{d:"2026-05-05",w:70,e:4,s:8,st:4,hy:0,adh:85,rpe:8,pf:"Migliorate",sx:"Molto bene",hs:8,diff:"Nessuna"},{d:"2026-05-19",w:69,e:4,s:9,st:9,hy:0,adh:95,rpe:8,pf:"Migliorate",sx:"Molto bene",hs:8,diff:"Pochi carbo"}]},
+{id:6,nome:"Andrei",cognome:"Vlad",email:"vladandrei016@gmail.com",tel:"",dob:"2001",h:182,sx:"M",obj:"Body Recomp + Estetica",note:"Piano annuale. Ha dato 136 su 380. Deve 244€. NON MACROS.",euro:380,scadP:"2027-01-18",paid:false,debt:244,start:"2025-10-20",integ:["Multivitaminico 1 cps mattina"],macro:{k:0,p:0,c:0,g:0,w:3.0},noM:true,checks:[{d:"2025-10-20",w:81,e:6,s:7,st:7,hy:0,adh:100,rpe:7,pf:"Migliorate",sx:"Abbastanza cotto",hs:7,diff:"Mi vedo magro"},{d:"2025-11-05",w:81.4,e:5,s:7,st:7,hy:0,adh:100,rpe:7,pf:"Migliorate",sx:"Molto bene",hs:7,diff:"Peso calato carichi su"},{d:"2025-11-26",w:80,e:5,s:8,st:4,hy:0,adh:90,rpe:6,pf:"Stabili",sx:"Stanco",hs:7,diff:"Perché sceso di peso"},{d:"2025-12-24",w:78,e:5,s:6,st:5,hy:0,adh:90,rpe:9,pf:"Migliorate",sx:"Molto in pump",hs:7,diff:"Mi sembro magro"},{d:"2026-01-12",w:80,e:6,s:7,st:5,hy:0,adh:100,rpe:8,pf:"Migliorate",sx:"Bello in pump",hs:7,diff:"Fianchi"},{d:"2026-02-25",w:80.5,e:5,s:7,st:5,hy:0,adh:100,rpe:7,pf:"Migliorate",sx:"Molto bene",hs:6,diff:"Mi vedo secco"},{d:"2026-03-25",w:80,e:6,s:7,st:5,hy:0,adh:90,rpe:7,pf:"Migliorate",sx:"Abbastanza stanco",hs:7,diff:"Secco"},{d:"2026-04-10",w:81.5,e:6,s:7,st:5,hy:0,adh:100,rpe:7,pf:"Migliorate",sx:"Bello in pump",hs:7,diff:"Rotolini fianchi"},{d:"2026-04-29",w:81.5,e:5,s:7,st:5,hy:0,adh:100,rpe:7,pf:"Migliorate",sx:"Molto in pump",hs:7,diff:"Frassino addominali"},{d:"2026-05-19",w:80.7,e:6,s:5,st:6,hy:0,adh:90,rpe:6,pf:"Stabili",sx:"Molto bene",hs:5,diff:"Mi vedo appannato"}]},
+{id:7,nome:"Lorenzo",cognome:"Lacchini",email:"lorenzolacchini0@icloud.com",tel:"",dob:"2005",h:188,sx:"M",obj:"Definizione - grasso ostinato",note:"Ciclizzazione LOW/MEDIUM/HIGH. Creatina + Magnesio.",euro:270,scadP:"2026-08-09",paid:true,start:"2025-10-10",integ:["Creatina monoidrato 5g/die","Magnesio bisglicinate 300mg sera"],macro:{k:2400,p:190,c:220,g:65,w:3.5},checks:[{d:"2025-10-10",w:89,e:4,s:7,st:4,hy:0,adh:90,rpe:8,pf:"Migliorate",sx:"Indolenzito e fiero",hs:7,diff:"Qualità riposo"},{d:"2025-10-28",w:89.6,e:5,s:6,st:7,hy:0,adh:60,rpe:8,pf:"Peggiorate",sx:"Pochi indolenzimenti",hs:6,diff:"Dormire di più"},{d:"2025-11-13",w:90.6,e:7,s:8,st:7,hy:0,adh:80,rpe:7,pf:"Stabili",sx:"Affaticato soddisfatto",hs:8,diff:"Concentrazione"},{d:"2025-12-26",w:89.5,e:7,s:8,st:4,hy:0,adh:90,rpe:9,pf:"Stabili",sx:"Soddisfatto",hs:8,diff:"Piano alimentare"},{d:"2026-01-15",w:90.5,e:7,s:7,st:5,hy:0,adh:90,rpe:8,pf:"Migliorate",sx:"Affaticamento muscolare",hs:7,diff:"Nulla"},{d:"2026-03-11",w:90,e:7,s:8,st:6,hy:7.5,adh:75,rpe:8,pf:"Stabili",sx:"Insoddisfazione",hs:8,diff:"Scarico energia"},{d:"2026-03-26",w:88.4,e:7,s:8,st:5,hy:0,adh:75,rpe:9,pf:"Stabili",sx:"Molto affaticato",hs:8,diff:"Feste"},{d:"2026-04-12",w:88.6,e:7,s:8,st:6,hy:0,adh:75,rpe:9,pf:"Stabili",sx:"Molto affaticato",hs:8,diff:"Scarico pre-wo"},{d:"2026-05-15",w:88.5,e:6,s:7,st:5,hy:0,adh:75,rpe:6,pf:"Stabili",sx:"Non soddisfatto",hs:7,diff:"1 pasto sgarro"}]},
+{id:8,nome:"Simone",cognome:"Piolanti",email:"piolanti.simone04@gmail.com",tel:"",dob:"2004",h:185,sx:"M",obj:"Ricomposizione corporea e ingrossamento",note:"FRATELLO - gratis. NON autorizza foto.",euro:0,scadP:null,paid:true,fratello:true,start:"2025-10-07",integ:["Creatina monoidrato 6g","Sale 2g","Omega 3"],macro:{k:3000,p:180,c:320,g:85,w:3.5},checks:[{d:"2025-10-07",w:72,e:4,s:7,st:7,hy:0,adh:75,rpe:7,pf:"Stabili",sx:"Normale",hs:7,diff:"Spalle"},{d:"2025-10-21",w:72,e:5,s:7,st:6,hy:0,adh:20,rpe:7,pf:"Stabili",sx:"Stanco poi normale",hs:7,diff:"Spalla sinistra"},{d:"2025-11-04",w:72,e:5,s:7,st:6,hy:0,adh:60,rpe:7,pf:"Stabili",sx:"Molto stanco poi ok",hs:7,diff:"Spalla sinistra"},{d:"2025-12-01",w:73.15,e:5,s:7,st:5,hy:0,adh:85,rpe:7,pf:"Migliorate",sx:"Bene",hs:7,diff:"Allenarmi domenica"},{d:"2025-12-16",w:73,e:5,s:7,st:7,hy:0,adh:90,rpe:7,pf:"Migliorate",sx:"Bene",hs:7,diff:""},{d:"2026-05-04",w:75.2,e:5,s:7,st:7,hy:0,adh:10,rpe:8,pf:"Stabili",sx:"Stanco la sera",hs:7,diff:"Gambe"}]},
+{id:9,nome:"Andrea",cognome:"Ricci",email:"ricci3683@gmail.com",tel:"",dob:"2004",h:184,sx:"M",obj:"Body Recomp + salute",note:"Cambio protocollo 22/02/2026. Ottima perdita peso.",euro:150,scadP:"2026-07-20",paid:true,start:"2025-10-15",integ:["Omega 3"],macro:{k:2200,p:160,c:220,g:65,w:3.0},checks:[{d:"2025-10-15",w:88.5,e:4,s:6,st:8,hy:0,adh:100,rpe:5,pf:"Stabili",sx:"Indolenzito",hs:6,diff:"Esecuzione"},{d:"2025-11-05",w:87,e:6,s:7,st:7,hy:6.5,adh:100,rpe:6,pf:"Migliorate",sx:"Indolenzimento muscolare",hs:7,diff:"Quasi nulla"},{d:"2025-11-18",w:84.5,e:6,s:7,st:6,hy:0,adh:90,rpe:6,pf:"Migliorate",sx:"Spariti indolenzimenti",hs:7,diff:"Quasi nulla"},{d:"2025-12-16",w:82.5,e:6,s:7,st:7,hy:0,adh:75,rpe:6,pf:"Stabili",sx:"Leggeri indolenzimenti",hs:6,diff:"Niente"},{d:"2026-01-14",w:80.2,e:5,s:6,st:6,hy:0,adh:90,rpe:5,pf:"Stabili",sx:"Indolenzimenti spariti",hs:6,diff:"Periodo difficile"},{d:"2026-02-12",w:80,e:6,s:7,st:6,hy:0,adh:90,rpe:5,pf:"Stabili",sx:"Niente",hs:7,diff:""},{d:"2026-02-24",w:80,e:6,s:7,st:8,hy:0,adh:90,rpe:6,pf:"Stabili",sx:"Fermo 2 settimane",hs:7,diff:""},{d:"2026-03-18",w:79.6,e:6,s:7,st:6,hy:0,adh:90,rpe:5,pf:"Stabili",sx:"Gambe ok",hs:7,diff:""},{d:"2026-04-10",w:80,e:6,s:6,st:7,hy:0,adh:90,rpe:7,pf:"Stabili",sx:"Niente",hs:6,diff:""},{d:"2026-04-30",w:79.5,e:6,s:7,st:8,hy:0,adh:90,rpe:4,pf:"Stabili",sx:"Avambraccio guarito",hs:6,diff:""},{d:"2026-05-19",w:79,e:6,s:6,st:7,hy:0,adh:90,rpe:3,pf:"Stabili",sx:"Leggeri indolenzimenti",hs:6,diff:""}]},
+{id:10,nome:"Salvatore",cognome:"Drago",email:"drago.salvatore12@gmail.com",tel:"",dob:"1999",h:173,sx:"M",obj:"Body Recomp + Definizione grasso ostinato",note:"Piano annuale 480€ pagato. Cambio protocollo 26/04/2026.",euro:480,scadP:"2027-03-21",paid:true,start:"2025-10-06",integ:["Creatina monoidrato","Omega 3"],macro:{k:2400,p:175,c:230,g:70,w:3.0},checks:[{d:"2025-10-06",w:69,e:4,s:6,st:6,hy:0,adh:90,rpe:6,pf:"Stabili",sx:"Qualche dolore muscolare",hs:6,diff:"Nessuna"},{d:"2025-11-07",w:68,e:4,s:7,st:4,hy:0,adh:80,rpe:7,pf:"Stabili",sx:"In forma",hs:7,diff:"Nessuna"},{d:"2025-11-17",w:69,e:4,s:7,st:7,hy:0,adh:80,rpe:7,pf:"Stabili",sx:"In forma",hs:7,diff:"Nessuna"},{d:"2025-12-04",w:69,e:3,s:6,st:6,hy:0,adh:70,rpe:6,pf:"Stabili",sx:"In forma",hs:6,diff:"Nessuna"},{d:"2025-12-25",w:68,e:4,s:8,st:4,hy:0,adh:60,rpe:6,pf:"Stabili",sx:"In forma",hs:8,diff:"Nessuna"},{d:"2026-03-03",w:69,e:4,s:7,st:6,hy:0,adh:80,rpe:6,pf:"Stabili",sx:"Carico",hs:7,diff:"Nessuna"},{d:"2026-03-25",w:70,e:6,s:6,st:5,hy:0,adh:100,rpe:8,pf:"Migliorate",sx:"In forma",hs:6,diff:"Nessuna"},{d:"2026-04-09",w:71,e:7,s:8,st:4,hy:0,adh:90,rpe:8,pf:"Migliorate",sx:"In forma",hs:8,diff:"Nessuna"},{d:"2026-04-23",w:71,e:7,s:8,st:4,hy:0,adh:80,rpe:7,pf:"Migliorate",sx:"In forma poca stanchezza",hs:8,diff:"Nessuna"},{d:"2026-05-13",w:70,e:6,s:7,st:6,hy:0,adh:70,rpe:7,pf:"Stabili",sx:"In forma",hs:7,diff:"Nessuna"}]},
+{id:11,nome:"Alex",cognome:"Romagnoli",email:"alex.romagnoli@gmail.com",tel:"",dob:"2002",h:178,sx:"M",obj:"Definizione + possibile piano alimentare",note:"Solo allenamento. RINNOVO URGENTE DOMANI.",euro:20,scadP:"2026-05-29",paid:true,urg:true,start:"2026-04-13",integ:[],macro:{k:0,p:0,c:0,g:0,w:2.5},noM:true,checks:[]},
+{id:12,nome:"Samuele",cognome:"Piolanti",email:"piolanti.samuele04@gmail.com",tel:"",dob:"2002",h:187,sx:"M",obj:"Eliminazione grasso ostinato fianchi e petto",note:"COACH — Account personale.",euro:0,scadP:null,paid:true,coach:true,start:"2026-01-01",integ:[],macro:{k:2600,p:190,c:260,g:75,w:3.0},checks:[]}
+];
+ 
+// ── STATE ──
+let CL,VW="dash",SID=null,MD=null,TAB="ov",WK="ck_rm",ECI=null,NOP=false,DS=new Set(),logged=false;
+const KEY="sp_crm_v4";
+function sv(){try{localStorage.setItem(KEY,JSON.stringify(CL));}catch(e){}}
+function ld(){try{const d=localStorage.getItem(KEY);CL=d?JSON.parse(d):JSON.parse(JSON.stringify(DEMO));}catch(e){CL=JSON.parse(JSON.stringify(DEMO));}}
+const fd=s=>s?new Date(s).toLocaleDateString("it-IT",{day:"2-digit",month:"short",year:"numeric"}):"—";
+const fds=s=>s?new Date(s).toLocaleDateString("it-IT",{day:"2-digit",month:"2-digit"}):"—";
+const dd=s=>s?Math.round((new Date(s)-new Date())/86400000):999;
+const age=d=>{if(!d)return"?";const y=parseInt(d);return isNaN(y)?d:(new Date().getFullYear()-y);};
+const bmi=c=>{const lk=c.checks[c.checks.length-1];if(!lk||!c.h)return"—";return((lk.w)/((c.h/100)**2)).toFixed(1);};
+const nck=f=>{const d=new Date(f);d.setDate(d.getDate()+14);return d.toISOString().split("T")[0];};
+const pc=p=>p==="Migliorate"?"var(--gm)":p==="Peggiorate"?"var(--r)":"var(--mu)";
+const pi=p=>p==="Migliorate"?"↑":p==="Peggiorate"?"↓":"→";
+function spk(ws){if(!ws||ws.length<2)return"";const W=60,H=20,mn=Math.min(...ws),mx=Math.max(...ws),rng=mx-mn||1;const pts=ws.map((v,i)=>`${3+(i/(ws.length-1))*(W-6)},${H-3-((v-mn)/rng)*(H-6)}`).join(" ");const lp=pts.split(" ").pop().split(",");return`<svg class="spark" width="${W}" height="${H}"><polyline points="${pts}" fill="none" stroke="var(--gm)" stroke-width="1.5" stroke-linejoin="round"/><circle cx="${lp[0]}" cy="${lp[1]}" r="2.5" fill="var(--gm)"/></svg>`;}
+function sPill(c){if(c.urg)return`<span class="tag tr">⚡ Urgente</span>`;if(!c.paid&&c.euro>0)return`<span class="tag tr">Non pagato</span>`;const sd=dd(c.scadP);if(sd<0)return`<span class="tag tr">Scaduto</span>`;if(sd<=14)return`<span class="tag ty">In scadenza</span>`;return`<span class="tag tg">Attivo</span>`;}
+const WA={ck_rm:c=>`Ciao ${c.nome}! 👋 Siamo al check bio-analitico.\n\n📸 Foto frontale + laterale + dorso (mattina a digiuno)\n⚖️ Peso mattina a digiuno\n📋 Energia, sonno, stress, RPE, aderenza macro\n\nMandami tutto entro domani! 💪\n\n— Samuele | Il Metodo SP`,py_rm:c=>`Ciao ${c.nome}! Ti scrivo per il pagamento del piano (€${c.debt||c.euro}).\n\nQuando puoi effettua il bonifico 🙏\n\n— Samuele | Il Metodo SP`,welc:c=>`Benvenuto nel Metodo SP, ${c.nome}! 🎉\n\nHo ricevuto tutto, iniziamo!\n\n— Samuele | Il Metodo SP`,ck_ok:c=>`Ottimo check ${c.nome}! ✅\n\nProssimo check tra 14 giorni 🔄\n\n— Samuele | Il Metodo SP`,rin:c=>`Ciao ${c.nome}! Il piano si avvicina alla scadenza.\n\nFammi sapere se vuoi continuare 🚀\n\n— Samuele | Il Metodo SP`};
+function notifs(){const n=[];CL.forEach(c=>{if(c.urg)n.push({id:`u${c.id}`,tp:"r",cid:c.id,ti:`⚡ Rinnovo urgente — ${c.nome} ${c.cognome}`,bo:"Scadenza domani!",wk:"rin"});const lk=c.checks[c.checks.length-1];const nc=lk?nck(lk.d):c.start;const cd=dd(nc);if(!c.urg&&cd>=0&&cd<=2)n.push({id:`c${c.id}`,tp:"y",cid:c.id,ti:`Check imminente — ${c.nome}`,bo:`${cd===0?"Oggi":cd===1?"Domani":`Tra ${cd}g`} (${fd(nc)})`,wk:"ck_rm"});if(cd<0&&cd>=-7)n.push({id:`o${c.id}`,tp:"r",cid:c.id,ti:`Check in ritardo — ${c.nome}`,bo:`Non effettuato da ${Math.abs(cd)} giorni`,wk:"ck_rm"});if(!c.paid&&c.euro>0)n.push({id:`p${c.id}`,tp:"r",cid:c.id,ti:`Pagamento aperto — ${c.nome}`,bo:`€${c.debt||c.euro} da ricevere`,wk:"py_rm"});const sd=dd(c.scadP);if(sd>=0&&sd<=14&&c.paid)n.push({id:`s${c.id}`,tp:"y",cid:c.id,ti:`Piano in scadenza — ${c.nome}`,bo:`Scade tra ${sd} giorni`,wk:"rin"});});return n.filter(x=>!DS.has(x.id));}
+ 
+function R(){document.getElementById("app").innerHTML=!logged?rLogin():VW==="cl"&&SID?rCL():rDash();}
+ 
+// ── LOGIN ──
+function rLogin(){return`<div class="login-wrap"><div class="login-box"><div class="login-logo">IL METODO SP</div><div class="login-sub">Coaching CRM — Accesso privato</div><div style="text-align:left"><label class="fl">Password</label><input type="password" id="pwd" placeholder="••••••••••" onkeydown="if(event.key==='Enter')login()"></div><button class="btn-g" style="width:100%;margin-top:16px" onclick="login()">Accedi</button><div id="lerr" style="color:var(--r);font-size:12px;margin-top:10px;min-height:16px"></div></div></div>`;}
+function login(){const p=document.getElementById("pwd");if(!p)return;if(p.value===PWD){logged=true;R();}else{document.getElementById("lerr").textContent="Password errata. Riprova.";}}
+ 
+// ── DASHBOARD ──
+function rDash(){
+  const NF=notifs();
+  const att=CL.filter(c=>c.paid&&dd(c.scadP||"2099")>0).length;
+  const inc=CL.filter(c=>c.paid).reduce((s,c)=>s+c.euro,0);
+  const urg=NF.filter(n=>n.tp==="r").length;
+  const debt=CL.filter(c=>!c.paid).reduce((s,c)=>s+(c.debt||c.euro),0);
+  const sorted=[...CL].sort((a,b)=>{const ua=a.urg?0:1,ub=b.urg?0:1;if(ua!==ub)return ua-ub;const pa=a.paid?1:0,pb=b.paid?1:0;if(pa!==pb)return pa-pb;return(a.cognome||"").localeCompare(b.cognome||"");});
+  return`
+<div class="topbar">
+  <span class="logo">IL METODO SP</span><span class="sep"></span><span class="sub">Coaching CRM</span>
+  <span style="margin-left:auto;display:flex;align-items:center;gap:8px;position:relative">
+    <span style="font-size:11px;color:var(--hi)">${new Date().toLocaleDateString("it-IT",{weekday:"short",day:"2-digit",month:"short",year:"numeric"})}</span>
+    <button class="btn-n" style="position:relative;padding:6px 10px" onclick="NOP=!NOP;R()">🔔${NF.length>0?`<span style="position:absolute;top:-5px;right:-5px;background:var(--r);color:#fff;border-radius:50%;width:17px;height:17px;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center">${NF.length}</span>`:""}</button>
+    <button class="btn-n" style="padding:6px 10px" onclick="logged=false;R()">Esci</button>
+    ${NOP?rNP(NF):""}
+  </span>
+</div>
+<div class="kpi-grid">
+  ${[["Clienti attivi",`${att}/${CL.length}`,"Nel sistema","kg"],["Alert",urg,"Richiedono attenzione","kr"],["Da ricevere","€"+debt,"Pagamenti aperti","ky"],["Incassato","€"+inc,"Totale","kt"]].map(([l,v,s,k])=>`<div class="kpi ${k}"><div class="kpi-l">${l}</div><div class="kpi-v">${v}</div><div class="kpi-s">${s}</div></div>`).join("")}
+</div>
+<div class="sh"><span class="sh-t">Clienti · ${CL.length}</span><button class="btn-g" onclick="OM('add')">+ Nuovo cliente</button></div>
+<div class="cl-list">
+${sorted.map(c=>{const lk=c.checks[c.checks.length-1];const ws=c.checks.map(x=>x.w);const sd=dd(c.scadP);return`
+<div class="cr${c.urg?" urg":""}" onclick="SC(${c.id})">
+  <div class="cr-g">
+    <div style="display:flex;align-items:center;gap:8px"><div class="av">${c.nome[0]}${c.cognome[0]}</div><div><div style="font-weight:600;font-size:13px">${c.nome} ${c.cognome}</div><div style="font-size:10px;color:var(--hi)">${age(c.dob)}a · ${c.h}cm</div></div></div>
+    <div><div style="font-size:12px;color:var(--g);font-weight:600">${c.obj.substring(0,38)}${c.obj.length>38?"...":""}</div><div style="font-size:11px;color:var(--hi)">€${c.euro}${c.debt?` (res. €${c.debt})`:""}</div></div>
+    <div><div style="font-size:10px;color:var(--mu);font-weight:600;margin-bottom:2px">Scad. pagamento</div><div style="font-size:12px;font-weight:600;font-family:var(--mo);color:${sd<0?"var(--r)":sd<=14?"var(--y)":"var(--mu)"}">${fd(c.scadP)}</div>${sd>=0&&sd<=14?`<div style="font-size:10px;color:var(--y)">tra ${sd}g</div>`:sd<0?`<div style="font-size:10px;color:var(--r)">scaduto</div>`:""}</div>
+    <div>${sPill(c)}</div>
+    <div style="text-align:center"><div style="font-size:15px;color:${c.paid?"var(--gm)":"var(--r)"}">${c.paid?"✓":"✗"}</div><div style="font-size:10px;color:var(--mu)">${c.paid?"Pagato":"Aperto"}</div></div>
+    <div>${spk(ws)}</div>
+    <button class="btn-wa" onclick="event.stopPropagation();OW(${c.id},'ck_rm')">💬 WA</button>
+  </div>
+</div>`;}).join("")}
+</div>${rMod()}`;
+}
+ 
+// ── CLIENT DETAIL ──
+function rCL(){
+  const c=CL.find(x=>x.id===SID);if(!c)return"";
+  const TABS=[["ov","Overview"],["bf","Biofeedback"],["nut","Nutrizione"],["ck","Check"],["nt","Note"],["pg","Pagamenti"],["mg","Messaggi"]];
+  let ct="";
+  if(TAB==="ov")ct=rOV(c);else if(TAB==="bf")ct=rBF(c);else if(TAB==="nut")ct=rNT(c);else if(TAB==="ck")ct=rCK(c);else if(TAB==="nt")ct=rNotes(c);else if(TAB==="pg")ct=rPG(c);else if(TAB==="mg")ct=rMG(c);
+  return`
+<div class="topbar">
+  <button class="btn-n" onclick="GB()">← Dashboard</button>
+  <span style="font-size:14px;font-weight:700">${c.nome} ${c.cognome}</span>
+  <span style="font-size:11px;color:var(--mu)">${c.email}</span>
+  <span style="margin-left:auto;display:flex;gap:7px;align-items:center;flex-wrap:wrap">
+    ${sPill(c)}${c.coach?`<span class="tag tn">Coach</span>`:""}${c.fratello?`<span class="tag tn">Fratello</span>`:""}
+    <button class="btn-wa" onclick="OW(${c.id},'ck_rm')">💬 WA</button>
+    <button class="btn-r" onclick="if(confirm('Eliminare definitivamente?')){CL=CL.filter(x=>x.id!==${c.id});sv();GB()}">🗑</button>
+  </span>
+</div>
+<div style="display:grid;grid-template-columns:repeat(8,1fr);gap:8px;padding:12px 24px">
+  ${[["Età",age(c.dob)+"a"],["Alt.",c.h+"cm"],["BMI",bmi(c)],["Prezzo","€"+c.euro],["Scad.",fd(c.scadP)],["Checks",c.checks.length],["Ader.avg",c.checks.length?Math.round(c.checks.reduce((s,x)=>s+(x.adh||0),0)/c.checks.length)+"%":"—"],["RPE avg",c.checks.length?(c.checks.reduce((s,x)=>s+(x.rpe||0),0)/c.checks.length).toFixed(1):"—"]].map(([l,v])=>`<div class="csm" style="text-align:center"><div style="font-size:9px;color:var(--hi);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px">${l}</div><div style="font-size:12px;font-weight:600;font-family:var(--mo)">${v}</div></div>`).join("")}
+</div>
+<div class="tbar">${TABS.map(([t,l])=>`<button class="tb${TAB===t?" on":""}" onclick="ST('${t}')">${l}</button>`).join("")}</div>
+<div class="tc">${ct}</div>${rMod()}`;
+}
+ 
+function rOV(c){
+  const lk=c.checks[c.checks.length-1];const f=c.checks[0];
+  const dl=lk&&f?+(lk.w-f.w).toFixed(1):null;
+  const ws=c.checks.map(x=>x.w);
+  let svg="";
+  if(ws.length>1){const W=260,H=52,mn=Math.min(...ws)-0.5,mx=Math.max(...ws)+0.5,rng=mx-mn;const pts=ws.map((v,i)=>`${8+(i/(ws.length-1))*(W-16)},${H-4-((v-mn)/rng)*(H-8)}`).join(" ");const lp=pts.split(" ").pop().split(",");svg=`<svg width="${W}" height="${H}" style="overflow:visible;margin-top:10px"><defs><linearGradient id="gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#22a060" stop-opacity=".15"/><stop offset="100%" stop-color="#22a060" stop-opacity="0"/></linearGradient></defs><polygon points="8,${H} ${pts} ${lp[0]},${H}" fill="url(#gr)"/><polyline points="${pts}" fill="none" stroke="var(--gm)" stroke-width="2" stroke-linejoin="round"/>${ws.map((v,i)=>{const x=8+(i/(ws.length-1))*(W-16),y=H-4-((v-mn)/rng)*(H-8);return`<circle cx="${x}" cy="${y}" r="3" fill="var(--gm)"/><text x="${x}" y="${y-7}" text-anchor="middle" fill="var(--g)" font-size="8" font-family="monospace">${v}</text>`;}).join("")}</svg>`;}
+  return`<div class="g2">
+<div class="card"><div style="font-size:11px;color:var(--mu);text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:12px">Anagrafica</div>
+${[["Età",age(c.dob)+" anni"],["Sesso",c.sx==="M"?"Maschile":"Femminile"],["Altezza",c.h+" cm"],["Peso attuale",lk?lk.w+" kg":"—"],["BMI",bmi(c)]].map(([l,v])=>`<div class="row"><span class="rl">${l}</span><span class="rv">${v}</span></div>`).join("")}
+<div style="display:flex;gap:7px;margin-top:12px;flex-wrap:wrap">
+<button class="btn-n" onclick="OM('ecl')">✏ Modifica</button>
+<button class="${c.paid?"btn-r":"btn-gl"}" onclick="TP(${c.id})">${c.paid?"✗ Non pagato":"✓ Pagato"}</button>
+</div></div>
+<div class="card"><div style="font-size:11px;color:var(--mu);text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:10px">Obiettivo</div>
+<p style="font-size:13px;font-weight:600;color:var(--g);margin-bottom:9px;line-height:1.5">${c.obj}</p>
+<p style="font-size:12px;color:var(--mu);line-height:1.7">${c.note}</p>
+${c.debt?`<div class="note-box" style="margin-top:12px">⚠ Debito residuo: €${c.debt}</div>`:""}
+${c.urg?`<div class="note-box" style="margin-top:12px;background:var(--r2);border-color:var(--r);color:var(--r)">⚡ Rinnovo urgente — scade ${fd(c.scadP)}</div>`:""}
+</div>
+${lk?`
+<div class="card"><div style="font-size:11px;color:var(--mu);text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:11px">Trend peso</div>
+<div style="display:flex;gap:18px;flex-wrap:wrap">
+${dl!==null?[["Inizio",f.w+"kg","var(--tx)"],["Attuale",lk.w+"kg","var(--gm)"],["Delta",(dl>=0?"+":"")+dl+"kg",dl<0?"var(--gm)":"var(--r)"]].map(([l,v,a])=>`<div><div style="font-size:10px;color:var(--hi)">${l}</div><div style="font-size:15px;font-weight:600;color:${a};font-family:var(--mo)">${v}</div></div>`).join(""):""}
+</div>${svg}</div>
+<div class="card"><div style="font-size:11px;color:var(--mu);text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:11px">Ultimo bio-feedback · ${fd(lk.d)}</div>
+${[["Energia",lk.e,"var(--gm)"],["Sonno",lk.s,"var(--t)"],["Stress",lk.st,"var(--y)"],["RPE",lk.rpe||0,"var(--mu)"]].map(([l,v,a])=>`<div class="bw"><div class="bl"><span>${l}</span><span class="bv" style="color:${a}">${v}/10</span></div><div class="bt"><div class="bf" style="width:${v*10}%;background:${a}"></div></div></div>`).join("")}
+<div style="font-size:12px;margin-top:8px;display:flex;gap:10px;flex-wrap:wrap">
+<span style="color:var(--mu)">Performance: <strong style="color:${pc(lk.pf)}">${pi(lk.pf)} ${lk.pf}</strong></span>
+<span style="color:var(--mu)">Aderenza: <strong style="font-family:var(--mo);color:var(--gm)">${lk.adh||0}%</strong></span>
+</div>
+${lk.sx?`<p style="font-size:11px;color:var(--mu);font-style:italic;margin-top:7px">"${lk.sx}"</p>`:""}
+</div>`:`<div class="card" style="grid-column:span 2;text-align:center;padding:40px;color:var(--mu)">Nessun check — vai in tab Check per aggiungere il primo.</div>`}
+</div>`;}
+ 
+function rBF(c){if(!c.checks.length)return`<div class="card" style="text-align:center;padding:40px;color:var(--mu)">Nessun check ancora.</div>`;
+return c.checks.slice().reverse().map((ck,ri)=>{const i=c.checks.length-1-ri;return`<div class="ck">
+<div class="ckh"><div style="display:flex;align-items:center;gap:9px"><span style="font-size:12px;color:var(--mu)">${fd(ck.d)}</span><span style="font-size:14px;font-weight:600;font-family:var(--mo);color:var(--gm)">${ck.w} kg</span><span style="font-size:11px;color:${pc(ck.pf)}">${pi(ck.pf)} ${ck.pf}</span></div><div style="display:flex;gap:5px"><button class="btn-n" style="padding:4px 9px;font-size:11px" onclick="EC(${i})">✏</button><button class="btn-r" style="padding:4px 9px;font-size:11px" onclick="DK(${c.id},${i})">✕</button></div></div>
+<div class="g4" style="margin-bottom:8px">${[["E",ck.e,"var(--gm)"],["S",ck.s,"var(--t)"],["St",ck.st,"var(--y)"],["RPE",ck.rpe||0,"var(--mu)"]].map(([l,v,a])=>`<div class="metric"><div class="ml2">${l}</div><div class="mv" style="color:${a}">${v}</div></div>`).join("")}</div>
+<div style="display:flex;gap:10px;font-size:11px;margin-bottom:6px;flex-wrap:wrap"><span style="color:var(--mu)">Aderenza: <strong>${ck.adh||0}%</strong></span>${ck.hs?`<span style="color:var(--mu)">Ore sonno: <strong>${ck.hs}h</strong></span>`:""}</div>
+${ck.sx?`<p style="font-size:11px;color:var(--mu);font-style:italic;margin-bottom:5px">"${ck.sx}"</p>`:""}
+${ck.diff?`<div style="font-size:11px;color:var(--y);background:var(--y2);border-radius:7px;padding:5px 9px">⚠ ${ck.diff}</div>`:""}
+</div>`;}).join("");}
+ 
+function rNT(c){return`<div class="g2">
+<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="font-size:11px;color:var(--mu);text-transform:uppercase;letter-spacing:.08em;font-weight:600">Macro target</span><button class="btn-n" onclick="OM('emac')">✏ Modifica</button></div>
+${c.noM?`<div class="plan-note">Approccio educativo senza conteggio macronutrienti.</div>`:
+`${[["Kcal","k","var(--y)",4000,"kcal"],["Proteine","p","var(--gm)",300,"g"],["Carbo","c","var(--t)",400,"g"],["Grassi","g","var(--r)",200,"g"]].map(([l,k,col,mx,u])=>`<div class="bw"><div class="bl"><span>${l}</span><span class="bv" style="color:${col}">${c.macro[k]}${u}</span></div><div class="bt"><div class="bf" style="width:${Math.min((c.macro[k]/mx)*100,100)}%;background:${col}"></div></div></div>`).join("")}
+<div class="row" style="border:none;margin-top:4px"><span class="rl">Idratazione target</span><span class="rv" style="font-family:var(--mo);color:var(--t)">${c.macro.w}L</span></div>`}
+</div>
+<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="font-size:11px;color:var(--mu);text-transform:uppercase;letter-spacing:.08em;font-weight:600">Integratori</span><button class="btn-gl" style="padding:6px 11px;font-size:11px" onclick="AI2(${c.id})">+ Aggiungi</button></div>
+${c.integ.length?c.integ.map((x,i)=>`<div class="integ"><div style="width:6px;height:6px;border-radius:50%;background:var(--t);flex-shrink:0"></div><span style="flex:1">${x}</span><button onclick="RI2(${c.id},${i})" style="background:none;border:none;color:var(--hi);cursor:pointer;font-size:14px" onmouseover="this.style.color='var(--r)'" onmouseout="this.style.color='var(--hi)'">✕</button></div>`).join(""):`<p style="font-size:13px;color:var(--mu);text-align:center;padding:18px">Nessun integratore</p>`}
+</div></div>`;}
+ 
+function rCK(c){return`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px">
+<span style="font-size:12px;color:var(--mu)"><strong>${c.checks.length}</strong> check · Prossimo: <strong style="color:var(--gm)">${c.checks.length?fd(nck(c.checks[c.checks.length-1].d)):fd(c.start)}</strong></span>
+<div style="display:flex;gap:7px"><button class="btn-n" onclick="OM('edt')">📅 Date</button><button class="btn-g" onclick="OM('ack')">+ Nuovo Check</button></div>
+</div>
+<div class="g3">${c.checks.map((ck,i)=>`<div class="card" style="padding:13px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><span style="font-size:10px;color:var(--mu);font-weight:600">Check #${i+1}</span><span style="font-size:10px;color:var(--hi)">${fds(ck.d)}</span></div>
+<div style="font-size:22px;font-weight:700;font-family:var(--mo);color:var(--gm);margin-bottom:8px">${ck.w}<span style="font-size:11px;color:var(--mu);font-weight:400">kg</span></div>
+${[["E",ck.e,"var(--gm)"],["S",ck.s,"var(--t)"],["St",ck.st,"var(--y)"]].map(([l,v,a])=>`<div class="bw" style="margin-bottom:6px"><div class="bl"><span>${l}</span><span class="bv" style="color:${a};font-size:11px">${v}/10</span></div><div class="bt" style="height:4px"><div class="bf" style="width:${v*10}%;background:${a}"></div></div></div>`).join("")}
+<div style="font-size:10px;color:${pc(ck.pf)};margin-top:4px">${pi(ck.pf)} ${ck.pf||"—"} · ${ck.adh||0}%</div>
+<div style="display:flex;gap:5px;margin-top:9px"><button class="btn-n" style="flex:1;padding:5px;font-size:11px;text-align:center" onclick="EC(${i})">✏</button><button class="btn-r" style="padding:5px 9px;font-size:11px" onclick="DK(${c.id},${i})">✕</button></div>
+</div>`).join("")}</div>`;}
+ 
+function rNotes(c){return`<div class="g2">
+<div class="card"><div style="font-size:11px;color:var(--mu);text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:10px">Obiettivo</div><input id="ob_ta" value="${c.obj||""}" style="margin-bottom:10px"><button class="btn-gl" onclick="SO(${c.id})">Salva</button></div>
+<div class="card"><div style="font-size:11px;color:var(--mu);text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:10px">Note private coach</div><textarea id="note_ta" rows="5" style="margin-bottom:10px">${c.note||""}</textarea><button class="btn-g" onclick="SN(${c.id})">Salva</button></div>
+</div>`;}
+ 
+function rPG(c){const sd=dd(c.scadP);return`<div class="g3" style="margin-bottom:12px">
+${[["Prezzo piano","€"+c.euro,"var(--g)"],["Stato",c.paid?"✓ Ricevuto":"✗ In attesa",c.paid?"var(--gm)":"var(--r)"],["Scadenza pagamento",fd(c.scadP),sd<0?"var(--r)":sd<14?"var(--y)":"var(--mu)"]].map(([l,v,a])=>`<div class="card" style="text-align:center"><div style="font-size:10px;color:var(--mu);text-transform:uppercase;font-weight:600;margin-bottom:5px">${l}</div><div style="font-size:18px;font-weight:700;color:${a};font-family:var(--mo)">${v}</div></div>`).join("")}
+</div>
+${c.debt?`<div class="note-box">⚠ Debito residuo: €${c.debt} — totale piano €${c.euro}</div>`:""}
+<div class="card"><div style="font-size:11px;color:var(--mu);text-transform:uppercase;font-weight:600;margin-bottom:12px">Azioni</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<button class="${c.paid?"btn-r":"btn-g"}" onclick="TP(${c.id})">${c.paid?"✗ Non pagato":"✓ Pagato"}</button>
+<button class="btn-n" onclick="OM('epn')">✏ Piano/Prezzo</button>
+<button class="btn-n" onclick="OM('edt')">📅 Date</button>
+<button class="btn-wa" onclick="OW(${c.id},'py_rm')">💬 WA Pagamento</button>
+</div></div>`;}
+ 
+function rMG(c){return`<p style="font-size:13px;color:var(--mu);margin-bottom:14px">Clicca un template — testo già personalizzato per ${c.nome}.</p>
+<div class="g2">${[["ck_rm","📋","Reminder Check","Promemoria check 14 giorni"],["py_rm","💳","Reminder Pagamento","Promemoria pagamento"],["welc","👋","Benvenuto","Messaggio di benvenuto"],["ck_ok","✅","Check Completato","Conferma check ricevuto"],["rin","🔄","Rinnovo Piano","Proposta rinnovo"]].map(([k,ic,t,d])=>`<button onclick="OW(${c.id},'${k}')" style="background:var(--s1);border:1.5px solid var(--bd2);border-radius:13px;padding:15px;cursor:pointer;text-align:left;transition:border-color .2s" onmouseover="this.style.borderColor='var(--gm)'" onmouseout="this.style.borderColor='var(--bd2)'"><div style="font-size:20px;margin-bottom:7px">${ic}</div><div style="font-size:13px;font-weight:600;margin-bottom:3px">${t}</div><div style="font-size:11px;color:var(--mu)">${d}</div></button>`).join("")}</div>`;}
+ 
+function rNP(NF){return`<div class="np" onclick="event.stopPropagation()">
+<div style="padding:10px 14px;border-bottom:1.5px solid var(--bd);font-size:13px;font-weight:700">Notifiche · ${NF.length}</div>
+${NF.length===0?`<p style="padding:22px;text-align:center;color:var(--mu);font-size:13px">Tutto in ordine ✓</p>`:""}
+${NF.map(n=>`<div class="ni"><span style="font-size:15px">${n.tp==="r"?"⚠":"📋"}</span><div style="flex:1"><div style="font-size:12px;font-weight:600;color:${n.tp==="r"?"var(--r)":"var(--y)"};margin-bottom:2px">${n.ti}</div><div style="font-size:11px;color:var(--mu);margin-bottom:6px">${n.bo}</div><button class="btn-wa" style="font-size:10px;padding:4px 8px" onclick="OW(${n.cid},'${n.wk}')">💬 WA</button></div><button onclick="DS.add('${n.id}');R()" style="background:none;border:none;color:var(--hi);cursor:pointer;font-size:15px;padding:0">×</button></div>`).join("")}
+</div>`;}
+ 
+function rMod(){if(!MD)return"";const c=SID?CL.find(x=>x.id===SID):null;if(MD==="add")return mW(mAdd());if(MD==="ack"&&c)return mW(mACK(c));if(MD==="eck"&&c&&ECI!==null)return mW(mECK(c));if(MD==="ecl"&&c)return mW(mECL(c));if(MD==="emac"&&c)return mW(mEMAC(c));if(MD==="edt"&&c)return mW(mEDT(c));if(MD==="epn"&&c)return mW(mEPN(c));if(MD==="wa"&&c)return rWA(c);return"";}
+const mW=h=>`<div class="mbg" onclick="if(event.target===this)CM()"><div class="mbx">${h}</div></div>`;
+ 
+function mAdd(){return`<div class="mt">Nuovo cliente</div><div class="g2"><div><label class="fl">Nome</label><input id="fn"></div><div><label class="fl">Cognome</label><input id="fc"></div><div><label class="fl">Email</label><input id="fe" type="email"></div><div><label class="fl">Telefono</label><input id="ft"></div><div><label class="fl">Anno nascita</label><input id="fd2" placeholder="2000"></div><div><label class="fl">Altezza (cm)</label><input id="fh" type="number"></div><div><label class="fl">Peso iniziale (kg)</label><input id="fw" type="number" step="0.1"></div><div><label class="fl">Prezzo (€)</label><input id="fp" type="number"></div><div><label class="fl">Scad. pagamento</label><input id="fs" type="date"></div></div><div><label class="fl">Obiettivo</label><input id="fo" placeholder="Es. Body recomp + definizione"></div><div style="display:flex;align-items:center;gap:8px;margin-top:10px"><input type="checkbox" id="fpd"><label style="font-size:13px;color:var(--mu);margin:0">Pagamento già ricevuto</label></div><div class="ma"><button class="btn-n" onclick="CM()">Annulla</button><button class="btn-g" style="flex:1" onclick="SUB()">Aggiungi cliente</button></div>`;}
+ 
+function mACK(c){const t=new Date().toISOString().split("T")[0];return`<div class="mt">Nuovo check — ${c.nome}</div><div class="g2"><div><label class="fl">Data</label><input id="cd" type="date" value="${t}"></div><div><label class="fl">Peso (kg)</label><input id="cw" type="number" step="0.1"></div></div><div class="g3"><div><label class="fl">Energia (1-10)</label><input id="ce" type="number" min="1" max="10"></div><div><label class="fl">Sonno (1-10)</label><input id="cs" type="number" min="1" max="10" step="0.5"></div><div><label class="fl">Stress (1-10)</label><input id="cst" type="number" min="1" max="10"></div><div><label class="fl">RPE sessione</label><input id="cr" type="number" min="1" max="10" title="1=facile, 10=massimo sforzo"></div><div><label class="fl">Idratazione (L)</label><input id="ch" type="number" step="0.1"></div><div><label class="fl">Aderenza macro (%)</label><input id="ca" type="number"></div><div><label class="fl">Ore sonno</label><input id="co" type="number" step="0.5"></div></div><div class="g2"><div><label class="fl">Performance</label><select id="cp"><option>Migliorate</option><option>Stabili</option><option>Peggiorate</option></select></div><div><label class="fl">Sensazione post-wo</label><input id="cx" placeholder="energico, indolenzito..."></div></div><div><label class="fl">Difficoltà principale</label><input id="cdf"></div><div class="ma"><button class="btn-n" onclick="CM()">Annulla</button><button class="btn-g" style="flex:1" onclick="SCK(${c.id})">Salva check</button></div>`;}
+ 
+function mECK(c){const ck=c.checks[ECI];if(!ck)return"";return`<div class="mt">Modifica check #${ECI+1}</div><div class="g2"><div><label class="fl">Data</label><input id="cd" type="date" value="${ck.d}"></div><div><label class="fl">Peso (kg)</label><input id="cw" type="number" step="0.1" value="${ck.w||""}"></div></div><div class="g3"><div><label class="fl">Energia</label><input id="ce" type="number" value="${ck.e||""}"></div><div><label class="fl">Sonno</label><input id="cs" type="number" step="0.5" value="${ck.s||""}"></div><div><label class="fl">Stress</label><input id="cst" type="number" value="${ck.st||""}"></div><div><label class="fl">RPE</label><input id="cr" type="number" value="${ck.rpe||""}"></div><div><label class="fl">Idratazione (L)</label><input id="ch" type="number" step="0.1" value="${ck.hy||""}"></div><div><label class="fl">Aderenza (%)</label><input id="ca" type="number" value="${ck.adh||""}"></div><div><label class="fl">Ore sonno</label><input id="co" type="number" step="0.5" value="${ck.hs||""}"></div></div><div class="g2"><div><label class="fl">Performance</label><select id="cp">${["Migliorate","Stabili","Peggiorate"].map(p=>`<option${p===ck.pf?" selected":""}>${p}</option>`).join("")}</select></div><div><label class="fl">Sensazione</label><input id="cx" value="${ck.sx||""}"></div></div><div><label class="fl">Difficoltà</label><input id="cdf" value="${ck.diff||""}"></div><div class="ma"><button class="btn-n" onclick="CM()">Annulla</button><button class="btn-g" style="flex:1" onclick="SECK(${c.id})">Salva</button></div>`;}
+ 
+function mECL(c){return`<div class="mt">Modifica — ${c.nome}</div><div class="g2"><div><label class="fl">Nome</label><input id="en" value="${c.nome}"></div><div><label class="fl">Cognome</label><input id="ec2" value="${c.cognome}"></div><div><label class="fl">Email</label><input id="ee" value="${c.email}"></div><div><label class="fl">Telefono</label><input id="et" value="${c.tel||""}"></div><div><label class="fl">Anno nascita</label><input id="ed" value="${c.dob||""}"></div><div><label class="fl">Altezza (cm)</label><input id="eh" type="number" value="${c.h}"></div></div><div class="ma"><button class="btn-n" onclick="CM()">Annulla</button><button class="btn-g" style="flex:1" onclick="SECL(${c.id})">Salva</button></div>`;}
+ 
+function mEMAC(c){return`<div class="mt">Macro — ${c.nome}</div><div class="g2"><div><label class="fl">Kcal</label><input id="mk" type="number" value="${c.macro.k}"></div><div><label class="fl">Proteine (g)</label><input id="mp" type="number" value="${c.macro.p}"></div><div><label class="fl">Carboidrati (g)</label><input id="mc" type="number" value="${c.macro.c}"></div><div><label class="fl">Grassi (g)</label><input id="mg" type="number" value="${c.macro.g}"></div><div><label class="fl">Idratazione (L)</label><input id="mw" type="number" step="0.1" value="${c.macro.w}"></div><div><label class="fl">Approccio</label><select id="mn"><option value="false"${!c.noM?" selected":""}>Con macro</option><option value="true"${c.noM?" selected":""}>Senza macro</option></select></div></div><div class="ma"><button class="btn-n" onclick="CM()">Annulla</button><button class="btn-g" style="flex:1" onclick="SMAC(${c.id})">Salva</button></div>`;}
+ 
+function mEDT(c){return`<div class="mt">Date — ${c.nome}</div><div><label class="fl">Data inizio piano</label><input id="di" type="date" value="${c.start}"></div><div><label class="fl">Scadenza pagamento</label><input id="ds2" type="date" value="${c.scadP||""}"></div><div class="ma"><button class="btn-n" onclick="CM()">Annulla</button><button class="btn-g" style="flex:1" onclick="SEDT(${c.id})">Salva</button></div>`;}
+ 
+function mEPN(c){return`<div class="mt">Piano/Prezzo — ${c.nome}</div><div><label class="fl">Obiettivo</label><input id="po" value="${c.obj}"></div><div class="g2"><div><label class="fl">Prezzo totale (€)</label><input id="pp" type="number" value="${c.euro}"></div><div><label class="fl">Debito residuo (€)</label><input id="pd" type="number" value="${c.debt||0}"></div><div><label class="fl">Pagamento</label><select id="ppd"><option value="true"${c.paid?" selected":""}>Ricevuto</option><option value="false"${!c.paid?" selected":""}>In attesa</option></select></div></div><div class="ma"><button class="btn-n" onclick="CM()">Annulla</button><button class="btn-g" style="flex:1" onclick="SEPN(${c.id})">Salva</button></div>`;}
+ 
+function rWA(c){const msg=WA[WK]?.(c)||"";const link=`https://wa.me/${c.tel||""}?text=${encodeURIComponent(msg)}`;const tpls=[["ck_rm","📋 Check"],["py_rm","💳 Pagamento"],["welc","👋 Benvenuto"],["ck_ok","✅ Check OK"],["rin","🔄 Rinnovo"]];return`<div class="mbg" onclick="if(event.target===this)CM()"><div class="mbx"><div class="mt">WhatsApp — ${c.nome}</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px">${tpls.map(([k,l])=>`<button class="btn-n" style="${WK===k?"border-color:var(--gm);color:var(--g)":""};padding:5px 10px;font-size:11px" onclick="WK='${k}';const ta=document.getElementById('wamsg');if(ta)ta.value=(WA['${k}'](CL.find(x=>x.id===${c.id}))||'')">${l}</button>`).join("")}</div><label class="fl">Messaggio</label><textarea id="wamsg" rows="8" style="white-space:pre-wrap;margin-bottom:12px">${msg}</textarea><div class="ma"><button class="btn-n" onclick="CM()">Chiudi</button><a href="${link}" target="_blank" rel="noreferrer" style="flex:2;text-decoration:none"><button class="btn-g" style="width:100%">📲 Apri WhatsApp</button></a></div><p style="font-size:11px;color:var(--hi);text-align:center;margin-top:7px">Si apre WA con il testo pronto — premi invio</p></div></div>`;}
+ 
+const gv=id=>{const e=document.getElementById(id);return e?e.value:"";};
+const gn=id=>{const v=parseFloat(gv(id));return isNaN(v)?null:v;};
+function SC(id){SID=id;VW="cl";TAB="ov";R();}
+function GB(){VW="dash";SID=null;R();}
+function OM(m){MD=m;R();}
+function CM(){MD=null;ECI=null;R();}
+function ST(t){TAB=t;R();}
+function OW(cid,k){SID=cid;WK=k;MD="wa";R();}
+function TP(cid){const c=CL.find(x=>x.id===cid);if(c){c.paid=!c.paid;sv();R();}}
+function EC(i){ECI=i;MD="eck";R();}
+function DK(cid,i){if(!confirm("Eliminare questo check?"))return;const c=CL.find(x=>x.id===cid);if(c){c.checks.splice(i,1);sv();R();}}
+function AI2(cid){const v=prompt("Inserisci integratore (es. Magnesio 400mg sera):");if(!v)return;const c=CL.find(x=>x.id===cid);if(c){c.integ.push(v);sv();R();}}
+function RI2(cid,i){const c=CL.find(x=>x.id===cid);if(c){c.integ.splice(i,1);sv();R();}}
+function SO(cid){const c=CL.find(x=>x.id===cid);if(!c)return;c.obj=gv("ob_ta");sv();R();}
+function SN(cid){const c=CL.find(x=>x.id===cid);if(!c)return;c.note=gv("note_ta");sv();R();}
+function SUB(){const n=gv("fn"),cg=gv("fc");if(!n||!cg){alert("Nome e cognome obbligatori");return;}const pw=gn("fw");const st=new Date().toISOString().split("T")[0];CL.push({id:Date.now(),nome:n,cognome:cg,email:gv("fe"),tel:gv("ft"),dob:gv("fd2"),h:parseInt(gv("fh"))||0,sx:"M",obj:gv("fo"),note:"",euro:gn("fp")||0,scadP:gv("fs")||null,paid:document.getElementById("fpd")?.checked||false,start:st,integ:[],macro:{k:2000,p:150,c:200,g:65,w:2.5},checks:pw?[{d:st,w:pw,e:0,s:0,st:0,hy:0,adh:0,rpe:0,pf:"Stabili",sx:"",hs:0,diff:""}]:[]});sv();MD=null;R();}
+function SCK(cid){const c=CL.find(x=>x.id===cid);if(!c)return;const w=gn("cw");if(!w){alert("Peso obbligatorio");return;}c.checks.push({d:gv("cd"),w,e:gn("ce")||0,s:gn("cs")||0,st:gn("cst")||0,hy:gn("ch")||0,adh:gn("ca")||0,rpe:gn("cr")||0,pf:gv("cp")||"Stabili",sx:gv("cx"),hs:gn("co")||0,diff:gv("cdf")});sv();MD=null;R();}
+function SECK(cid){const c=CL.find(x=>x.id===cid);if(!c||ECI===null)return;const w=gn("cw");if(!w)return;c.checks[ECI]={d:gv("cd"),w,e:gn("ce")||0,s:gn("cs")||0,st:gn("cst")||0,hy:gn("ch")||0,adh:gn("ca")||0,rpe:gn("cr")||0,pf:gv("cp")||"Stabili",sx:gv("cx"),hs:gn("co")||0,diff:gv("cdf")};sv();MD=null;ECI=null;R();}
+function SECL(cid){const c=CL.find(x=>x.id===cid);if(!c)return;c.nome=gv("en");c.cognome=gv("ec2");c.email=gv("ee");c.tel=gv("et");c.dob=gv("ed");c.h=parseInt(gv("eh"))||c.h;sv();MD=null;R();}
+function SMAC(cid){const c=CL.find(x=>x.id===cid);if(!c)return;c.macro={k:gn("mk")||c.macro.k,p:gn("mp")||c.macro.p,c:gn("mc")||c.macro.c,g:gn("mg")||c.macro.g,w:gn("mw")||c.macro.w};c.noM=gv("mn")==="true";sv();MD=null;R();}
+function SEDT(cid){const c=CL.find(x=>x.id===cid);if(!c)return;if(gv("di"))c.start=gv("di");if(gv("ds2"))c.scadP=gv("ds2");sv();MD=null;R();}
+function SEPN(cid){const c=CL.find(x=>x.id===cid);if(!c)return;c.obj=gv("po")||c.obj;c.euro=gn("pp")||c.euro;c.debt=gn("pd")||0;c.paid=gv("ppd")==="true";sv();MD=null;R();}
+ 
+ld();R();
+</script>
+</body>
+</html>
+ 
