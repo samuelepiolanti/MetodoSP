@@ -194,239 +194,762 @@ const sd=dd(c.scadP);if(sd>=0&&sd<=14&&c.paid)n.push({id:`s${c.id}`,tp:"y",cid:c
 });
 return n.filter(x=>!DS.has(x.id));
 }
+const LOGO_SVG="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJnR3JhZCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMwYTI4MTg7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzFhNGEyYTtzdG9wLW9wYWNpdHk6MSIgLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImdvbGRHcmFkIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6I2Q0YTg0MztzdG9wLW9wYWNpdHk6MSIgLz4KICAgICAgPHN0b3Agb2Zmc2V0PSI1MCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNmMGM4NjY7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6I2I4ODkyYTtzdG9wLW9wYWNpdHk6MSIgLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8ZmlsdGVyIGlkPSJnbG93Ij4KICAgICAgPGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iMiIgcmVzdWx0PSJjb2xvcmVkQmx1ciIvPgogICAgICA8ZmVNZXJnZT48ZmVNZXJnZU5vZGUgaW49ImNvbG9yZWRCbHVyIi8+PGZlTWVyZ2VOb2RlIGluPSJTb3VyY2VHcmFwaGljIi8+PC9mZU1lcmdlPgogICAgPC9maWx0ZXI+CiAgPC9kZWZzPgogIDwhLS0gQmFja2dyb3VuZCBjaXJjbGUgLS0+CiAgPGNpcmNsZSBjeD0iMTAwIiBjeT0iMTAwIiByPSI5NiIgZmlsbD0idXJsKCNiZ0dyYWQpIiBzdHJva2U9InVybCgjZ29sZEdyYWQpIiBzdHJva2Utd2lkdGg9IjMiLz4KICA8IS0tIElubmVyIHJpbmcgLS0+CiAgPGNpcmNsZSBjeD0iMTAwIiBjeT0iMTAwIiByPSI4MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ1cmwoI2dvbGRHcmFkKSIgc3Ryb2tlLXdpZHRoPSIwLjgiIG9wYWNpdHk9IjAuNSIvPgogIDwhLS0gUyBsZXR0ZXIgLS0+CiAgPHRleHQgeD0iNTIiIHk9IjEyOCIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsIHNlcmlmIiBmb250LXNpemU9Ijg4IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0idXJsKCNnb2xkR3JhZCkiIGZpbHRlcj0idXJsKCNnbG93KSI+UzwvdGV4dD4KICA8IS0tIFAgbGV0dGVyIC0tPgogIDx0ZXh0IHg9IjEwNiIgeT0iMTI4IiBmb250LWZhbWlseT0iR2VvcmdpYSwgc2VyaWYiIGZvbnQtc2l6ZT0iODgiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ1cmwoI2dvbGRHcmFkKSIgZmlsdGVyPSJ1cmwoI2dsb3cpIj5QPC90ZXh0PgogIDwhLS0gQm90dG9tIHRleHQgLS0+CiAgPHRleHQgeD0iMTAwIiB5PSIxNjIiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLCBzZXJpZiIgZm9udC1zaXplPSIxMSIgZm9udC13ZWlnaHQ9Im5vcm1hbCIgZmlsbD0iI2Q0YTg0MyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgbGV0dGVyLXNwYWNpbmc9IjQiPklMIE1FVE9ETzwvdGV4dD4KICA8IS0tIFRvcCBhY2NlbnQgZG90cyAtLT4KICA8Y2lyY2xlIGN4PSI3MiIgY3k9IjM4IiByPSIyLjUiIGZpbGw9IiNkNGE4NDMiIG9wYWNpdHk9IjAuOCIvPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9IjMyIiByPSIyLjUiIGZpbGw9IiNkNGE4NDMiIG9wYWNpdHk9IjAuOCIvPgogIDxjaXJjbGUgY3g9IjEyOCIgY3k9IjM4IiByPSIyLjUiIGZpbGw9IiNkNGE4NDMiIG9wYWNpdHk9IjAuOCIvPgo8L3N2Zz4=";
 
+// ── JSONBIN CONFIG ──
+// Inserisci la tua API key JSONbin qui dopo la registrazione
+// Istruzioni: vai su jsonbin.io -> Register -> API Keys -> copia X-Master-Key
+const JSONBIN_KEY = "$2a$10$SZznKs.30tuPYFo5Mzkq3OG7tlnMpTJ92QkP3wNoyHPcpdUfOPmF2
+"; // es: "$2a$10$xxxx..."
+const JSONBIN_BIN = "6a194fba21f9ee59d298bf02 "; // ID del bin, es: "6650abc123..."
+
+async function pushCheck(clienteId, ck){
+  if(!JSONBIN_KEY || !JSONBIN_BIN) return;
+  try {
+    // Read current bin
+    const res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN}/latest`, {
+      headers: {"X-Master-Key": JSONBIN_KEY}
+    });
+    const data = await res.json();
+    const current = data.record || {};
+    if(!current.checks) current.checks = [];
+    current.checks.push({clienteId, ck, ts: Date.now()});
+    // Write back
+    await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN}`, {
+      method: "PUT",
+      headers: {"Content-Type":"application/json","X-Master-Key": JSONBIN_KEY},
+      body: JSON.stringify(current)
+    });
+  } catch(e){ console.log("JSONbin error:", e); }
+}
+
+async function pullChecks(){
+  if(!JSONBIN_KEY || !JSONBIN_BIN) return 0;
+  try {
+    const res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN}/latest`, {
+      headers: {"X-Master-Key": JSONBIN_KEY}
+    });
+    const data = await res.json();
+    const records = data.record?.checks || [];
+    let imported = 0;
+    records.forEach(r => {
+      const c = CL.find(x => x.id === r.clienteId);
+      if(c && r.ck) {
+        const exists = c.checks.some(x => x.d === r.ck.d && Math.abs(x.w - r.ck.w) < 0.01);
+        if(!exists){ c.checks.push(r.ck); c.checks.sort((a,b)=>a.d.localeCompare(b.d)); imported++; }
+      }
+    });
+    if(imported > 0){ sv(); }
+    return imported;
+  } catch(e){ return 0; }
+}
+
+// ── ANALISI ESPERTA ──
 function analizza(c){
-const lk=c.checks[c.checks.length-1];if(!lk)return null;
-const ws=c.checks.map(x=>x.w);
-const d14=ws.length>1?(ws[ws.length-1]-ws[ws.length-2]):0;
-const obj=c.obj.toLowerCase();
-const bulk=obj.includes("bulk")||obj.includes("massa")||obj.includes("ingross");
-const cut=obj.includes("cut")||obj.includes("defin")||obj.includes("grasso");
-const alerts=[],exp=[],intc=[],next=[];
-if(lk.s<=5){alerts.push({t:"r",m:"\ud83d\udd34 SONNO CRITICO ("+lk.s+"/10) -- GH secreto 70% nelle prime 2h di sonno. Con <6h: MPS cala 18-25%, cortisolo elevato tutto il giorno, lipolisi bloccata."});intc.push("Magnesio bisglicinato 400mg 30min pre-sonno -- abbassa cortisolo serale, migliora qualita REM.");}
-else if(lk.s<=6)alerts.push({t:"y",m:"\ud83d\udfe1 Sonno borderline ("+lk.s+"/10) -- Puntare a 7-9h. GH e testosterone al picco tra le 22-02."});
-else alerts.push({t:"g",m:"\ud83d\udfe2 Sonno ottimale ("+lk.s+"/10) -- Recupero ormonale nella norma."});
-if(lk.st>=8){alerts.push({t:"r",m:"\ud83d\udd34 STRESS CRONICO ("+lk.st+"/10) -- Cortisolo >20 mcg/dL inibisce MPS del 20-30%, adiposita viscerale, testosterone -15-20%."});intc.push("Ashwagandha KSM-66 600mg/die -- riduce cortisolo del 27.9% in 60 giorni (Chandrasekhar et al. 2012).");}
-else if(lk.st>=6)alerts.push({t:"y",m:"\ud83d\udfe1 Stress moderato ("+lk.st+"/10) -- Il cortisolo cronico ostacola sia dimagrimento che recupero."});
-else alerts.push({t:"g",m:"\ud83d\udfe2 Stress controllato ("+lk.st+"/10) -- Ambiente ormonale favorevole."});
-if(lk.e<=4){alerts.push({t:"r",m:"\ud83d\udd34 ENERGIA BASSA ("+lk.e+"/10) -- Possibili cause: deficit eccessivo, carenza ferro/B12/D3, ipotiroidismo subclinico."});intc.push("Vitamina D3 4000 UI + K2 MK7 100mcg mattina -- carenza D3 (<30ng/mL) causa affaticamento cronico e riduzione testosterone.");}
-else if(lk.e<=6)alerts.push({t:"y",m:"\ud83d\udfe1 Energia moderata ("+lk.e+"/10) -- Ottimizzare timing carbo pre/post workout e idratazione."});
-else alerts.push({t:"g",m:"\ud83d\udfe2 Energia ottimale ("+lk.e+"/10) -- Metabolismo energetico ben supportato."});
-if((lk.gonf||0)>=7)alerts.push({t:"y",m:"\ud83d\udfe1 Gonfiore elevato ("+lk.gonf+"/10) -- Possibili cause: eccesso sodio, intolleranze, disbiosi. Valutare eliminazione temporanea latticini/glutine."});
-if((lk.fc||0)>70&&lk.fc>0)alerts.push({t:"y",m:"\ud83d\udfe1 FC riposo alta ("+lk.fc+" bpm) -- Segnale di recupero incompleto. Ottimale per atleti: 50-65 bpm."});
-if(lk.adh<60){alerts.push({t:"r",m:"\ud83d\udd34 ADERENZA CRITICA ("+lk.adh+"%) -- Con compliance <60% impossibile valutare il protocollo."});next.push("Identificare i 2 momenti piu critici per l'aderenza e creare alternative pratiche. Semplicita batte perfezione.");}
-else if(lk.adh<75)alerts.push({t:"y",m:"\ud83d\udfe1 Aderenza migliorabile ("+lk.adh+"%) -- Obiettivo: 80%+."});
-else alerts.push({t:"g",m:"\ud83d\udfe2 Ottima aderenza ("+lk.adh+"%) -- La compliance e il fattore piu predittivo del successo."});
-if(bulk){
-if(d14>1.5)alerts.push({t:"y",m:"\ud83d\udfe1 Bulk troppo rapido (+"+d14.toFixed(1)+"kg/2sett) -- Velocita ottimale: 0.25-0.5kg/settimana. Ridurre surplus di 200kcal."});
-else if(d14<0)alerts.push({t:"r",m:"\ud83d\udd34 Peso in calo in fase bulk -- Non sei in surplus reale. Aumentare calorie di 200-300kcal/die."});
-else alerts.push({t:"g",m:"\ud83d\udfe2 Trend peso ottimale per il bulk (+"+d14.toFixed(1)+"kg/2sett)."});
-exp.push({i:"\ud83c\udfcb\ufe0f",t:"Surplus e Sintesi Proteica (MPS)",b:"Surplus ottimale per bulk lean: 200-350kcal/die. Distribuire proteine in 4-5 pasti (25-40g/pasto) per saturare il segnale mTOR. Carbo pre e post wo massimizzano insulina in fase anabolica. Non saltare mai il pasto post-workout."});
-}else if(cut){
-if(Math.abs(d14)>0.8&&d14<0)alerts.push({t:"y",m:"\ud83d\udfe1 Calo rapido ("+d14.toFixed(1)+"kg/2sett) -- Rischio catabolismo. Deficit max: 500kcal/die. Verificare proteine (min 2.2g/kg)."});
-else if(d14<0&&d14>=-0.6)alerts.push({t:"g",m:"\ud83d\udfe2 Ritmo calo ottimale ("+d14.toFixed(1)+"kg/2sett) -- Preservazione massa magra nella norma."});
-exp.push({i:"\ud83d\udd25",t:"Deficit e Preservazione Muscolare",b:"Deficit 15-20% sotto TDEE. Proteine a 2.2-2.4g/kg. Grassi NON sotto 1.0g/kg. Carbo principalmente attorno all'allenamento. Il deficit si crea riducendo grassi e carbo nei pasti lontani dal workout."});
-}else{
-exp.push({i:"\u2696\ufe0f",t:"Body Recomp -- Strategia Avanzata",b:"Calorie vicino al mantenimento (+/-10%) con ciclizzazione: giorni allenamento +200-300kcal (carbo), giorni riposo -200kcal. Proteine costanti 2.0-2.2g/kg. La recomposizione e lenta ma preserva massa magra."});
-}
-exp.push({i:"\ud83d\udca7",t:"Idratazione e Performance Neuromuscolare",b:`Target: ${c.macro.w||2.5}L/die. Disidratazione 2% = forza -10%, resistenza -20%. Formula: 35ml/kg + 500ml/ora allenamento + 2-3g sodio/die.`});
-exp.push({i:"\u26a1",t:"Timing Nutrizionale e Finestra Anabolica",b:"Pre-wo (90-120 min): carbo complessi + proteine veloci, grassi minimi. Post-wo (entro 40-60 min): carbo alto IG + whey per risintesi glicogeno e MPS. Pre-sleep: caseina/ricotta per sintesi proteica notturna."});
-exp.push({i:"\ud83e\uddec",t:"Recupero e Supercompensazione",b:"La crescita avviene DOPO l'allenamento. Segnali di sovrallenamento: FC alta a riposo, RPE cronico >8, energia <5, performance in calo. In questi casi: deload immediato (-40% volume, -30% intensita per 1 settimana)."});
-if(!c.integ.some(x=>x.toLowerCase().includes("omega")))intc.push("Omega-3 EPA/DHA 2-3g/die con pasto -- riduce infiammazione post-esercizio del 35%, migliora sensibilita insulinica. Evidenza scientifica grado A.");
-if(!c.integ.some(x=>x.toLowerCase().includes("creatina")))intc.push("Creatina monoidrato 5g/die (sempre, senza cicli) -- forza +5-15%, volume muscolare +1-2% in 4-8 settimane. Evidenza scientifica grado A.");
-if(!c.integ.some(x=>x.toLowerCase().includes("vitamina d")))intc.push("Vitamina D3 2000-4000 UI/die -- 70% degli italiani carente. Livelli ottimali (50-80 ng/mL): testosterone piu alto, minore rischio infortuni.");
-next.push(`Prossimo check tra ${c.checkFreq||14} giorni -- link: ${getLink(c.id)}`);
-next.push("Protocollo: "+(lk.adh<75?"aderenza prioritaria prima di qualsiasi cambio macro.":"mantenere e valutare micro-aggiustamenti al prossimo check."));
-if((lk.rpe||0)>=9)next.push("RPE alto ("+lk.rpe+"/10): valutare settimana deload. Volume -40-50%, intensita -30%.");
-return{alerts,exp,intc,next};
+  const lk=c.checks[c.checks.length-1];if(!lk)return null;
+  const ws=c.checks.map(x=>x.w);
+  const d14=ws.length>1?(ws[ws.length-1]-ws[ws.length-2]):0;
+  const obj=c.obj.toLowerCase();
+  const bulk=obj.includes("bulk")||obj.includes("massa")||obj.includes("ingross");
+  const cut=obj.includes("cut")||obj.includes("defin")||obj.includes("grasso");
+  const alerts=[],exp=[],intc=[],next=[];
+  if(lk.s<=5){alerts.push({t:"r",m:"\ud83d\udd34 SONNO CRITICO ("+lk.s+"/10) \u2014 GH secreto al 70% nelle prime 2h di sonno profondo. Con <6h: MPS cala del 18-25%, cortisolo elevato tutto il giorno, lipolisi bloccata."});intc.push("Magnesio bisglicinato 400mg 30min pre-sonno \u2014 abbassa cortisolo serale, migliora qualit\u00e0 REM (JCEM 2012).");}
+  else if(lk.s<=6)alerts.push({t:"y",m:"\ud83d\udfe1 Sonno borderline ("+lk.s+"/10) \u2014 Puntare a 7-9h. GH e testosterone al picco tra le 22-02."});
+  else alerts.push({t:"g",m:"\ud83d\udfe2 Sonno ottimale ("+lk.s+"/10) \u2014 Recupero ormonale nella norma."});
+  if(lk.st>=8){alerts.push({t:"r",m:"\ud83d\udd34 STRESS CRONICO ("+lk.st+"/10) \u2014 Cortisolo >20 mcg/dL inibisce MPS del 20-30%, adiposit\u00e0 viscerale, testosterone \u221215-20%."});intc.push("Ashwagandha KSM-66 600mg/die \u2014 riduce cortisolo del 27.9% in 60 giorni (Chandrasekhar et al. 2012).");}
+  else if(lk.st>=6)alerts.push({t:"y",m:"\ud83d\udfe1 Stress moderato ("+lk.st+"/10) \u2014 Il cortisolo cronico ostacola dimagrimento e recupero."});
+  else alerts.push({t:"g",m:"\ud83d\udfe2 Stress controllato ("+lk.st+"/10) \u2014 Ambiente ormonale favorevole."});
+  if(lk.e<=4){alerts.push({t:"r",m:"\ud83d\udd34 ENERGIA BASSA ("+lk.e+"/10) \u2014 Possibili cause: deficit eccessivo, carenza ferro/B12/D3, ipotiroidismo subclinico."});intc.push("Vitamina D3 4000 UI + K2 MK7 100mcg mattina \u2014 carenza D3 (<30ng/mL) causa affaticamento cronico e riduzione testosterone.");}
+  else if(lk.e<=6)alerts.push({t:"y",m:"\ud83d\udfe1 Energia moderata ("+lk.e+"/10) \u2014 Ottimizzare timing carbo pre/post workout e idratazione."});
+  else alerts.push({t:"g",m:"\ud83d\udfe2 Energia ottimale ("+lk.e+"/10) \u2014 Metabolismo energetico ben supportato."});
+  if(lk.adh<60){alerts.push({t:"r",m:"\ud83d\udd34 ADERENZA CRITICA ("+lk.adh+"%) \u2014 Con compliance <60% impossibile valutare il protocollo."});next.push("Identificare i 2 momenti pi\u00f9 critici per l'aderenza e creare alternative pratiche. Semplicit\u00e0 batte perfezione.");}
+  else if(lk.adh<75)alerts.push({t:"y",m:"\ud83d\udfe1 Aderenza migliorabile ("+lk.adh+"%) \u2014 Obiettivo: 80%+."});
+  else alerts.push({t:"g",m:"\ud83d\udfe2 Ottima aderenza ("+lk.adh+"%) \u2014 La compliance \u00e8 il fattore pi\u00f9 predittivo del successo."});
+  if(bulk){
+    if(d14>1.5)alerts.push({t:"y",m:"\ud83d\udfe1 Bulk troppo rapido (+"+d14.toFixed(1)+"kg/2sett) \u2014 Velocit\u00e0 ottimale: 0.25-0.5kg/sett. Ridurre surplus di 200kcal."});
+    else if(d14<0)alerts.push({t:"r",m:"\ud83d\udd34 Peso in calo in fase bulk \u2014 Non sei in surplus reale. Aumentare calorie di 200-300kcal/die."});
+    else alerts.push({t:"g",m:"\ud83d\udfe2 Trend peso ottimale per il bulk (+"+d14.toFixed(1)+"kg/2sett)."});
+    exp.push({i:"\ud83c\udfcb\ufe0f",t:"Surplus e Sintesi Proteica (MPS)",b:"Surplus ottimale per bulk lean: 200-350kcal/die. Distribuire proteine in 4-5 pasti (25-40g/pasto) per saturare il segnale mTOR. Carbo pre e post wo massimizzano insulina in fase anabolica."});
+  } else if(cut){
+    if(Math.abs(d14)>0.8&&d14<0)alerts.push({t:"y",m:"\ud83d\udfe1 Calo rapido ("+d14.toFixed(1)+"kg/2sett) \u2014 Rischio catabolismo. Deficit max: 500kcal/die. Verificare proteine (min 2.2g/kg)."});
+    else if(d14<0&&d14>=-0.6)alerts.push({t:"g",m:"\ud83d\udfe2 Ritmo calo ottimale ("+d14.toFixed(1)+"kg/2sett) \u2014 Preservazione massa magra nella norma."});
+    exp.push({i:"\ud83d\udd25",t:"Deficit e Preservazione Muscolare",b:"Deficit 15-20% sotto TDEE. Proteine a 2.2-2.4g/kg. Grassi NON sotto 1.0g/kg. Carbo principalmente attorno all'allenamento."});
+  } else {
+    exp.push({i:"\u2696\ufe0f",t:"Body Recomp \u2014 Strategia Avanzata",b:"Calorie vicino al mantenimento (\u00b110%) con ciclizzazione: giorni allenamento +200-300kcal (carbo), giorni riposo -200kcal. Proteine costanti 2.0-2.2g/kg."});
+  }
+  exp.push({i:"\ud83d\udca7",t:"Idratazione e Performance",b:`Target: ${c.macro.w||2.5}L/die. Disidratazione 2% = forza -10%, resistenza -20%. Formula: 35ml/kg + 500ml/ora allenamento + 2-3g sodio/die.`});
+  exp.push({i:"\u26a1",t:"Timing Nutrizionale",b:"Pre-wo (90-120 min): carbo complessi + proteine veloci. Post-wo (entro 40-60 min): carbo alto IG + whey. Pre-sleep: caseina/ricotta per sintesi proteica notturna."});
+  exp.push({i:"\ud83e\uddec",t:"Recupero e Supercompensazione",b:"Segnali di sovrallenamento: FC alta a riposo, RPE cronico >8, energia <5, performance in calo. In questi casi: deload immediato (-40% volume, -30% intensit\u00e0 per 1 settimana)."});
+  if(!c.integ.some(x=>x.toLowerCase().includes("omega")))intc.push("Omega-3 EPA/DHA 2-3g/die con pasto \u2014 riduce infiammazione post-esercizio del 35%. Evidenza scientifica grado A.");
+  if(!c.integ.some(x=>x.toLowerCase().includes("creatina")))intc.push("Creatina monoidrato 5g/die (sempre, senza cicli) \u2014 forza +5-15%, volume muscolare +1-2% in 4-8 settimane. Evidenza grado A.");
+  if(!c.integ.some(x=>x.toLowerCase().includes("vitamina d")))intc.push("Vitamina D3 2000-4000 UI/die \u2014 70% degli italiani carente. Ottimale 50-80 ng/mL: testosterone pi\u00f9 alto, meno infortuni.");
+  next.push(`Prossimo check tra ${c.checkFreq||14} giorni \u2014 link: ${getLink(c.id)}`);
+  next.push("Protocollo: "+(lk.adh<75?"aderenza prioritaria prima di qualsiasi cambio macro.":"mantenere e valutare micro-aggiustamenti al prossimo check."));
+  if((lk.rpe||0)>=9)next.push("RPE alto ("+lk.rpe+"/10): valutare settimana deload. Volume -40-50%, intensit\u00e0 -30%.");
+  return{alerts,exp,intc,next};
 }
 
+// ── PDF REPORT WOW ──
 function pdfReport(c){
-const{jsPDF}=window.jspdf;
-const doc=new jsPDF({unit:"mm",format:"a4"});
-const W=210,M=18,CW=W-M*2;let y=M;
-const gn=[34,160,96],dk=[24,40,24],gy=[74,106,74],lt=[228,242,232];
-doc.setFillColor(...gn);doc.rect(0,0,W,42,"F");
-try{doc.addImage(LOGO_SRC,"PNG",M,7,20,20);}catch(e){}
-doc.setTextColor(255,255,255);doc.setFontSize(17);doc.setFont("helvetica","bold");doc.text("IL METODO SP",M+24,15);
-doc.setFontSize(10);doc.setFont("helvetica","normal");doc.text("Coaching Bio-Analitico -- Samuele Piolanti",M+24,23);
-doc.setFontSize(8);doc.text("Generato il "+new Date().toLocaleDateString("it-IT",{day:"2-digit",month:"long",year:"numeric"}),M+24,31);y=50;
-doc.setTextColor(...dk);doc.setFontSize(20);doc.setFont("helvetica","bold");doc.text(c.nome+" "+c.cognome,M,y);y+=8;
-doc.setFontSize(10);doc.setFont("helvetica","normal");doc.setTextColor(...gy);doc.text(c.obj,M,y);y+=4;
-doc.setDrawColor(...gn);doc.setLineWidth(0.4);doc.line(M,y,W-M,y);y+=8;
-const lk=c.checks[c.checks.length-1];const ws=c.checks.map(x=>x.w);
-doc.setFillColor(...lt);doc.rect(M,y-2,CW,8,"F");
-doc.setFont("helvetica","bold");doc.setFontSize(10);doc.setTextColor(...gn);doc.text("DATI PERSONALI",M,y+4);y+=12;
-doc.setFont("helvetica","normal");doc.setFontSize(9);doc.setTextColor(...dk);
-const inf=[["Eta",age(c.dob)+" anni"],["Altezza",c.h+" cm"],["BMI",bmi(c)],["Freq. check","ogni "+(c.checkFreq||14)+"g"],["Coach","Samuele Piolanti"]];
-inf.forEach((i2,idx)=>{const col=idx%3;const row=Math.floor(idx/3);doc.setFont("helvetica","bold");doc.text(i2[1],M+col*(CW/3),y+row*10);doc.setFont("helvetica","normal");doc.setTextColor(...gy);doc.text(i2[0],M+col*(CW/3),y+row*10+4);doc.setTextColor(...dk);});
-y+=Math.ceil(inf.length/3)*10+8;
-if(ws.length>0){
-if(y>240){doc.addPage();y=M;}
-doc.setFillColor(...lt);doc.rect(M,y-2,CW,8,"F");
-doc.setFont("helvetica","bold");doc.setFontSize(10);doc.setTextColor(...gn);doc.text("STORICO CHECK",M,y+4);y+=12;
-doc.setFont("helvetica","normal");doc.setFontSize(9);doc.setTextColor(...dk);
-if(ws.length>1){const d=(ws[ws.length-1]-ws[0]).toFixed(1);doc.setTextColor(...gn);doc.text("Delta totale: "+(d>=0?"+":"")+d+" kg (da "+ws[0]+"kg a "+ws[ws.length-1]+"kg)",M,y);doc.setTextColor(...dk);y+=6;}
-c.checks.slice(-8).forEach(ck=>{if(y>265){doc.addPage();y=M;}doc.text(fds(ck.d)+" -- "+ck.w+"kg | E:"+ck.e+" S:"+ck.s+" St:"+ck.st+" RPE:"+(ck.rpe||0)+" Adh:"+(ck.adh||0)+"%"+(ck.pn?" | "+ck.pn:""),M,y);y+=5;});y+=5;
-}
-if(lk){
-if(y>220){doc.addPage();y=M;}
-doc.setFillColor(...lt);doc.rect(M,y-2,CW,8,"F");
-doc.setFont("helvetica","bold");doc.setFontSize(10);doc.setTextColor(...gn);doc.text("ULTIMO CHECK -- "+fd(lk.d),M,y+4);y+=12;
-doc.setFont("helvetica","normal");doc.setFontSize(9);doc.setTextColor(...dk);
-const bio=[["Energia",lk.e+"/10"],["Sonno",lk.s+"/10"],["Stress",lk.st+"/10"],["RPE",(lk.rpe||0)+"/10"],["Aderenza",(lk.adh||0)+"%"],["Idratazione",(lk.hy||0)+"L"],["Ore sonno",(lk.hs||0)+"h"],["FC riposo",(lk.fc||0)+" bpm"],["Umore",(lk.umore||0)+"/10"],["Gonfiore",(lk.gonf||0)+"/10"]];
-bio.forEach((b,idx)=>{if(y>265){doc.addPage();y=M;}const col=idx%2;if(col===0)doc.text(b[0]+": "+b[1],M,y);else{doc.text(b[0]+": "+b[1],M+CW/2,y);y+=5;}});
-if(bio.length%2===1)y+=5;
-if(lk.sx){doc.setFont("helvetica","italic");doc.text('"'+lk.sx+'"',M,y);doc.setFont("helvetica","normal");y+=6;}
-if(lk.pn){doc.text("Performance: "+lk.pn,M,y);y+=5;}
-if(lk.diff&&lk.diff.length>0){doc.setTextColor(154,104,0);doc.text("Difficolta: "+lk.diff,M,y);doc.setTextColor(...dk);y+=5;}
-y+=2;
-}
-if(!c.noM&&c.macro.k>0){
-if(y>220){doc.addPage();y=M;}
-doc.setFillColor(...lt);doc.rect(M,y-2,CW,8,"F");
-doc.setFont("helvetica","bold");doc.setFontSize(10);doc.setTextColor(...gn);doc.text("PIANO NUTRIZIONALE",M,y+4);y+=12;
-doc.setFont("helvetica","normal");doc.setFontSize(9);doc.setTextColor(...dk);
-[["Calorie",c.macro.k+" kcal"],["Proteine",c.macro.p+"g"],["Carboidrati",c.macro.c+"g"],["Grassi",c.macro.g+"g"],["Idratazione",c.macro.w+"L/die"]].forEach(m=>{doc.text(m[0]+": "+m[1],M,y);y+=5;});y+=3;
-}
-if(c.integ.length){
-if(y>220){doc.addPage();y=M;}
-doc.setFillColor(...lt);doc.rect(M,y-2,CW,8,"F");
-doc.setFont("helvetica","bold");doc.setFontSize(10);doc.setTextColor(...gn);doc.text("STACK INTEGRATIVO",M,y+4);y+=12;
-doc.setFont("helvetica","normal");doc.setFontSize(9);doc.setTextColor(...dk);
-c.integ.forEach(i2=>{if(y>265){doc.addPage();y=M;}doc.text("- "+i2,M,y);y+=5;});y+=3;
-}
-if(y>252){doc.addPage();y=M;}
-y+=4;doc.setFillColor(238,246,240);doc.rect(M,y-2,CW,22,"F");
-doc.setFontSize(7.5);doc.setTextColor(...gy);
-doc.text("NOTA LEGALE: Documento redatto da Samuele Piolanti, studente Scienze della Nutrizione (L-29).",M,y+4);
-doc.text("Finalita esclusivamente educative per soggetti adulti sani. Non sostituisce diagnosi medica o prescrizione dietetica.",M,y+9);
-doc.text("In presenza di patologie consultare sempre un medico o dietista iscritto all'albo.",M,y+14);
-doc.text("Il Metodo SP | samuelepiolanti.github.io/MetodoSP",M,y+19);
-doc.save("Report_"+c.nome+"_"+c.cognome+"_"+new Date().toISOString().split("T")[0]+".pdf");
+  const{jsPDF}=window.jspdf;
+  const doc=new jsPDF({unit:"mm",format:"a4"});
+  const W=210,M=16,CW=W-M*2;let y=M;
+
+  // Color palette - dark green + gold
+  const darkGreen=[8,40,20];
+  const midGreen=[20,74,42];
+  const gold=[180,138,40];
+  const lightGold=[212,168,67];
+  const cream=[252,248,238];
+  const white=[255,255,255];
+  const lightGreen=[232,245,232];
+  const textDark=[15,30,15];
+  const textGray=[80,100,80];
+
+  // ── PAGE 1: COVER ──
+  // Dark background cover
+  doc.setFillColor(...darkGreen);
+  doc.rect(0,0,W,297,"F");
+
+  // Gold accent lines
+  doc.setFillColor(...gold);
+  doc.rect(0,0,W,2,"F");
+  doc.rect(0,295,W,2,"F");
+
+  // Side gold bar
+  doc.setFillColor(...gold);
+  doc.rect(0,0,4,297,"F");
+
+  // Logo SVG area - gold circle
+  doc.setFillColor(...midGreen);
+  doc.roundedRect(W/2-35,40,70,70,8,8,"F");
+  doc.setDrawColor(...gold);
+  doc.setLineWidth(1.5);
+  doc.roundedRect(W/2-35,40,70,70,8,8,"S");
+
+  // SP text in logo area
+  doc.setTextColor(...lightGold);
+  doc.setFontSize(52);
+  doc.setFont("helvetica","bold");
+  doc.text("SP",W/2,82,{align:"center"});
+  doc.setFontSize(9);
+  doc.setFont("helvetica","normal");
+  doc.text("IL METODO",W/2,92,{align:"center"});
+
+  // Title
+  doc.setTextColor(...lightGold);
+  doc.setFontSize(11);
+  doc.setFont("helvetica","normal");
+  doc.text("COACHING BIO-ANALITICO",W/2,128,{align:"center"});
+  doc.setTextColor(...white);
+  doc.setFontSize(28);
+  doc.setFont("helvetica","bold");
+  doc.text(c.nome.toUpperCase(),W/2,145,{align:"center"});
+  doc.text(c.cognome.toUpperCase(),W/2,158,{align:"center"});
+
+  // Gold separator
+  doc.setFillColor(...gold);
+  doc.rect(M+20,165,CW-40,0.8,"F");
+
+  // Subtitle
+  doc.setTextColor(...lightGold);
+  doc.setFontSize(11);
+  doc.setFont("helvetica","normal");
+  doc.text("REPORT PROGRESSI PERSONALIZZATO",W/2,176,{align:"center"});
+
+  // Info blocks
+  const lk=c.checks[c.checks.length-1];
+  const ws=c.checks.map(x=>x.w);
+  const dTot=ws.length>1?(ws[ws.length-1]-ws[0]).toFixed(1):null;
+
+  const infoItems=[
+    ["OBIETTIVO",c.obj.length>35?c.obj.substring(0,35)+"...":c.obj],
+    ["CHECK EFFETTUATI",c.checks.length+""],
+    ["PESO ATTUALE",lk?lk.w+" kg":"--"],
+    ["IN PERCORSO DA",Math.round((new Date()-new Date(c.start))/86400000)+" giorni"]
+  ];
+
+  const boxW=(CW-10)/2;
+  infoItems.forEach((inf,i)=>{
+    const col=i%2;const row=Math.floor(i/2);
+    const bx=M+col*(boxW+10);const by=192+row*22;
+    doc.setFillColor(...midGreen);
+    doc.roundedRect(bx,by,boxW,18,3,3,"F");
+    doc.setDrawColor(...gold);
+    doc.setLineWidth(0.5);
+    doc.roundedRect(bx,by,boxW,18,3,3,"S");
+    doc.setTextColor(...lightGold);
+    doc.setFontSize(7);
+    doc.setFont("helvetica","normal");
+    doc.text(inf[0],bx+boxW/2,by+6,{align:"center"});
+    doc.setTextColor(...white);
+    doc.setFontSize(11);
+    doc.setFont("helvetica","bold");
+    doc.text(inf[1],bx+boxW/2,by+14,{align:"center"});
+  });
+
+  // Footer
+  doc.setTextColor(...gold);
+  doc.setFontSize(8);
+  doc.setFont("helvetica","normal");
+  doc.text("Samuele Piolanti  |  Il Metodo SP  |  samuelepiolanti.github.io/MetodoSP",W/2,268,{align:"center"});
+  doc.setTextColor(...textGray);
+  doc.setFontSize(7);
+  doc.text("Generato il "+new Date().toLocaleDateString("it-IT",{day:"2-digit",month:"long",year:"numeric"}),W/2,276,{align:"center"});
+
+  // ── PAGE 2: DATI E TREND ──
+  doc.addPage();
+  // Header bar
+  doc.setFillColor(...darkGreen);doc.rect(0,0,W,22,"F");
+  doc.setFillColor(...gold);doc.rect(0,0,4,22,"F");
+  doc.setTextColor(...lightGold);doc.setFontSize(8);doc.setFont("helvetica","normal");
+  doc.text("IL METODO SP  |  COACHING BIO-ANALITICO",M+6,10);
+  doc.setTextColor(...white);doc.setFontSize(12);doc.setFont("helvetica","bold");
+  doc.text(c.nome+" "+c.cognome,M+6,18);
+  doc.setTextColor(...gold);doc.setFontSize(9);doc.setFont("helvetica","normal");
+  doc.text("REPORT PROGRESSI",W-M,14,{align:"right"});
+  y=32;
+
+  // SECTION: Dati personali
+  doc.setFillColor(...darkGreen);doc.roundedRect(M,y,CW,8,2,2,"F");
+  doc.setFillColor(...gold);doc.rect(M,y,3,8,"F");
+  doc.setTextColor(...white);doc.setFontSize(9);doc.setFont("helvetica","bold");
+  doc.text("PROFILO ATLETA",M+7,y+5.5);y+=12;
+
+  const profilo=[
+    ["ETÀ",age(c.dob)+" anni","ALTEZZA",c.h+" cm"],
+    ["BMI",bmi(c),"FREQ. CHECK","ogni "+(c.checkFreq||14)+"g"],
+    ["OBIETTIVO",c.obj.length>28?c.obj.substring(0,28)+"...":c.obj,"COACH","Samuele Piolanti"]
+  ];
+  profilo.forEach(row2=>{
+    const hw=CW/2-5;
+    [[row2[0],row2[1],M],[row2[2],row2[3],M+hw+10]].forEach(([l,v,x])=>{
+      doc.setFillColor(...cream);doc.roundedRect(x,y,hw,10,2,2,"F");
+      doc.setTextColor(...textGray);doc.setFontSize(7);doc.setFont("helvetica","normal");doc.text(l,x+4,y+4);
+      doc.setTextColor(...textDark);doc.setFontSize(9);doc.setFont("helvetica","bold");doc.text(v,x+4,y+9);
+    });
+    y+=13;
+  });
+
+  // SECTION: Trend peso con mini grafico ASCII-style
+  y+=4;
+  doc.setFillColor(...darkGreen);doc.roundedRect(M,y,CW,8,2,2,"F");
+  doc.setFillColor(...gold);doc.rect(M,y,3,8,"F");
+  doc.setTextColor(...white);doc.setFontSize(9);doc.setFont("helvetica","bold");
+  doc.text("ANDAMENTO PESO",M+7,y+5.5);y+=12;
+
+  if(ws.length>=2){
+    // Draw weight chart using jsPDF lines
+    const chartW=CW,chartH=40,chartX=M,chartY=y;
+    const mnW=Math.min(...ws)-1,mxW=Math.max(...ws)+1,rngW=mxW-mnW;
+
+    // Background
+    doc.setFillColor(...cream);doc.roundedRect(chartX,chartY,chartW,chartH,3,3,"F");
+    doc.setDrawColor(...gold);doc.setLineWidth(0.3);doc.roundedRect(chartX,chartY,chartW,chartH,3,3,"S");
+
+    // Grid lines
+    doc.setDrawColor(220,235,220);doc.setLineWidth(0.2);
+    [0.25,0.5,0.75].forEach(frac=>{
+      const gy2=chartY+chartH-frac*chartH;
+      doc.line(chartX+4,gy2,chartX+chartW-4,gy2);
+    });
+
+    // Plot points and lines
+    const pts=ws.map((w2,i)=>({
+      x:chartX+6+(i/(ws.length-1))*(chartW-12),
+      y:chartY+chartH-4-((w2-mnW)/rngW)*(chartH-8)
+    }));
+
+    // Fill area under curve
+    doc.setFillColor(180,215,180);
+    const fillPts=[[pts[0].x,chartY+chartH-3],...pts.map(p=>[p.x,p.y]),[pts[pts.length-1].x,chartY+chartH-3]];
+    // Draw filled polygon manually
+    doc.setFillColor(20,74,42,0.3);
+
+    // Draw connecting lines
+    doc.setDrawColor(...midGreen);doc.setLineWidth(1.5);
+    for(let i=0;i<pts.length-1;i++){
+      doc.line(pts[i].x,pts[i].y,pts[i+1].x,pts[i+1].y);
+    }
+
+    // Draw points and labels
+    pts.forEach((p,i)=>{
+      doc.setFillColor(...gold);
+      doc.circle(p.x,p.y,1.5,"F");
+      // Weight label
+      doc.setTextColor(...darkGreen);doc.setFontSize(7);doc.setFont("helvetica","bold");
+      doc.text(ws[i]+"",p.x,p.y-3,{align:"center"});
+      // Date label
+      doc.setTextColor(...textGray);doc.setFontSize(6);doc.setFont("helvetica","normal");
+      doc.text(fds(c.checks[i].d),p.x,chartY+chartH+4,{align:"center"});
+    });
+
+    y+=chartH+10;
+
+    // Delta summary boxes
+    const summaryItems=[
+      ["Peso inizio",ws[0]+" kg"],
+      ["Peso attuale",ws[ws.length-1]+" kg"],
+      ["Variazione totale",(parseFloat(dTot)>=0?"+":"")+dTot+" kg"],
+      ["N° check",ws.length+""]
+    ];
+    const sw=(CW-9)/4;
+    summaryItems.forEach((s,i)=>{
+      const sx=M+i*(sw+3);
+      const isNeg=s[0]==="Variazione totale"&&parseFloat(dTot)<0;
+      const isPos=s[0]==="Variazione totale"&&parseFloat(dTot)>0;
+      doc.setFillColor(isNeg?20:isPos?140:...darkGreen,isNeg?100:isPos?30:74,isNeg?20:isPos?20:42);
+      if(!isNeg&&!isPos)doc.setFillColor(...darkGreen);
+      else if(isNeg)doc.setFillColor(20,100,20);
+      else doc.setFillColor(140,30,20);
+      doc.roundedRect(sx,y,sw,14,2,2,"F");
+      doc.setTextColor(...lightGold);doc.setFontSize(6.5);doc.setFont("helvetica","normal");
+      doc.text(s[0],sx+sw/2,y+5,{align:"center"});
+      doc.setTextColor(...white);doc.setFontSize(9);doc.setFont("helvetica","bold");
+      doc.text(s[1],sx+sw/2,y+11,{align:"center"});
+    });
+    y+=18;
+  } else {
+    doc.setFillColor(...cream);doc.roundedRect(M,y,CW,12,3,3,"F");
+    doc.setTextColor(...textGray);doc.setFontSize(9);doc.setFont("helvetica","normal");
+    doc.text("Necessari almeno 2 check per visualizzare il grafico.",M+CW/2,y+7,{align:"center"});
+    y+=16;
+  }
+
+  // SECTION: Ultimo bio-feedback
+  if(lk){
+    y+=4;
+    doc.setFillColor(...darkGreen);doc.roundedRect(M,y,CW,8,2,2,"F");
+    doc.setFillColor(...gold);doc.rect(M,y,3,8,"F");
+    doc.setTextColor(...white);doc.setFontSize(9);doc.setFont("helvetica","bold");
+    doc.text("ULTIMO CHECK — "+fd(lk.d),M+7,y+5.5);y+=12;
+
+    // Bio-feedback bars
+    const bio=[
+      ["ENERGIA",lk.e,10,[20,160,96]],
+      ["QUALITÀ SONNO",lk.s,10,[13,110,110]],
+      ["STRESS",lk.st,10,[180,138,40]],
+      ["RPE SESSIONE",lk.rpe||0,10,[80,60,180]]
+    ];
+    const barW=(CW-10)/2;
+    bio.forEach((b,i)=>{
+      const col=i%2;const row=Math.floor(i/2);
+      const bx=M+col*(barW+10);const by=y+row*16;
+      doc.setFillColor(...cream);doc.roundedRect(bx,by,barW,12,2,2,"F");
+      doc.setTextColor(...textGray);doc.setFontSize(7);doc.setFont("helvetica","normal");
+      doc.text(b[0],bx+3,by+5);
+      doc.setTextColor(...textDark);doc.setFontSize(8);doc.setFont("helvetica","bold");
+      doc.text(b[1]+"/"+b[2],bx+barW-3,by+5,{align:"right"});
+      // Bar track
+      doc.setFillColor(210,225,210);doc.roundedRect(bx+3,by+7,barW-6,3,1,1,"F");
+      // Bar fill
+      doc.setFillColor(...b[3]);doc.roundedRect(bx+3,by+7,(barW-6)*(b[1]/b[2]),3,1,1,"F");
+    });
+    y+=bio.length/2*16+4;
+
+    // Extra bio data
+    const extra=[];
+    if(lk.adh)extra.push(["Aderenza macro",lk.adh+"%"]);
+    if(lk.hy)extra.push(["Idratazione",lk.hy+"L"]);
+    if(lk.hs)extra.push(["Ore sonno",lk.hs+"h"]);
+    if(lk.fc&&lk.fc>0)extra.push(["FC riposo",lk.fc+" bpm"]);
+    if(lk.umore)extra.push(["Umore",lk.umore+"/10"]);
+    if(lk.gonf)extra.push(["Gonfiore",lk.gonf+"/10"]);
+    if(lk.girovita&&lk.girovita>0)extra.push(["Girovita",lk.girovita+"cm"]);
+    if(lk.girofianchi&&lk.girofianchi>0)extra.push(["Girofianchi",lk.girofianchi+"cm"]);
+
+    if(extra.length>0){
+      const ew=(CW-(extra.length-1)*3)/extra.length;
+      extra.forEach((e,i)=>{
+        const ex=M+i*(ew+3);
+        doc.setFillColor(...midGreen);doc.roundedRect(ex,y,ew,12,2,2,"F");
+        doc.setTextColor(...lightGold);doc.setFontSize(6.5);doc.setFont("helvetica","normal");
+        doc.text(e[0],ex+ew/2,y+5,{align:"center"});
+        doc.setTextColor(...white);doc.setFontSize(8);doc.setFont("helvetica","bold");
+        doc.text(e[1],ex+ew/2,y+10,{align:"center"});
+      });
+      y+=15;
+    }
+
+    if(lk.pf){
+      y+=2;
+      const perfCol=lk.pf==="Migliorate"?[20,140,60]:lk.pf==="Peggiorate"?[180,40,30]:[100,130,100];
+      doc.setFillColor(...perfCol);doc.roundedRect(M,y,CW/2-5,10,2,2,"F");
+      doc.setTextColor(...white);doc.setFontSize(8);doc.setFont("helvetica","bold");
+      doc.text("PERFORMANCE: "+lk.pf.toUpperCase(),M+CW/4-2,y+7,{align:"center"});
+      y+=14;
+    }
+
+    if(lk.sx&&lk.sx.trim()){
+      doc.setFillColor(...cream);doc.setDrawColor(...gold);doc.setLineWidth(0.5);
+      doc.roundedRect(M,y,CW,14,3,3,"FD");
+      doc.setFillColor(...gold);doc.rect(M,y,3,14,"F");
+      doc.setTextColor(...textGray);doc.setFontSize(7);doc.setFont("helvetica","italic");
+      const lines=doc.splitTextToSize('"'+lk.sx+'"',CW-10);
+      lines.slice(0,2).forEach((l,li)=>{doc.text(l,M+6,y+5+li*5);});
+      y+=18;
+    }
+  }
+
+  // ── PAGE 3: NUTRIZIONE + INTEGRATORI ──
+  if(!c.noM&&c.macro.k>0||c.integ.length>0){
+    doc.addPage();
+    // Header
+    doc.setFillColor(...darkGreen);doc.rect(0,0,W,22,"F");
+    doc.setFillColor(...gold);doc.rect(0,0,4,22,"F");
+    doc.setTextColor(...lightGold);doc.setFontSize(8);doc.setFont("helvetica","normal");
+    doc.text("IL METODO SP  |  COACHING BIO-ANALITICO",M+6,10);
+    doc.setTextColor(...white);doc.setFontSize(12);doc.setFont("helvetica","bold");
+    doc.text(c.nome+" "+c.cognome,M+6,18);
+    doc.setTextColor(...gold);doc.setFontSize(9);doc.setFont("helvetica","normal");
+    doc.text("PIANO NUTRIZIONALE",W-M,14,{align:"right"});
+    y=32;
+
+    if(!c.noM&&c.macro.k>0){
+      doc.setFillColor(...darkGreen);doc.roundedRect(M,y,CW,8,2,2,"F");
+      doc.setFillColor(...gold);doc.rect(M,y,3,8,"F");
+      doc.setTextColor(...white);doc.setFontSize(9);doc.setFont("helvetica","bold");
+      doc.text("TARGET MACRONUTRIENTI",M+7,y+5.5);y+=12;
+
+      const macros=[
+        ["CALORIE",c.macro.k+" kcal",[180,138,40],[180,138,40]],
+        ["PROTEINE",c.macro.p+"g",[20,160,96],[20,160,96]],
+        ["CARBOIDRATI",c.macro.c+"g",[13,110,110],[13,110,110]],
+        ["GRASSI",c.macro.g+"g",[180,60,40],[180,60,40]],
+        ["IDRATAZIONE",c.macro.w+"L",[60,100,180],[60,100,180]]
+      ];
+      const mw=(CW-4*4)/5;
+      macros.forEach((m,i)=>{
+        const mx=M+i*(mw+4);
+        doc.setFillColor(...m[2]);doc.roundedRect(mx,y,mw,28,3,3,"F");
+        doc.setTextColor(...white);doc.setFontSize(6.5);doc.setFont("helvetica","normal");
+        doc.text(m[0],mx+mw/2,y+8,{align:"center"});
+        doc.setFontSize(14);doc.setFont("helvetica","bold");
+        doc.text(m[1],mx+mw/2,y+20,{align:"center"});
+      });
+      y+=34;
+
+      // Macros visual breakdown
+      const total=c.macro.p*4+c.macro.c*4+c.macro.g*9;
+      if(total>0){
+        y+=4;
+        doc.setTextColor(...textGray);doc.setFontSize(8);doc.setFont("helvetica","normal");
+        doc.text("Distribuzione calorica:",M,y+4);
+        const barH=8;const barTotW=CW-50;
+        const pPct=(c.macro.p*4/total);const cPct=(c.macro.c*4/total);const gPct=(c.macro.g*9/total);
+        doc.setFillColor(20,160,96);doc.roundedRect(M+50,y,barTotW*pPct,barH,1,1,"F");
+        doc.setFillColor(13,110,110);doc.rect(M+50+barTotW*pPct,y,barTotW*cPct,barH,"F");
+        doc.setFillColor(180,60,40);doc.roundedRect(M+50+barTotW*pPct+barTotW*cPct,y,barTotW*gPct,barH,1,1,"F");
+        doc.setTextColor(...textDark);doc.setFontSize(7);
+        doc.text("P:"+Math.round(pPct*100)+"%",M+52+barTotW*pPct/2-3,y+5.5);
+        doc.text("C:"+Math.round(cPct*100)+"%",M+52+barTotW*pPct+barTotW*cPct/2-3,y+5.5);
+        doc.text("G:"+Math.round(gPct*100)+"%",M+52+barTotW*pPct+barTotW*cPct+barTotW*gPct/2-3,y+5.5);
+        y+=16;
+      }
+    }
+
+    if(c.integ.length>0){
+      y+=4;
+      doc.setFillColor(...darkGreen);doc.roundedRect(M,y,CW,8,2,2,"F");
+      doc.setFillColor(...gold);doc.rect(M,y,3,8,"F");
+      doc.setTextColor(...white);doc.setFontSize(9);doc.setFont("helvetica","bold");
+      doc.text("STACK INTEGRATIVO",M+7,y+5.5);y+=12;
+      c.integ.forEach((integ,i)=>{
+        if(y>265){doc.addPage();y=M+10;}
+        doc.setFillColor(i%2===0?...cream:[240,248,242]);
+        doc.roundedRect(M,y,CW,10,2,2,"F");
+        doc.setFillColor(...gold);doc.circle(M+6,y+5,2,"F");
+        doc.setTextColor(...textDark);doc.setFontSize(9);doc.setFont("helvetica","normal");
+        doc.text(integ,M+12,y+6.5);
+        y+=13;
+      });
+    }
+  }
+
+  // ── LAST PAGE: NOTE LEGALI ──
+  if(y>240){doc.addPage();y=M+10;}
+  else y+=10;
+  doc.setFillColor(...cream);doc.setDrawColor(...gold);doc.setLineWidth(0.5);
+  doc.roundedRect(M,y,CW,26,3,3,"FD");
+  doc.setFillColor(...gold);doc.rect(M,y,3,26,"F");
+  doc.setTextColor(...gold);doc.setFontSize(8);doc.setFont("helvetica","bold");
+  doc.text("NOTA LEGALE",M+7,y+7);
+  doc.setTextColor(...textGray);doc.setFontSize(7.5);doc.setFont("helvetica","normal");
+  doc.text("Documento redatto da Samuele Piolanti, studente di Scienze della Nutrizione (L-29).",M+7,y+13);
+  doc.text("Ha finalit\u00e0 esclusivamente educative per soggetti adulti sani. Non costituisce diagnosi medica",M+7,y+19);
+  doc.text("o prescrizione dietetica. In presenza di patologie consultare un medico o dietista iscritto all'albo.",M+7,y+25);
+
+  doc.save("Report_"+c.nome+"_"+c.cognome+"_"+new Date().toISOString().split("T")[0]+".pdf");
 }
 
+// ── PDF PIANO ALIMENTARE WOW ──
 function pdfPiano(c,tipo,pasti,noteC,pastiLib){
-const{jsPDF}=window.jspdf;
-const doc=new jsPDF({unit:"mm",format:"a4"});
-const W=210,M=16,CW=W-M*2;let y=M;
-const gn=[34,160,96],dk=[24,40,24],gy=[74,106,74],lt=[228,242,232];
-doc.setFillColor(...gn);doc.rect(0,0,W,40,"F");
-try{doc.addImage(LOGO_SRC,"PNG",M,6,18,18);}catch(e){}
-doc.setTextColor(255,255,255);doc.setFontSize(16);doc.setFont("helvetica","bold");doc.text("PIANO ALIMENTARE EDUCATIVO",M+22,14);
-doc.setFontSize(10);doc.setFont("helvetica","normal");doc.text(c.nome+" "+c.cognome+" -- Il Metodo SP",M+22,22);
-doc.setFontSize(8);doc.text("Samuele Piolanti | "+new Date().toLocaleDateString("it-IT")+" | Finalita educative",M+22,30);y=48;
-doc.setFillColor(...lt);doc.rect(M,y-2,CW,16,"F");
-doc.setFont("helvetica","bold");doc.setFontSize(9);doc.setTextColor(...gn);doc.text("OBIETTIVO",M,y+5);doc.text("TIPO GIORNO",M+CW/2,y+5);
-doc.setFont("helvetica","normal");doc.setTextColor(...dk);doc.text(c.obj,M,y+11);doc.text(PIANO[tipo]?.label||tipo,M+CW/2,y+11);y+=22;
-if(!c.noM&&c.macro.k>0){
-doc.setFont("helvetica","bold");doc.setFontSize(9);doc.setTextColor(...gn);doc.text("TARGET: "+c.macro.k+" kcal | P:"+c.macro.p+"g | C:"+c.macro.c+"g | G:"+c.macro.g+"g | Acqua:"+c.macro.w+"L",M,y);y+=8;
-}
-doc.setFont("helvetica","bold");doc.setFontSize(11);doc.setTextColor(...gn);doc.text("SCHEMA GIORNALIERO",M,y);y+=8;
-(pasti||PIANO[tipo]?.pasti||[]).forEach(p=>{
-if(y>240){doc.addPage();y=M;}
-doc.setFillColor(...lt);doc.rect(M,y-2,CW,8,"F");
-doc.setFont("helvetica","bold");doc.setFontSize(9);doc.setTextColor(...gn);doc.text(p.ora,M,y+4);y+=10;
-doc.setFont("helvetica","normal");doc.setFontSize(9);doc.setTextColor(...dk);
-const cl=doc.splitTextToSize(p.cibo,CW-8);cl.forEach(l=>{if(y>265){doc.addPage();y=M;}doc.text(l,M+4,y);y+=5;});
-if(p.macro){doc.setTextColor(...gy);doc.text(p.macro,M+4,y);y+=5;doc.setTextColor(...dk);}
-if(p.note&&p.note.trim()){doc.setFont("helvetica","italic");doc.setTextColor(80,120,80);doc.text("-> "+p.note,M+4,y);doc.setFont("helvetica","normal");doc.setTextColor(...dk);y+=5;}
-y+=3;
-});
-if(pastiLib&&pastiLib.trim()){
-if(y>230){doc.addPage();y=M;}
-doc.setFont("helvetica","bold");doc.setFontSize(10);doc.setTextColor(...gn);doc.text("PASTI LIBERI / SGARRO",M,y);y+=7;
-doc.setFont("helvetica","normal");doc.setFontSize(9);doc.setTextColor(...dk);
-doc.splitTextToSize(pastiLib,CW).forEach(l=>{doc.text(l,M,y);y+=5;});y+=3;
-}
-if(noteC&&noteC.trim()){
-if(y>220){doc.addPage();y=M;}
-doc.setFont("helvetica","bold");doc.setFontSize(10);doc.setTextColor(...gn);doc.text("NOTE DEL COACH",M,y);y+=7;
-doc.setFont("helvetica","normal");doc.setFontSize(9);doc.setTextColor(...dk);
-doc.splitTextToSize(noteC,CW).forEach(l=>{if(y>265){doc.addPage();y=M;}doc.text(l,M,y);y+=5;});y+=3;
-}
-if(c.integ.length){
-if(y>220){doc.addPage();y=M;}
-doc.setFont("helvetica","bold");doc.setFontSize(10);doc.setTextColor(...gn);doc.text("STACK INTEGRATIVO ATTUALE",M,y);y+=7;
-doc.setFont("helvetica","normal");doc.setFontSize(9);doc.setTextColor(...dk);
-c.integ.forEach(i2=>{doc.text("- "+i2,M,y);y+=5;});y+=3;
-}
-if(y>220){doc.addPage();y=M;}
-doc.setFont("helvetica","bold");doc.setFontSize(10);doc.setTextColor(...gn);doc.text("PROTOCOLLO IDRATAZIONE",M,y);y+=7;
-doc.setFont("helvetica","normal");doc.setFontSize(9);doc.setTextColor(...dk);
-["Target: "+(c.macro.w||2.5)+"L/die","Appena svegli: 500ml + pizzico sale marino","Pre-allenamento (90 min prima): 400-500ml","Durante: 150-200ml ogni 20 minuti","Post: reintegra fino a urina chiara"].forEach(l=>{doc.text("- "+l,M+2,y);y+=5;});
-if(y>248){doc.addPage();y=M;}
-y+=4;doc.setFillColor(238,246,240);doc.rect(M,y-2,CW,24,"F");
-doc.setFontSize(7.5);doc.setTextColor(...gy);
-doc.text("NOTA LEGALE -- Piano redatto da Samuele Piolanti, studente Scienze della Nutrizione (L-29). Finalita esclusivamente educative.",M,y+4);
-doc.text("Non costituisce prescrizione dietetica, diagnosi medica o piano terapeutico ai sensi della legge italiana.",M,y+9);
-doc.text("In presenza di patologie, allergie o condizioni particolari consultare sempre un medico o dietista iscritto all'albo.",M,y+14);
-doc.text("Il Metodo SP -- Samuele Piolanti | samuelepiolanti.github.io/MetodoSP",M,y+19);
-doc.save("PianoAlimentare_"+tipo+"_"+c.nome+"_"+c.cognome+"_"+new Date().toISOString().split("T")[0]+".pdf");
+  const{jsPDF}=window.jspdf;
+  const doc=new jsPDF({unit:"mm",format:"a4"});
+  const W=210,M=16,CW=W-M*2;let y=M;
+  const darkGreen=[8,40,20],midGreen=[20,74,42],gold=[180,138,40],lightGold=[212,168,67];
+  const cream=[252,248,238],white=[255,255,255],textDark=[15,30,15],textGray=[80,100,80];
+
+  // ── COVER PAGE ──
+  doc.setFillColor(...darkGreen);doc.rect(0,0,W,297,"F");
+  doc.setFillColor(...gold);doc.rect(0,0,W,2,"F");doc.rect(0,295,W,2,"F");
+  doc.setFillColor(...gold);doc.rect(0,0,4,297,"F");
+  // Logo
+  doc.setFillColor(...midGreen);doc.roundedRect(W/2-30,35,60,60,8,8,"F");
+  doc.setDrawColor(...gold);doc.setLineWidth(1.5);doc.roundedRect(W/2-30,35,60,60,8,8,"S");
+  doc.setTextColor(...lightGold);doc.setFontSize(46);doc.setFont("helvetica","bold");
+  doc.text("SP",W/2,75,{align:"center"});
+  doc.setFontSize(8);doc.setFont("helvetica","normal");doc.text("IL METODO",W/2,84,{align:"center"});
+  // Title
+  doc.setTextColor(...lightGold);doc.setFontSize(10);doc.setFont("helvetica","normal");
+  doc.text("COACHING BIO-ANALITICO",W/2,108,{align:"center"});
+  doc.setTextColor(...white);doc.setFontSize(24);doc.setFont("helvetica","bold");
+  doc.text("PIANO ALIMENTARE",W/2,122,{align:"center"});
+  doc.setFontSize(18);doc.text("EDUCATIVO",W/2,134,{align:"center"});
+  doc.setFillColor(...gold);doc.rect(M+15,140,CW-30,0.8,"F");
+  doc.setTextColor(...lightGold);doc.setFontSize(14);doc.setFont("helvetica","bold");
+  doc.text(c.nome.toUpperCase()+" "+c.cognome.toUpperCase(),W/2,152,{align:"center"});
+  doc.setTextColor(...white);doc.setFontSize(10);doc.setFont("helvetica","normal");
+  doc.text(c.obj,W/2,162,{align:"center"});
+  // Type badge
+  const tipLabel=PIANO[tipo]?.label||tipo;
+  doc.setFillColor(...midGreen);doc.roundedRect(W/2-50,172,100,16,4,4,"F");
+  doc.setDrawColor(...gold);doc.setLineWidth(0.8);doc.roundedRect(W/2-50,172,100,16,4,4,"S");
+  doc.setTextColor(...lightGold);doc.setFontSize(10);doc.setFont("helvetica","bold");
+  doc.text(tipLabel,W/2,183,{align:"center"});
+  // Macro summary
+  if(!c.noM&&c.macro.k>0){
+    const ms=[["KCAL",c.macro.k+""],["PROTEINE",c.macro.p+"g"],["CARBO",c.macro.c+"g"],["GRASSI",c.macro.g+"g"],["ACQUA",c.macro.w+"L"]];
+    const mw=(CW-4*4)/5;
+    ms.forEach((m,i)=>{
+      const mx=M+i*(mw+4);
+      doc.setFillColor(...midGreen);doc.roundedRect(mx,200,mw,22,3,3,"F");
+      doc.setTextColor(...lightGold);doc.setFontSize(7);doc.setFont("helvetica","normal");doc.text(m[0],mx+mw/2,207,{align:"center"});
+      doc.setTextColor(...white);doc.setFontSize(11);doc.setFont("helvetica","bold");doc.text(m[1],mx+mw/2,217,{align:"center"});
+    });
+  }
+  doc.setTextColor(...gold);doc.setFontSize(8);doc.setFont("helvetica","normal");
+  doc.text("Samuele Piolanti  |  Il Metodo SP",W/2,268,{align:"center"});
+  doc.setTextColor(...textGray);doc.setFontSize(7);
+  doc.text("Elaborato il "+new Date().toLocaleDateString("it-IT")+" \u2014 Finalit\u00e0 educative",W/2,276,{align:"center"});
+
+  // ── PAGE 2: SCHEMA PASTI ──
+  doc.addPage();
+  doc.setFillColor(...darkGreen);doc.rect(0,0,W,22,"F");
+  doc.setFillColor(...gold);doc.rect(0,0,4,22,"F");
+  doc.setTextColor(...lightGold);doc.setFontSize(8);doc.setFont("helvetica","normal");
+  doc.text("IL METODO SP  |  "+tipLabel.toUpperCase(),M+6,10);
+  doc.setTextColor(...white);doc.setFontSize(11);doc.setFont("helvetica","bold");
+  doc.text(c.nome+" "+c.cognome+" \u2014 Schema Giornaliero",M+6,18);
+  y=30;
+
+  (pasti||PIANO[tipo]?.pasti||[]).forEach((p,i)=>{
+    if(y>250){
+      doc.addPage();
+      doc.setFillColor(...darkGreen);doc.rect(0,0,W,16,"F");
+      doc.setFillColor(...gold);doc.rect(0,0,4,16,"F");
+      doc.setTextColor(...white);doc.setFontSize(9);doc.setFont("helvetica","bold");
+      doc.text("SCHEMA PASTI (continua)",M+6,11);
+      y=24;
+    }
+    // Meal header bar
+    doc.setFillColor(i%2===0?...darkGreen:...midGreen);
+    doc.roundedRect(M,y,CW,9,2,2,"F");
+    doc.setFillColor(...gold);doc.rect(M,y,3,9,"F");
+    doc.setTextColor(...white);doc.setFontSize(9);doc.setFont("helvetica","bold");
+    doc.text(p.ora,M+7,y+6);y+=11;
+    // Content
+    doc.setFillColor(...cream);doc.roundedRect(M,y,CW,0,"F");
+    const ciboLines=doc.splitTextToSize(p.cibo,CW-8);
+    const noteLines=p.note&&p.note.trim()?doc.splitTextToSize("\u2192 "+p.note,CW-12):[];
+    const totalH=ciboLines.length*5+(noteLines.length>0?noteLines.length*4+4:0)+(p.macro?6:0)+6;
+    doc.setFillColor(...cream);doc.roundedRect(M,y-1,CW,totalH,2,2,"F");
+    doc.setTextColor(...textDark);doc.setFontSize(9);doc.setFont("helvetica","normal");
+    ciboLines.forEach((l,li)=>{doc.text(l,M+5,y+4+li*5);});
+    y+=ciboLines.length*5+2;
+    if(p.macro){
+      doc.setTextColor(...midGreen);doc.setFontSize(7.5);doc.setFont("helvetica","bold");
+      doc.text(p.macro,M+5,y+3);y+=5;
+    }
+    if(noteLines.length>0){
+      doc.setTextColor(...gold);doc.setFontSize(7);doc.setFont("helvetica","italic");
+      noteLines.forEach((l,li)=>{doc.text(l,M+7,y+3+li*4);});
+      y+=noteLines.length*4+2;
+    }
+    y+=5;
+  });
+
+  // Pasti liberi
+  if(pastiLib&&pastiLib.trim()){
+    if(y>255){doc.addPage();y=M+10;}
+    else y+=4;
+    doc.setFillColor(...darkGreen);doc.roundedRect(M,y,CW,9,2,2,"F");
+    doc.setFillColor(...gold);doc.rect(M,y,3,9,"F");
+    doc.setTextColor(...white);doc.setFontSize(9);doc.setFont("helvetica","bold");
+    doc.text("PASTI LIBERI / SGARRO",M+7,y+6);y+=12;
+    doc.setFillColor(...cream);
+    const plLines=doc.splitTextToSize(pastiLib,CW-8);
+    doc.roundedRect(M,y-1,CW,plLines.length*5+6,2,2,"F");
+    doc.setTextColor(...textDark);doc.setFontSize(9);doc.setFont("helvetica","normal");
+    plLines.forEach((l,li)=>{doc.text(l,M+5,y+4+li*5);});
+    y+=plLines.length*5+9;
+  }
+
+  // Note coach
+  if(noteC&&noteC.trim()){
+    if(y>245){doc.addPage();y=M+10;}
+    else y+=4;
+    doc.setFillColor(...midGreen);doc.roundedRect(M,y,CW,9,2,2,"F");
+    doc.setFillColor(...gold);doc.rect(M,y,3,9,"F");
+    doc.setTextColor(...white);doc.setFontSize(9);doc.setFont("helvetica","bold");
+    doc.text("NOTE DEL COACH",M+7,y+6);y+=12;
+    doc.setFillColor(...cream);doc.setDrawColor(...gold);doc.setLineWidth(0.4);
+    const ncLines=doc.splitTextToSize(noteC,CW-8);
+    doc.roundedRect(M,y-1,CW,ncLines.length*5+6,2,2,"FD");
+    doc.setTextColor(...textDark);doc.setFontSize(9);doc.setFont("helvetica","normal");
+    ncLines.forEach((l,li)=>{doc.text(l,M+5,y+4+li*5);});
+    y+=ncLines.length*5+9;
+  }
+
+  // Integratori + Idratazione
+  if(c.integ.length>0){
+    if(y>240){doc.addPage();y=M+10;}else y+=4;
+    doc.setFillColor(...darkGreen);doc.roundedRect(M,y,CW,9,2,2,"F");
+    doc.setFillColor(...gold);doc.rect(M,y,3,9,"F");
+    doc.setTextColor(...white);doc.setFontSize(9);doc.setFont("helvetica","bold");
+    doc.text("STACK INTEGRATIVO",M+7,y+6);y+=12;
+    c.integ.forEach((integ,i)=>{
+      if(y>265){doc.addPage();y=M;}
+      doc.setFillColor(i%2===0?...cream:[240,248,240]);doc.roundedRect(M,y,CW,10,2,2,"F");
+      doc.setFillColor(...gold);doc.circle(M+5,y+5,1.5,"F");
+      doc.setTextColor(...textDark);doc.setFontSize(9);doc.setFont("helvetica","normal");
+      doc.text(integ,M+10,y+6.5);y+=12;
+    });
+  }
+
+  // Idratazione
+  if(y>240){doc.addPage();y=M+10;}else y+=4;
+  doc.setFillColor(...midGreen);doc.roundedRect(M,y,CW,9,2,2,"F");
+  doc.setFillColor(...gold);doc.rect(M,y,3,9,"F");
+  doc.setTextColor(...white);doc.setFontSize(9);doc.setFont("helvetica","bold");
+  doc.text("PROTOCOLLO IDRATAZIONE — TARGET "+c.macro.w+"L/DIE",M+7,y+6);y+=12;
+  const idroItems=["Appena svegli: 500ml + pizzico di sale marino integrale","Pre-allenamento (90 min prima): 400-500ml","Durante allenamento: 150-200ml ogni 20 minuti","Post-allenamento: reintegra fino a urina chiara","Distribuire i restanti litri in sorsi frequenti durante la giornata"];
+  idroItems.forEach((item,i)=>{
+    doc.setFillColor(i%2===0?...cream:[240,248,240]);doc.roundedRect(M,y,CW,10,2,2,"F");
+    doc.setFillColor(...gold);doc.circle(M+5,y+5,1.5,"F");
+    doc.setTextColor(...textDark);doc.setFontSize(8.5);doc.setFont("helvetica","normal");
+    doc.text(item,M+10,y+6.5);y+=12;
+  });
+
+  // Disclaimer
+  if(y>250){doc.addPage();y=M+10;}else y+=6;
+  doc.setFillColor(...cream);doc.setDrawColor(...gold);doc.setLineWidth(0.5);
+  doc.roundedRect(M,y,CW,28,3,3,"FD");
+  doc.setFillColor(...gold);doc.rect(M,y,3,28,"F");
+  doc.setTextColor(...gold);doc.setFontSize(8);doc.setFont("helvetica","bold");
+  doc.text("NOTA LEGALE",M+7,y+7);
+  doc.setTextColor(...textGray);doc.setFontSize(7.5);doc.setFont("helvetica","normal");
+  doc.text("Piano redatto da Samuele Piolanti, studente di Scienze della Nutrizione (L-29).",M+7,y+14);
+  doc.text("Ha finalit\u00e0 esclusivamente educative per soggetti adulti sani.",M+7,y+20);
+  doc.text("Non costituisce prescrizione dietetica o piano terapeutico. Consultare sempre un medico.",M+7,y+26);
+
+  doc.save("PianoAlimentare_"+tipo+"_"+c.nome+"_"+c.cognome+"_"+new Date().toISOString().split("T")[0]+".pdf");
 }
 
 function R(){
 const params=new URLSearchParams(window.location.search);
 const chkId=params.get("check");
-if(chkId){const c=CL.find(x=>x.id===parseInt(chkId));document.getElementById("app").innerHTML=c?rForm(c):`<div class="form-wrap"><div class="form-box" style="text-align:center;padding:40px"><div style="font-size:40px;margin-bottom:12px">&#128269;</div><p style="font-size:16px;font-weight:700;color:var(--r)">Link non valido</p><p style="font-size:13px;color:var(--mu);margin-top:8px">Contatta il tuo coach.</p></div></div>`;return;}
+if(chkId){const c=CL.find(x=>x.id===parseInt(chkId));document.getElementById("app").innerHTML=c?rForm(c):`<div class="form-wrap"><div class="form-box" style="text-align:center;padding:40px"><div style="font-size:40px;margin-bottom:12px">&#128269;</div><p style="font-size:16px;font-weight:700;color:var(--r)">Link non valido</p><p style="font-size:13px;color:var(--mu);margin-top:8px">Contatta il tuo coach per il link corretto.</p></div></div>`;return;}
 document.getElementById("app").innerHTML=!logged?rLogin():VW==="cl"&&SID?rCL():rDash();
 }
-function rLogin(){return`<div class="login-wrap"><div class="login-box"><img src="${LOGO_SRC}" style="width:80px;height:80px;object-fit:contain;border-radius:12px;margin-bottom:16px" onerror="this.style.display='none'"><div style="font-size:24px;font-weight:800;color:var(--g);letter-spacing:-.02em">IL METODO SP</div><div style="font-size:13px;color:var(--mu);margin-bottom:28px;margin-top:4px">Coaching Platform &#8212; Accesso riservato</div><label class="fl" style="text-align:left">Password</label><input type="password" id="pwd" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" onkeydown="if(event.key==='Enter')login()"><button class="btn bg" style="width:100%;margin-top:14px;justify-content:center" onclick="login()">Accedi</button><div id="lerr" style="color:var(--r);font-size:12px;margin-top:8px;min-height:16px"></div></div></div>`;}
+
+function rLogin(){return`<div class="login-wrap"><div class="login-box"><img src="${LOGO_SVG}" style="width:100px;height:100px;object-fit:contain;border-radius:16px;margin-bottom:16px"><div style="font-size:24px;font-weight:800;color:var(--g);letter-spacing:-.02em">IL METODO SP</div><div style="font-size:13px;color:var(--mu);margin-bottom:28px;margin-top:4px">Coaching Platform &#8212; Accesso riservato</div><label class="fl" style="text-align:left">Password</label><input type="password" id="pwd" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" onkeydown="if(event.key==='Enter')login()"><button class="btn bg" style="width:100%;margin-top:14px;justify-content:center" onclick="login()">Accedi</button><div id="lerr" style="color:var(--r);font-size:12px;margin-top:8px;min-height:16px"></div></div></div>`;}
 function login(){const p=document.getElementById("pwd");if(!p)return;if(p.value===PWD){logged=true;R();}else{document.getElementById("lerr").textContent="Password errata. Riprova.";}}
 
+// ── CHECK FORM FIX: stato separato, non fa re-render completo ──
 let CF={e:0,s:0,st:0,rpe:0,gonf:0,umore:0};
-function setCF(k,v){CF[k]=v;}
-function rRow(id){let h='<div class="rrow">';for(let i=1;i<=10;i++){h+=`<button class="rb${CF[id]===i?" sel":""}" onclick="setCF('${id}',${i});R()">${i}</button>`;}h+='</div>';return h;}
+
+function setRating(id, val){
+  CF[id]=val;
+  // Update only the rating buttons without re-rendering the whole form
+  const rows=document.querySelectorAll(`[data-rating="${id}"]`);
+  rows.forEach(btn=>{
+    const bval=parseInt(btn.getAttribute("data-val"));
+    if(bval===val){btn.className="rb sel";}else{btn.className="rb";}
+  });
+}
+
+function ratingHTML(id){
+  let h='<div class="rrow">';
+  for(let i=1;i<=10;i++){
+    h+=`<button class="rb${CF[id]===i?" sel":""}" data-rating="${id}" data-val="${i}" onclick="setRating('${id}',${i})">${i}</button>`;
+  }
+  h+='</div>';
+  return h;
+}
+
 function rForm(c){
-return`<div class="form-wrap"><div class="form-box">
+  return`<div class="form-wrap"><div class="form-box">
 <div style="text-align:center;margin-bottom:22px">
-<img src="${LOGO_SRC}" style="width:56px;height:56px;object-fit:contain;border-radius:10px;margin-bottom:10px" onerror="this.style.display='none'">
+<img src="${LOGO_SVG}" style="width:80px;height:80px;object-fit:contain;border-radius:12px;margin-bottom:10px">
 <div style="font-size:20px;font-weight:800;color:var(--g)">Il Metodo SP</div>
 <div style="font-size:15px;font-weight:600;margin-top:2px">Check Bio-Analitico</div>
-<div style="font-size:13px;color:var(--mu);margin-top:4px">Ciao <strong>${c.nome}</strong>! Compila il tuo check &#128170;</div>
-<div style="font-size:11px;color:var(--hi);margin-top:3px">Tempo: 2-3 minuti</div>
+<div style="font-size:13px;color:var(--mu);margin-top:4px">Ciao <strong>${c.nome}</strong>! Compila il tuo check settimanale &#128170;</div>
+<div style="font-size:11px;color:var(--hi);margin-top:3px">Tempo stimato: 2-3 minuti</div>
 </div>
+
 <div class="fsec">
 <div class="stitle">&#9878;&#65039; Dati corporei</div>
-<label class="fl">Peso corporeo (kg) &#8212; mattina a digiuno <span style="color:var(--r)">*</span></label>
+<label class="fl">Peso corporeo (kg) &#8212; mattina a digiuno, dopo bagno <span style="color:var(--r)">*</span></label>
 <input type="number" step="0.1" id="cf_w" placeholder="es. 76.5">
 <div class="g2" style="margin-top:10px">
 <div><label class="fl">Girovita (cm) <span style="color:var(--hi);font-size:10px">opzionale</span></label><input type="number" id="cf_gv" placeholder="es. 82"></div>
 <div><label class="fl">Girofianchi (cm) <span style="color:var(--hi);font-size:10px">opzionale</span></label><input type="number" id="cf_gh" placeholder="es. 90"></div>
-</div></div>
+</div>
+</div>
+
 <div class="fsec">
-<div class="stitle">&#129504; Bio-Feedback (1=pessimo &#183; 10=ottimo)</div>
-<label class="fl">Livello di energia</label>${rRow("e")}
-<label class="fl">Qualita del sonno (profondita e recupero)</label>${rRow("s")}
-<label class="fl">Livello di stress (1=rilassato &#183; 10=molto stressato)</label>${rRow("st")}
-<label class="fl">Umore generale</label>${rRow("umore")}
-<label class="fl">Gonfiore addominale (1=nessuno &#183; 10=molto)</label>${rRow("gonf")}
-<label class="fl" style="margin-top:12px">Ore di sonno medie</label>
+<div class="stitle">&#129504; Bio-Feedback — clicca il numero (1=pessimo &#183; 10=ottimo)</div>
+<label class="fl">Livello di energia durante la giornata</label>
+${ratingHTML("e")}
+<label class="fl">Qualit&#224; del sonno (profondit&#224; e recupero)</label>
+${ratingHTML("s")}
+<label class="fl">Livello di stress (1=rilassato &#183; 10=molto stressato)</label>
+${ratingHTML("st")}
+<label class="fl">Umore generale</label>
+${ratingHTML("umore")}
+<label class="fl">Gonfiore addominale (1=nessuno &#183; 10=molto)</label>
+${ratingHTML("gonf")}
+<label class="fl" style="margin-top:12px">Ore di sonno medie questa settimana</label>
 <input type="number" step="0.5" id="cf_hs" placeholder="es. 7.5">
-<label class="fl">FC a riposo (bpm) <span style="color:var(--hi);font-size:10px">opzionale</span></label>
+<label class="fl">Frequenza cardiaca a riposo (bpm) <span style="color:var(--hi);font-size:10px">opzionale &#8212; misurala appena sveglio</span></label>
 <input type="number" id="cf_fc" placeholder="es. 62">
 </div>
+
 <div class="fsec">
 <div class="stitle">&#127947;&#65039; Allenamento</div>
-<label class="fl">RPE medio sessione <span style="font-size:10px;color:var(--mu)">(1=camminata &#183; 5=moderato &#183; 7=faticoso &#183; 9=quasi massimale &#183; 10=limite assoluto)</span></label>${rRow("rpe")}
-<label class="fl">Andamento performance</label>
-<select id="cf_pf"><option value="">Seleziona...</option><option value="Migliorate">&#8593; Migliorate</option><option value="Stabili">&#8594; Stabili</option><option value="Peggiorate">&#8595; Peggiorate</option></select>
-<label class="fl">Note su performance <span style="color:var(--hi);font-size:10px">PR, dolori, infortuni</span></label>
+<label class="fl">RPE medio sessione <span style="font-size:10px;color:var(--mu)">(1=camminata &#183; 5=moderato &#183; 7=faticoso &#183; 9=quasi massimale &#183; 10=limite assoluto)</span></label>
+${ratingHTML("rpe")}
+<label class="fl">Andamento performance questa settimana</label>
+<select id="cf_pf"><option value="">Seleziona...</option><option value="Migliorate">&#8593; Migliorate &#8212; pi&#249; peso, pi&#249; reps o tecnica migliorata</option><option value="Stabili">&#8594; Stabili &#8212; come la settimana scorsa</option><option value="Peggiorate">&#8595; Peggiorate &#8212; calo forza o motivazione</option></select>
+<label class="fl">Note performance <span style="color:var(--hi);font-size:10px">PR, dolori, infortuni, sensazioni</span></label>
 <textarea id="cf_pn" rows="2" placeholder="es. Nuovo PR squat +5kg. Leggero dolore spalla sinistra..."></textarea>
 <label class="fl">Sessioni saltate questa settimana</label>
 <select id="cf_skip"><option value="no">No, allenamento completo</option><option value="1">1 sessione saltata</option><option value="2">2 sessioni saltate</option><option value="3+">3+ sessioni saltate</option></select>
 </div>
+
 <div class="fsec">
 <div class="stitle">&#127869;&#65039; Nutrizione</div>
-<label class="fl">Aderenza al piano questa settimana (%)</label>
+<label class="fl">Aderenza al piano questa settimana (%) <span style="color:var(--hi);font-size:10px">0=nessuna, 100=perfetta</span></label>
 <input type="number" id="cf_adh" placeholder="es. 85" min="0" max="100">
 <label class="fl">Idratazione media raggiunta (L/die)</label>
 <input type="number" step="0.1" id="cf_hy" placeholder="es. 2.5">
 <label class="fl">Livello di fame/appetito</label>
-<select id="cf_app"><option value="">Seleziona...</option><option value="Eccessiva">Fame eccessiva &#8212; difficile controllarsi</option><option value="Normale">Normale &#8212; ben gestita</option><option value="Ridotta">Ridotta &#8212; poca voglia di mangiare</option><option value="Assente">Quasi assente &#8212; devo ricordarmi</option></select>
-<label class="fl">Principale difficolta con il piano</label>
-<textarea id="cf_diff" rows="2" placeholder="es. Spuntino mattina difficile, sera ho piu fame..."></textarea>
+<select id="cf_app"><option value="">Seleziona...</option><option value="Eccessiva">Fame eccessiva &#8212; difficile controllarsi</option><option value="Normale">Normale &#8212; ben gestita</option><option value="Ridotta">Ridotta &#8212; poca voglia di mangiare</option><option value="Assente">Quasi assente</option></select>
+<label class="fl">Principale difficolt&#224; con il piano alimentare</label>
+<textarea id="cf_diff" rows="2" placeholder="es. Spuntino mattina difficile, sera ho pi&#249; fame..."></textarea>
 </div>
+
 <div class="fsec">
 <div class="stitle">&#128248; Foto corporee</div>
 <div style="background:var(--g2);border-radius:10px;padding:14px;font-size:13px;color:var(--g);line-height:1.8;margin-bottom:10px">
@@ -434,44 +957,74 @@ return`<div class="form-wrap"><div class="form-box">
 &#128248; Frontale &#8212; braccia lungo i fianchi<br>
 &#128248; Laterale destra &#8212; braccia lungo i fianchi<br>
 &#128248; Dorsale &#8212; braccia lungo i fianchi<br><br>
-Poi invia su <strong>WhatsApp</strong>: <strong>"Foto check ${c.nome}"</strong>
+Poi invia su <strong>WhatsApp</strong> con messaggio: <strong>"Foto check ${c.nome}"</strong>
 </div>
 <label class="fl">Link foto <span style="color:var(--hi);font-size:10px">opzionale &#8212; Google Drive/iCloud</span></label>
 <input type="url" id="cf_foto" placeholder="https://drive.google.com/...">
 </div>
+
 <div class="fsec" style="border:none">
 <div class="stitle">&#128172; Messaggio per il coach</div>
-<label class="fl">Come stai? Domande, pensieri, sensazioni...</label>
-<textarea id="cf_sx" rows="4" placeholder="Scrivi liberamente &#8212; come ti senti, cosa e andato bene, cosa e stato difficile, domande..."></textarea>
+<label class="fl">Come stai? Domande, pensieri, sensazioni libere...</label>
+<textarea id="cf_sx" rows="4" placeholder="Scrivi liberamente &#8212; come ti senti fisicamente e mentalmente, cosa &#232; andato bene, cosa &#232; stato difficile, domande..."></textarea>
 </div>
-<button class="btn bg" style="width:100%;justify-content:center;padding:14px;font-size:15px;margin-top:4px" onclick="submitForm(${c.id})">&#10003; Invia Check a Samuele</button>
+
+<button class="btn bg" style="width:100%;justify-content:center;padding:14px;font-size:15px;margin-top:4px" onclick="submitForm(${c.id})">
+&#10003; Invia Check a Samuele
+</button>
 <p style="text-align:center;font-size:11px;color:var(--mu);margin-top:10px">Ricordati di inviare le foto su WhatsApp! &#128248;</p>
 </div></div>`;
 }
+
 function submitForm(cid){
-const w=parseFloat(document.getElementById("cf_w")?.value||"0");
-if(!w){alert("Inserisci il tuo peso per continuare.");return;}
-const ck={d:new Date().toISOString().split("T")[0],w,e:CF.e,s:CF.s,st:CF.st,umore:CF.umore,gonf:CF.gonf,rpe:CF.rpe,pf:document.getElementById("cf_pf")?.value||"Stabili",pn:document.getElementById("cf_pn")?.value||"",hs:parseFloat(document.getElementById("cf_hs")?.value||"0"),fc:parseInt(document.getElementById("cf_fc")?.value||"0"),adh:parseInt(document.getElementById("cf_adh")?.value||"0"),hy:parseFloat(document.getElementById("cf_hy")?.value||"0"),app:document.getElementById("cf_app")?.value||"",skip:document.getElementById("cf_skip")?.value||"no",diff:document.getElementById("cf_diff")?.value||"",foto:document.getElementById("cf_foto")?.value||"",sx:document.getElementById("cf_sx")?.value||"",girovita:parseFloat(document.getElementById("cf_gv")?.value||"0"),girofianchi:parseFloat(document.getElementById("cf_gh")?.value||"0")};
-const c=CL.find(x=>x.id===cid);
-if(c){c.checks.push(ck);sv();}
-document.getElementById("app").innerHTML=`<div class="form-wrap"><div class="form-box" style="text-align:center;padding:50px"><div style="font-size:56px;margin-bottom:16px">&#10003;</div><div style="font-size:22px;font-weight:800;color:var(--g);margin-bottom:8px">Check inviato!</div><p style="font-size:14px;color:var(--mu);margin-bottom:16px">Grazie ${c?c.nome:""}! Il tuo coach analizzera tutto presto.</p><p style="font-size:13px;color:var(--g);font-weight:600">&#128248; Ricordati di inviare le foto su WhatsApp!</p></div></div>`;
+  const w=parseFloat(document.getElementById("cf_w")?.value||"0");
+  if(!w){alert("Inserisci il tuo peso per continuare.");return;}
+  const ck={
+    d:new Date().toISOString().split("T")[0],
+    w,e:CF.e,s:CF.s,st:CF.st,umore:CF.umore,gonf:CF.gonf,rpe:CF.rpe,
+    pf:document.getElementById("cf_pf")?.value||"Stabili",
+    pn:document.getElementById("cf_pn")?.value||"",
+    hs:parseFloat(document.getElementById("cf_hs")?.value||"0"),
+    fc:parseInt(document.getElementById("cf_fc")?.value||"0"),
+    adh:parseInt(document.getElementById("cf_adh")?.value||"0"),
+    hy:parseFloat(document.getElementById("cf_hy")?.value||"0"),
+    app:document.getElementById("cf_app")?.value||"",
+    skip:document.getElementById("cf_skip")?.value||"no",
+    diff:document.getElementById("cf_diff")?.value||"",
+    foto:document.getElementById("cf_foto")?.value||"",
+    sx:document.getElementById("cf_sx")?.value||"",
+    girovita:parseFloat(document.getElementById("cf_gv")?.value||"0"),
+    girofianchi:parseFloat(document.getElementById("cf_gh")?.value||"0")
+  };
+  const c=CL.find(x=>x.id===cid);
+  if(c){c.checks.push(ck);sv();}
+  // Also push to JSONbin
+  pushCheck(cid, ck);
+  document.getElementById("app").innerHTML=`<div class="form-wrap"><div class="form-box" style="text-align:center;padding:50px">
+<img src="${LOGO_SVG}" style="width:80px;height:80px;border-radius:12px;margin-bottom:20px">
+<div style="font-size:56px;margin-bottom:16px">&#10003;</div>
+<div style="font-size:22px;font-weight:800;color:var(--g);margin-bottom:8px">Check inviato!</div>
+<p style="font-size:14px;color:var(--mu);margin-bottom:16px">Grazie ${c?c.nome:""}! Il tuo coach analizzer&#224; tutto presto.</p>
+<p style="font-size:13px;color:var(--g);font-weight:600">&#128248; Ricordati di inviare le foto su WhatsApp!</p>
+</div></div>`;
 }
 
 function rDash(){
-const NF=notifs();
-const att=CL.filter(c=>c.paid&&(dd(c.scadP||"2099")>0||!c.scadP)).length;
-const inc=CL.filter(c=>c.paid).reduce((s,c)=>s+c.euro,0);
-const urg=NF.filter(n=>n.tp==="r").length;
-const debt=CL.filter(c=>!c.paid).reduce((s,c)=>s+(c.debt||c.euro),0);
-const ckDue=CL.filter(c=>{const cd=dd(nck(c));return cd<=0&&cd>=-14;}).length;
-const sorted=[...CL].sort((a,b)=>{if(a.urg!==b.urg)return(a.urg?0:1)-(b.urg?0:1);if(a.paid!==b.paid)return(a.paid?1:0)-(b.paid?1:0);return dd(nck(a))-dd(nck(b));});
-return`<div class="topbar">
-<img src="${LOGO_SRC}" style="width:30px;height:30px;object-fit:contain;border-radius:6px" onerror="this.style.display='none'">
+  const NF=notifs();
+  const att=CL.filter(c=>c.paid&&(dd(c.scadP||"2099")>0||!c.scadP)).length;
+  const inc=CL.filter(c=>c.paid).reduce((s,c)=>s+c.euro,0);
+  const urg=NF.filter(n=>n.tp==="r").length;
+  const debt=CL.filter(c=>!c.paid).reduce((s,c)=>s+(c.debt||c.euro),0);
+  const ckDue=CL.filter(c=>{const cd=dd(nck(c));return cd<=0&&cd>=-14;}).length;
+  const sorted=[...CL].sort((a,b)=>{if(a.urg!==b.urg)return(a.urg?0:1)-(b.urg?0:1);if(a.paid!==b.paid)return(a.paid?1:0)-(b.paid?1:0);return dd(nck(a))-dd(nck(b));});
+  return`<div class="topbar">
+<img src="${LOGO_SVG}" style="width:34px;height:34px;object-fit:contain;border-radius:6px">
 <span style="font-size:15px;font-weight:800;color:var(--g);letter-spacing:-.02em">IL METODO SP</span>
 <span style="width:1px;height:16px;background:var(--bd2)"></span>
 <span style="font-size:11px;color:var(--mu);letter-spacing:.1em;text-transform:uppercase;font-weight:500">Coaching Platform</span>
 <span style="margin-left:auto;display:flex;align-items:center;gap:8px;position:relative">
 <span style="font-size:11px;color:var(--hi)">${new Date().toLocaleDateString("it-IT",{weekday:"short",day:"2-digit",month:"short",year:"numeric"})}</span>
+<button class="btn bn" style="padding:6px 10px;font-size:12px" onclick="syncChecks()" title="Sincronizza check da JSONbin">&#8645; Sync</button>
 <button class="btn bn" style="padding:6px 10px;position:relative" onclick="NOP=!NOP;R()">&#128276;${NF.length>0?`<span style="position:absolute;top:-5px;right:-5px;background:var(--r);color:#fff;border-radius:50%;width:17px;height:17px;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center">${NF.length}</span>`:""}</button>
 <button class="btn bn" style="padding:6px 10px" onclick="logged=false;R()">Esci</button>
 ${NOP?rNP(NF):""}
@@ -501,12 +1054,22 @@ return`<div class="cr${c.urg?" urg":""}${ckdue&&!c.urg?" ckdue":""}" onclick="SC
 </div>${rMod()}`;
 }
 
+async function syncChecks(){
+  const btn=document.querySelector('[onclick="syncChecks()"]');
+  if(btn){btn.textContent="&#9203; Sync...";btn.disabled=true;}
+  const n=await pullChecks();
+  R();
+  if(n>0)alert(`&#10003; Importati ${n} nuovi check dai clienti!`);
+  else if(!JSONBIN_KEY)alert("JSONbin non configurato. Segui le istruzioni nel codice per abilitare la sincronizzazione automatica dei check.");
+  else alert("Nessun nuovo check da importare.");
+}
+
 function rCL(){
-const c=CL.find(x=>x.id===SID);if(!c)return"";
-const TABS=[["ov","Overview"],["bf","Biofeedback"],["nut","Nutrizione"],["ck","Check"],["ai","Analisi Esperta"],["pn","Piano"],["pg","Pagamenti"],["mg","Messaggi"]];
-let ct="";
-if(TAB==="ov")ct=rOV(c);else if(TAB==="bf")ct=rBF(c);else if(TAB==="nut")ct=rNT(c);else if(TAB==="ck")ct=rCK(c);else if(TAB==="ai")ct=rAI(c);else if(TAB==="pn")ct=rPN(c);else if(TAB==="pg")ct=rPG(c);else if(TAB==="mg")ct=rMG(c);
-return`<div class="topbar">
+  const c=CL.find(x=>x.id===SID);if(!c)return"";
+  const TABS=[["ov","Overview"],["bf","Biofeedback"],["nut","Nutrizione"],["ck","Check"],["ai","Analisi Esperta"],["pn","Piano"],["pg","Pagamenti"],["mg","Messaggi"]];
+  let ct="";
+  if(TAB==="ov")ct=rOV(c);else if(TAB==="bf")ct=rBF(c);else if(TAB==="nut")ct=rNT(c);else if(TAB==="ck")ct=rCK(c);else if(TAB==="ai")ct=rAI(c);else if(TAB==="pn")ct=rPN(c);else if(TAB==="pg")ct=rPG(c);else if(TAB==="mg")ct=rMG(c);
+  return`<div class="topbar">
 <button class="btn bn" style="padding:5px 11px;font-size:12px" onclick="GB()">&#8592; Dashboard</button>
 <div style="font-size:14px;font-weight:700">${c.nome} ${c.cognome}</div>
 <div style="font-size:11px;color:var(--mu)">${c.email}</div>
@@ -526,11 +1089,11 @@ ${[["Eta",age(c.dob)+"a"],["Alt.",c.h+"cm"],["BMI",bmi(c)],["Prezzo","&#8364;"+c
 }
 
 function rOV(c){
-const lk=c.checks[c.checks.length-1];const f=c.checks[0];
-const dl=lk&&f?+(lk.w-f.w).toFixed(1):null;const ws=c.checks.map(x=>x.w);
-let svg="";
-if(ws.length>1){const W=260,H=50,mn=Math.min(...ws)-0.5,mx=Math.max(...ws)+0.5,rng=mx-mn;const pts=ws.map((v,i)=>`${8+(i/(ws.length-1))*(W-16)},${H-4-((v-mn)/rng)*(H-8)}`).join(" ");const lp=pts.split(" ").pop().split(",");svg=`<svg width="${W}" height="${H}" style="overflow:visible;margin-top:10px"><defs><linearGradient id="gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#22a060" stop-opacity=".15"/><stop offset="100%" stop-color="#22a060" stop-opacity="0"/></linearGradient></defs><polygon points="8,${H} ${pts} ${lp[0]},${H}" fill="url(#gr)"/><polyline points="${pts}" fill="none" stroke="var(--gm)" stroke-width="2.5" stroke-linejoin="round"/>${ws.map((v,i)=>{const x=8+(i/(ws.length-1))*(W-16),y=H-4-((v-mn)/rng)*(H-8);return`<circle cx="${x}" cy="${y}" r="3.5" fill="var(--gm)"/><text x="${x}" y="${y-8}" text-anchor="middle" fill="var(--g)" font-size="8" font-family="monospace">${v}</text>`;}).join("")}</svg>`;}
-return`<div class="g2">
+  const lk=c.checks[c.checks.length-1];const f=c.checks[0];
+  const dl=lk&&f?+(lk.w-f.w).toFixed(1):null;const ws=c.checks.map(x=>x.w);
+  let svg="";
+  if(ws.length>1){const W=260,H=50,mn=Math.min(...ws)-0.5,mx=Math.max(...ws)+0.5,rng=mx-mn;const pts=ws.map((v,i)=>`${8+(i/(ws.length-1))*(W-16)},${H-4-((v-mn)/rng)*(H-8)}`).join(" ");const lp=pts.split(" ").pop().split(",");svg=`<svg width="${W}" height="${H}" style="overflow:visible;margin-top:10px"><defs><linearGradient id="gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#22a060" stop-opacity=".15"/><stop offset="100%" stop-color="#22a060" stop-opacity="0"/></linearGradient></defs><polygon points="8,${H} ${pts} ${lp[0]},${H}" fill="url(#gr)"/><polyline points="${pts}" fill="none" stroke="var(--gm)" stroke-width="2.5" stroke-linejoin="round"/>${ws.map((v,i)=>{const x=8+(i/(ws.length-1))*(W-16),y=H-4-((v-mn)/rng)*(H-8);return`<circle cx="${x}" cy="${y}" r="3.5" fill="var(--gm)"/><text x="${x}" y="${y-8}" text-anchor="middle" fill="var(--g)" font-size="8" font-family="monospace">${v}</text>`;}).join("")}</svg>`;}
+  return`<div class="g2">
 <div class="card">
 <div style="font-size:11px;color:var(--mu);text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:12px">Anagrafica</div>
 ${[["Eta",age(c.dob)+" anni"],["Sesso",c.sx==="M"?"Maschile":"Femminile"],["Altezza",c.h+" cm"],["Peso attuale",lk?lk.w+" kg":"--"],["BMI",bmi(c)],["Freq. check","ogni "+(c.checkFreq||14)+"g"]].map(([l,v])=>`<div class="row"><span class="rl">${l}</span><span class="rv">${v}</span></div>`).join("")}
@@ -561,15 +1124,15 @@ ${[["Energia",lk.e,"var(--gm)"],["Sonno",lk.s,"var(--t)"],["Stress",lk.st,"var(-
 <span style="color:var(--mu)">Performance: <strong style="color:${pc(lk.pf)}">${pi(lk.pf)} ${lk.pf}</strong></span>
 <span style="color:var(--mu)">Aderenza: <strong style="font-family:var(--mo);color:var(--gm)">${lk.adh||0}%</strong></span>
 ${lk.umore?`<span style="color:var(--mu)">Umore: <strong>${lk.umore}/10</strong></span>`:""}
-${lk.fc?`<span style="color:var(--mu)">FC: <strong>${lk.fc} bpm</strong></span>`:""}
+${lk.fc&&lk.fc>0?`<span style="color:var(--mu)">FC: <strong>${lk.fc} bpm</strong></span>`:""}
 </div>
 ${lk.sx?`<p style="font-size:12px;color:var(--mu);font-style:italic;margin-top:8px;background:var(--s2);border-radius:8px;padding:8px 12px">"${lk.sx}"</p>`:""}
 </div>`:`<div class="card" style="grid-column:span 2;text-align:center;padding:40px;color:var(--mu)">Nessun check ancora.<br><br><button class="btn bg" onclick="copyLink(${c.id})">&#128279; Manda link check al cliente</button></div>`}
 </div>`;}
 
 function rBF(c){
-if(!c.checks.length)return`<div class="card" style="text-align:center;padding:40px;color:var(--mu)">Nessun check ancora.<br><br><button class="btn bg" onclick="copyLink(${c.id})">&#128279; Manda link al cliente</button></div>`;
-return c.checks.slice().reverse().map((ck,ri)=>{const i=c.checks.length-1-ri;return`<div class="ck">
+  if(!c.checks.length)return`<div class="card" style="text-align:center;padding:40px;color:var(--mu)">Nessun check ancora.<br><br><button class="btn bg" onclick="copyLink(${c.id})">&#128279; Manda link al cliente</button></div>`;
+  return c.checks.slice().reverse().map((ck,ri)=>{const i=c.checks.length-1-ri;return`<div class="ck">
 <div class="ckh"><div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap">
 <span style="font-size:12px;color:var(--mu)">${fd(ck.d)}</span>
 <span style="font-size:14px;font-weight:700;font-family:var(--mo);color:var(--gm)">${ck.w} kg</span>
@@ -586,8 +1149,8 @@ ${[["E",ck.e,"var(--gm)"],["S",ck.s,"var(--t)"],["St",ck.st,"var(--y)"],["RPE",c
 <div style="display:flex;gap:10px;font-size:12px;flex-wrap:wrap;margin-bottom:6px">
 ${ck.hy?`<span style="color:var(--mu)">Idro: <strong>${ck.hy}L</strong></span>`:""}
 ${ck.hs?`<span style="color:var(--mu)">Sonno: <strong>${ck.hs}h</strong></span>`:""}
-${ck.girovita?`<span style="color:var(--mu)">Vita: <strong>${ck.girovita}cm</strong></span>`:""}
-${ck.girofianchi?`<span style="color:var(--mu)">Fianchi: <strong>${ck.girofianchi}cm</strong></span>`:""}
+${ck.girovita&&ck.girovita>0?`<span style="color:var(--mu)">Vita: <strong>${ck.girovita}cm</strong></span>`:""}
+${ck.girofianchi&&ck.girofianchi>0?`<span style="color:var(--mu)">Fianchi: <strong>${ck.girofianchi}cm</strong></span>`:""}
 ${ck.app?`<span style="color:var(--mu)">Fame: <strong>${ck.app}</strong></span>`:""}
 ${ck.skip&&ck.skip!=="no"?`<span style="color:var(--y)">Saltate: <strong>${ck.skip}</strong></span>`:""}
 </div>
@@ -613,8 +1176,8 @@ ${c.integ.length?c.integ.map((x,i)=>`<div class="it"><div style="width:6px;heigh
 </div></div>`;}
 
 function rCK(c){
-const nc=nck(c);const cd=dd(nc);
-return`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px">
+  const nc=nck(c);const cd=dd(nc);
+  return`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px">
 <span style="font-size:12px;color:var(--mu)"><strong>${c.checks.length}</strong> check &#183; Prossimo: <strong style="color:${cd<0?"var(--r)":cd<=2?"var(--y)":"var(--gm)"}">${fd(nc)}</strong>${cd<0?` (${Math.abs(cd)}g ritardo)`:""}</span>
 <div style="display:flex;gap:7px">
 <button class="btn bn" onclick="copyLink(${c.id})">&#128279; Link</button>
@@ -632,14 +1195,14 @@ ${[["E",ck.e,"var(--gm)"],["S",ck.s,"var(--t)"],["St",ck.st,"var(--y)"]].map(([l
 </div></div>`).join("")}</div>`;}
 
 function rAI(c){
-const a=analizza(c);
-if(!a)return`<div class="card" style="text-align:center;padding:40px;color:var(--mu)">Nessun check disponibile.<br><br><button class="btn bg" onclick="copyLink(${c.id})">&#128279; Manda link al cliente</button></div>`;
-const{alerts,exp,intc,next}=a;
-return`<div style="background:linear-gradient(135deg,var(--g2),var(--t2));border:1.5px solid var(--gl);border-radius:16px;padding:18px 22px;margin-bottom:18px">
+  const a=analizza(c);
+  if(!a)return`<div class="card" style="text-align:center;padding:40px;color:var(--mu)">Nessun check disponibile.<br><br><button class="btn bg" onclick="copyLink(${c.id})">&#128279; Manda link al cliente</button></div>`;
+  const{alerts,exp,intc,next}=a;
+  return`<div style="background:linear-gradient(135deg,var(--g2),var(--t2));border:1.5px solid var(--gl);border-radius:16px;padding:18px 22px;margin-bottom:18px">
 <div style="font-size:14px;font-weight:700;color:var(--g);margin-bottom:3px">&#128302; Analisi Biochimica Esperta &#8212; Aggiornamento automatico</div>
-<div style="font-size:12px;color:var(--mu)">Basata su parametri fisiologici evidence-based. Si aggiorna ad ogni check.</div>
+<div style="font-size:12px;color:var(--mu)">Basata su parametri fisiologici evidence-based. Si aggiorna ad ogni nuovo check inserito.</div>
 </div>
-<div style="font-size:11px;color:var(--mu);text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:10px">Alert e Priorita</div>
+<div style="font-size:11px;color:var(--mu);text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:10px">Alert e Priorit&#224;</div>
 ${alerts.map(al=>`<div class="al-${al.t}">${al.m}</div>`).join("")}
 <div style="font-size:11px;color:var(--mu);text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin:16px 0 10px">Analisi da Preparatore / Biologo</div>
 ${exp.map(e=>`<div class="ai-card"><div style="font-size:18px;margin-bottom:5px">${e.i}</div><div style="font-size:12px;font-weight:700;color:var(--g);margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em">${e.t}</div><div style="font-size:13px;color:var(--tx);line-height:1.75">${e.b}</div></div>`).join("")}
@@ -647,14 +1210,14 @@ ${intc.length?`<div style="font-size:11px;color:var(--mu);text-transform:upperca
 ${intc.map(i=>`<div class="ai-card"><div style="font-size:13px;line-height:1.7">&#128138; ${i}</div></div>`).join("")}`:""}
 <div style="font-size:11px;color:var(--mu);text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin:16px 0 10px">Prossimi Step Concreti</div>
 ${next.map((p,i)=>`<div style="display:flex;gap:10px;align-items:flex-start;background:var(--s2);border:1.5px solid var(--bd);border-radius:10px;padding:11px 14px;margin-bottom:8px;font-size:13px;line-height:1.6"><div style="background:var(--g2);border:1.5px solid var(--gl);border-radius:6px;min-width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--g)">${i+1}</div><div>${p}</div></div>`).join("")}
-<div style="margin-top:14px;padding:10px 14px;background:var(--s2);border-radius:10px;font-size:11px;color:var(--mu)">&#9888; Analisi con finalita educative &#8212; non sostituisce consulenza medica specialistica.</div>`;}
+<div style="margin-top:14px;padding:10px 14px;background:var(--s2);border-radius:10px;font-size:11px;color:var(--mu)">&#9888; Analisi con finalit&#224; educative &#8212; non sostituisce consulenza medica specialistica.</div>`;}
 
 function rPN(c){
-const ap=c.approccio||"on_off";
-const dayTypes={on_off:[["on","ON"],["off","OFF"]],hml:[["high","HIGH"],["med","MED"],["low","LOW"]],"5_2":[["5on","Giorni 5"],["2off","Giorni 2"]],no_macro:[["on","Giorno tipo"]],custom:[["custom","Custom"]]};
-const types=dayTypes[ap]||dayTypes.on_off;
-if(!ePiano)ePiano=JSON.parse(JSON.stringify(PIANO[pDay]?.pasti||PIANO.on.pasti));
-return`<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+  const ap=c.approccio||"on_off";
+  const dayTypes={on_off:[["on","ON"],["off","OFF"]],hml:[["high","HIGH"],["med","MED"],["low","LOW"]],"5_2":[["5on","Giorni 5"],["2off","Giorni 2"]],no_macro:[["on","Giorno tipo"]],custom:[["custom","Custom"]]};
+  const types=dayTypes[ap]||dayTypes.on_off;
+  if(!ePiano)ePiano=JSON.parse(JSON.stringify(PIANO[pDay]?.pasti||PIANO.on.pasti));
+  return`<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;flex-wrap:wrap;gap:10px">
 <div><p style="font-size:14px;font-weight:700;color:var(--g)">Editor Piano Alimentare</p><p style="font-size:12px;color:var(--mu)">Modifica il piano poi genera il PDF professionale.</p></div>
 <div style="display:flex;gap:7px;flex-wrap:wrap">
 <button class="btn bv" onclick="OM('apprTV')">&#9881; ${ap==="on_off"?"ON/OFF":ap==="hml"?"H/M/L":ap==="5_2"?"5:2":ap==="no_macro"?"Senza macro":"Custom"}</button>
@@ -665,14 +1228,14 @@ ${types.map(([k,l])=>`<button class="db${pDay===k?" sel":""}" onclick="pDay='${k
 </div>
 <div style="background:var(--g2);border:1.5px solid var(--gl);border-radius:12px;padding:12px 16px;margin-bottom:14px">
 <div style="font-size:11px;font-weight:700;color:var(--g);margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em">${PIANO[pDay]?.label||"Piano personalizzato"}</div>
-${!c.noM&&c.macro.k>0?`<div style="font-size:13px;color:var(--g)">Target: <strong>${c.macro.k} kcal</strong> &#183; P:<strong>${c.macro.p}g</strong> &#183; C:<strong>${c.macro.c}g</strong> &#183; G:<strong>${c.macro.g}g</strong> &#183; Acqua:<strong>${c.macro.w}L</strong></div>`:`<div style="font-size:13px;color:var(--g)">Approccio educativo &#8212; qualita degli alimenti e timing</div>`}
+${!c.noM&&c.macro.k>0?`<div style="font-size:13px;color:var(--g)">Target: <strong>${c.macro.k} kcal</strong> &#183; P:<strong>${c.macro.p}g</strong> &#183; C:<strong>${c.macro.c}g</strong> &#183; G:<strong>${c.macro.g}g</strong> &#183; Acqua:<strong>${c.macro.w}L</strong></div>`:`<div style="font-size:13px;color:var(--g)">Approccio educativo &#8212; qualit&#224; degli alimenti e timing</div>`}
 </div>
 ${(ePiano||[]).map((p,i)=>`<div class="pc">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
 <input value="${p.ora}" onchange="ePiano[${i}].ora=this.value" style="width:220px;font-size:12px;font-weight:700;color:var(--gm);font-family:var(--mo);padding:4px 8px">
 <button class="btn br" style="font-size:11px;padding:4px 8px" onclick="ePiano.splice(${i},1);R()">&#10005;</button>
 </div>
-<label class="fl">Alimenti e quantita</label>
+<label class="fl">Alimenti e quantit&#224;</label>
 <textarea rows="2" onchange="ePiano[${i}].cibo=this.value" style="font-size:13px">${p.cibo}</textarea>
 <div class="g2">
 <div><label class="fl">Macro indicativi</label><input value="${p.macro||""}" onchange="ePiano[${i}].macro=this.value" placeholder="~000kcal | P:0g | C:0g | G:0g"></div>
@@ -732,18 +1295,18 @@ function mAppr(c){return`<div class="mt">Approccio nutrizionale</div><div class=
 ${[["on_off","ON / OFF","Giorni allenamento vs riposo","var(--gm)"],["hml","HIGH / MEDIUM / LOW","3 livelli calorici settimanali","var(--v)"],["5_2","5 : 2","5 giorni normali + 2 ipocalorici","var(--t)"],["no_macro","Senza Macro","Approccio educativo qualitativo","var(--mu)"],["custom","Personalizzato","Piano completamente custom","var(--y)"]].map(([k,t,d,col])=>`<button onclick="CL.find(x=>x.id===${c.id}).approccio='${k}';sv();ePiano=null;pDay='${k==="on_off"?"on":k==="hml"?"high":k==="5_2"?"5on":"on"}';CM()" style="background:${c.approccio===k?"var(--g2)":"var(--s2)"};border:1.5px solid ${c.approccio===k?"var(--gl)":"var(--bd2)"};border-radius:12px;padding:14px;cursor:pointer;text-align:left;font-family:var(--fn)"><div style="font-size:14px;font-weight:700;color:${c.approccio===k?"var(--g)":"var(--tx)"};margin-bottom:3px">${t}</div><div style="font-size:11px;color:var(--mu)">${d}</div></button>`).join("")}
 </div><div class="ma"><button class="btn bn" onclick="CM()">Chiudi</button></div>`;}
 
-function mAdd(){return`<div class="mt">Nuovo cliente</div><div class="g2"><div><label class="fl">Nome</label><input id="fn"></div><div><label class="fl">Cognome</label><input id="fc"></div><div><label class="fl">Email</label><input id="fe" type="email"></div><div><label class="fl">Telefono</label><input id="ft"></div><div><label class="fl">Anno nascita</label><input id="fd2" placeholder="2000"></div><div><label class="fl">Altezza (cm)</label><input id="fh" type="number"></div><div><label class="fl">Peso iniziale (kg)</label><input id="fw" type="number" step="0.1"></div><div><label class="fl">Prezzo (&#8364;)</label><input id="fp" type="number"></div><div><label class="fl">Scad. pagamento</label><input id="fs" type="date"></div><div><label class="fl">Freq. check</label><select id="ffreq">${[7,10,14,21,30].map(f=>`<option value="${f}"${f===14?" selected":""}>${f} giorni</option>`).join("")}</select></div></div><div><label class="fl">Obiettivo</label><input id="fo" placeholder="Es. Body recomp + definizione"></div><div><label class="fl">Approccio nutrizionale</label><select id="fap"><option value="on_off">ON/OFF</option><option value="hml">HIGH/MEDIUM/LOW</option><option value="5_2">5:2</option><option value="no_macro">Senza macro</option><option value="custom">Personalizzato</option></select></div><div style="display:flex;align-items:center;gap:8px;margin-top:10px"><input type="checkbox" id="fpd"><label style="font-size:13px;color:var(--mu);margin:0">Pagamento gia ricevuto</label></div><div class="ma"><button class="btn bn" onclick="CM()">Annulla</button><button class="btn bg" style="flex:1" onclick="SUB()">Aggiungi</button></div>`;}
+function mAdd(){return`<div class="mt">Nuovo cliente</div><div class="g2"><div><label class="fl">Nome</label><input id="fn"></div><div><label class="fl">Cognome</label><input id="fc"></div><div><label class="fl">Email</label><input id="fe" type="email"></div><div><label class="fl">Telefono</label><input id="ft"></div><div><label class="fl">Anno nascita</label><input id="fd2" placeholder="2000"></div><div><label class="fl">Altezza (cm)</label><input id="fh" type="number"></div><div><label class="fl">Peso iniziale (kg)</label><input id="fw" type="number" step="0.1"></div><div><label class="fl">Prezzo (&#8364;)</label><input id="fp" type="number"></div><div><label class="fl">Scad. pagamento</label><input id="fs" type="date"></div><div><label class="fl">Freq. check</label><select id="ffreq">${[7,10,14,21,30].map(f=>`<option value="${f}"${f===14?" selected":""}>${f} giorni</option>`).join("")}</select></div></div><div><label class="fl">Obiettivo</label><input id="fo" placeholder="Es. Body recomp + definizione"></div><div><label class="fl">Approccio nutrizionale</label><select id="fap"><option value="on_off">ON/OFF</option><option value="hml">HIGH/MEDIUM/LOW</option><option value="5_2">5:2</option><option value="no_macro">Senza macro</option><option value="custom">Personalizzato</option></select></div><div style="display:flex;align-items:center;gap:8px;margin-top:10px"><input type="checkbox" id="fpd"><label style="font-size:13px;color:var(--mu);margin:0">Pagamento gi&#224; ricevuto</label></div><div class="ma"><button class="btn bn" onclick="CM()">Annulla</button><button class="btn bg" style="flex:1" onclick="SUB()">Aggiungi</button></div>`;}
 
-function mACK(c){const t=new Date().toISOString().split("T")[0];return`<div class="mt">Nuovo check &#8212; ${c.nome}</div><div class="g2"><div><label class="fl">Data</label><input id="cd" type="date" value="${t}"></div><div><label class="fl">Peso (kg)</label><input id="cw" type="number" step="0.1"></div></div><div class="g3"><div><label class="fl">Energia (1-10)</label><input id="ce" type="number" min="1" max="10"></div><div><label class="fl">Sonno (1-10)</label><input id="cs" type="number" min="1" max="10" step="0.5"></div><div><label class="fl">Stress (1-10)</label><input id="cst" type="number" min="1" max="10"></div><div><label class="fl">RPE (1-10)</label><input id="cr" type="number" min="1" max="10"></div><div><label class="fl">Idratazione (L)</label><input id="ch" type="number" step="0.1"></div><div><label class="fl">Aderenza (%)</label><input id="ca" type="number"></div><div><label class="fl">Ore sonno</label><input id="co" type="number" step="0.5"></div><div><label class="fl">FC riposo (bpm)</label><input id="cfc" type="number"></div><div><label class="fl">Umore (1-10)</label><input id="cum" type="number" min="1" max="10"></div><div><label class="fl">Gonfiore (1-10)</label><input id="cgo" type="number" min="1" max="10"></div><div><label class="fl">Girovita (cm)</label><input id="cgv" type="number"></div><div><label class="fl">Girofianchi (cm)</label><input id="cgh" type="number"></div></div><div class="g2"><div><label class="fl">Performance</label><select id="cp"><option>Migliorate</option><option>Stabili</option><option>Peggiorate</option></select></div><div><label class="fl">Note performance</label><input id="cpn" placeholder="PR, dolori, infortuni..."></div></div><div><label class="fl">Difficolta alimentazione</label><input id="cdf"></div><div><label class="fl">Sensazione / Note</label><textarea id="cx" rows="2"></textarea></div><div class="ma"><button class="btn bn" onclick="CM()">Annulla</button><button class="btn bg" style="flex:1" onclick="SCK(${c.id})">Salva check</button></div>`;}
+function mACK(c){const t=new Date().toISOString().split("T")[0];return`<div class="mt">Nuovo check &#8212; ${c.nome}</div><div class="g2"><div><label class="fl">Data</label><input id="cd" type="date" value="${t}"></div><div><label class="fl">Peso (kg)</label><input id="cw" type="number" step="0.1"></div></div><div class="g3"><div><label class="fl">Energia (1-10)</label><input id="ce" type="number" min="1" max="10"></div><div><label class="fl">Sonno (1-10)</label><input id="cs" type="number" min="1" max="10" step="0.5"></div><div><label class="fl">Stress (1-10)</label><input id="cst" type="number" min="1" max="10"></div><div><label class="fl">RPE (1-10)</label><input id="cr" type="number" min="1" max="10"></div><div><label class="fl">Idratazione (L)</label><input id="ch" type="number" step="0.1"></div><div><label class="fl">Aderenza (%)</label><input id="ca" type="number"></div><div><label class="fl">Ore sonno</label><input id="co" type="number" step="0.5"></div><div><label class="fl">FC riposo (bpm)</label><input id="cfc" type="number"></div><div><label class="fl">Umore (1-10)</label><input id="cum" type="number" min="1" max="10"></div><div><label class="fl">Gonfiore (1-10)</label><input id="cgo" type="number" min="1" max="10"></div><div><label class="fl">Girovita (cm)</label><input id="cgv" type="number"></div><div><label class="fl">Girofianchi (cm)</label><input id="cgh" type="number"></div></div><div class="g2"><div><label class="fl">Performance</label><select id="cp"><option>Migliorate</option><option>Stabili</option><option>Peggiorate</option></select></div><div><label class="fl">Note performance</label><input id="cpn" placeholder="PR, dolori, infortuni..."></div></div><div><label class="fl">Difficolt&#224; alimentazione</label><input id="cdf"></div><div><label class="fl">Sensazione / Note</label><textarea id="cx" rows="2"></textarea></div><div class="ma"><button class="btn bn" onclick="CM()">Annulla</button><button class="btn bg" style="flex:1" onclick="SCK(${c.id})">Salva check</button></div>`;}
 
-function mECK(c){const ck=c.checks[ECI];if(!ck)return"";return`<div class="mt">Modifica check #${ECI+1}</div><div class="g2"><div><label class="fl">Data</label><input id="cd" type="date" value="${ck.d}"></div><div><label class="fl">Peso (kg)</label><input id="cw" type="number" step="0.1" value="${ck.w||""}"></div></div><div class="g3"><div><label class="fl">Energia</label><input id="ce" type="number" value="${ck.e||""}"></div><div><label class="fl">Sonno</label><input id="cs" type="number" step="0.5" value="${ck.s||""}"></div><div><label class="fl">Stress</label><input id="cst" type="number" value="${ck.st||""}"></div><div><label class="fl">RPE</label><input id="cr" type="number" value="${ck.rpe||""}"></div><div><label class="fl">Idratazione (L)</label><input id="ch" type="number" step="0.1" value="${ck.hy||""}"></div><div><label class="fl">Aderenza (%)</label><input id="ca" type="number" value="${ck.adh||""}"></div><div><label class="fl">Ore sonno</label><input id="co" type="number" step="0.5" value="${ck.hs||""}"></div><div><label class="fl">FC riposo</label><input id="cfc" type="number" value="${ck.fc||""}"></div><div><label class="fl">Umore</label><input id="cum" type="number" value="${ck.umore||""}"></div><div><label class="fl">Gonfiore</label><input id="cgo" type="number" value="${ck.gonf||""}"></div></div><div class="g2"><div><label class="fl">Performance</label><select id="cp">${["Migliorate","Stabili","Peggiorate"].map(p=>`<option${p===ck.pf?" selected":""}>${p}</option>`).join("")}</select></div><div><label class="fl">Note perf.</label><input id="cpn" value="${ck.pn||""}"></div></div><div><label class="fl">Difficolta</label><input id="cdf" value="${ck.diff||""}"></div><div><label class="fl">Sensazione / Note</label><textarea id="cx" rows="2">${ck.sx||""}</textarea></div><div class="ma"><button class="btn bn" onclick="CM()">Annulla</button><button class="btn bg" style="flex:1" onclick="SECK(${c.id})">Salva</button></div>`;}
+function mECK(c){const ck=c.checks[ECI];if(!ck)return"";return`<div class="mt">Modifica check #${ECI+1}</div><div class="g2"><div><label class="fl">Data</label><input id="cd" type="date" value="${ck.d}"></div><div><label class="fl">Peso (kg)</label><input id="cw" type="number" step="0.1" value="${ck.w||""}"></div></div><div class="g3"><div><label class="fl">Energia</label><input id="ce" type="number" value="${ck.e||""}"></div><div><label class="fl">Sonno</label><input id="cs" type="number" step="0.5" value="${ck.s||""}"></div><div><label class="fl">Stress</label><input id="cst" type="number" value="${ck.st||""}"></div><div><label class="fl">RPE</label><input id="cr" type="number" value="${ck.rpe||""}"></div><div><label class="fl">Idratazione (L)</label><input id="ch" type="number" step="0.1" value="${ck.hy||""}"></div><div><label class="fl">Aderenza (%)</label><input id="ca" type="number" value="${ck.adh||""}"></div><div><label class="fl">Ore sonno</label><input id="co" type="number" step="0.5" value="${ck.hs||""}"></div><div><label class="fl">FC riposo</label><input id="cfc" type="number" value="${ck.fc||""}"></div><div><label class="fl">Umore</label><input id="cum" type="number" value="${ck.umore||""}"></div><div><label class="fl">Gonfiore</label><input id="cgo" type="number" value="${ck.gonf||""}"></div></div><div class="g2"><div><label class="fl">Performance</label><select id="cp">${["Migliorate","Stabili","Peggiorate"].map(p=>`<option${p===ck.pf?" selected":""}>${p}</option>`).join("")}</select></div><div><label class="fl">Note perf.</label><input id="cpn" value="${ck.pn||""}"></div></div><div><label class="fl">Difficolt&#224;</label><input id="cdf" value="${ck.diff||""}"></div><div><label class="fl">Sensazione / Note</label><textarea id="cx" rows="2">${ck.sx||""}</textarea></div><div class="ma"><button class="btn bn" onclick="CM()">Annulla</button><button class="btn bg" style="flex:1" onclick="SECK(${c.id})">Salva</button></div>`;}
 
 function mECL(c){return`<div class="mt">Modifica &#8212; ${c.nome}</div><div class="g2"><div><label class="fl">Nome</label><input id="en" value="${c.nome}"></div><div><label class="fl">Cognome</label><input id="ec2" value="${c.cognome}"></div><div><label class="fl">Email</label><input id="ee" value="${c.email}"></div><div><label class="fl">Telefono</label><input id="et" value="${c.tel||""}"></div><div><label class="fl">Anno nascita</label><input id="ed" value="${c.dob||""}"></div><div><label class="fl">Altezza (cm)</label><input id="eh" type="number" value="${c.h}"></div></div><div class="ma"><button class="btn bn" onclick="CM()">Annulla</button><button class="btn bg" style="flex:1" onclick="SECL(${c.id})">Salva</button></div>`;}
 function mEMAC(c){return`<div class="mt">Macro &#8212; ${c.nome}</div><div class="g2"><div><label class="fl">Kcal</label><input id="mk" type="number" value="${c.macro.k}"></div><div><label class="fl">Proteine (g)</label><input id="mp" type="number" value="${c.macro.p}"></div><div><label class="fl">Carboidrati (g)</label><input id="mc" type="number" value="${c.macro.c}"></div><div><label class="fl">Grassi (g)</label><input id="mg" type="number" value="${c.macro.g}"></div><div><label class="fl">Idratazione (L)</label><input id="mw" type="number" step="0.1" value="${c.macro.w}"></div><div><label class="fl">Approccio</label><select id="mn"><option value="false"${!c.noM?" selected":""}>Con macro</option><option value="true"${c.noM?" selected":""}>Senza macro</option></select></div></div><div class="ma"><button class="btn bn" onclick="CM()">Annulla</button><button class="btn bg" style="flex:1" onclick="SMAC(${c.id})">Salva</button></div>`;}
 function mEDT(c){return`<div class="mt">Date e Frequenza &#8212; ${c.nome}</div><div><label class="fl">Data inizio piano</label><input id="di" type="date" value="${c.start}"></div><div><label class="fl">Scadenza pagamento</label><input id="ds2" type="date" value="${c.scadP||""}"></div><div><label class="fl">Frequenza check</label><select id="dfreq">${[7,10,14,21,30].map(f=>`<option value="${f}"${(c.checkFreq||14)===f?" selected":""}>${f} giorni</option>`).join("")}</select></div><div class="ma"><button class="btn bn" onclick="CM()">Annulla</button><button class="btn bg" style="flex:1" onclick="SEDT(${c.id})">Salva</button></div>`;}
 function mEPN(c){return`<div class="mt">Piano/Prezzo &#8212; ${c.nome}</div><div><label class="fl">Obiettivo</label><input id="po" value="${c.obj}"></div><div class="g2"><div><label class="fl">Prezzo totale (&#8364;)</label><input id="pp" type="number" value="${c.euro}"></div><div><label class="fl">Debito residuo (&#8364;)</label><input id="pd" type="number" value="${c.debt||0}"></div><div><label class="fl">Stato pagamento</label><select id="ppd"><option value="true"${c.paid?" selected":""}>Ricevuto</option><option value="false"${!c.paid?" selected":""}>In attesa</option></select></div></div><div class="ma"><button class="btn bn" onclick="CM()">Annulla</button><button class="btn bg" style="flex:1" onclick="SEPN(${c.id})">Salva</button></div>`;}
 
-function rWA(c){const msg=(WA[WK]?.(c)||"");const link=`https://wa.me/${c.tel||""}?text=${encodeURIComponent(msg)}`;return`<div class="mbg" onclick="if(event.target===this)CM()"><div class="mbx"><div class="mt">WhatsApp &#8212; ${c.nome} ${c.cognome}</div><div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px">${Object.keys(WA).map(k=>`<button class="btn bn" style="${WK===k?"border-color:var(--gm);color:var(--g)":""};font-size:11px;padding:5px 10px" onclick="WK='${k}';document.getElementById('wamsg').value=(WA['${k}'](CL.find(x=>x.id===${c.id}))||'')">${{ck_rm:"&#128203; Check",py_rm:"&#128179; Pag.",welc:"&#128075; Benvenuto",ck_ok:"&#10003; OK",rin:"&#128260; Rinnovo"}[k]}</button>`).join("")}</div><label class="fl">Messaggio (modificabile)</label><textarea id="wamsg" rows="9" style="white-space:pre-wrap;margin-bottom:12px;font-size:13px">${msg}</textarea><div class="ma"><button class="btn bn" onclick="CM()">Chiudi</button><a href="${link}" target="_blank" rel="noreferrer" style="flex:2;text-decoration:none"><button class="btn bg" style="width:100%;justify-content:center">&#128242; Apri WhatsApp</button></a></div><p style="font-size:11px;color:var(--mu);text-align:center;margin-top:8px">Si apre WA con testo pronto &#8212; premi invio</p></div></div>`;}
+function rWA(c){const msg=(WA[WK]?.(c)||"");const link=`https://wa.me/${c.tel||""}?text=${encodeURIComponent(msg)}`;return`<div class="mbg" onclick="if(event.target===this)CM()"><div class="mbx"><div class="mt">WhatsApp &#8212; ${c.nome} ${c.cognome}</div><div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px">${Object.keys(WA).map(k=>`<button class="btn bn" style="${WK===k?"border-color:var(--gm);color:var(--g)":""};font-size:11px;padding:5px 10px" onclick="WK='${k}';document.getElementById('wamsg').value=(WA['${k}'](CL.find(x=>x.id===${c.id}))||'')">${{ck_rm:"&#128203; Check",py_rm:"&#128179; Pag.",welc:"&#128075; Benvenuto",ck_ok:"&#10003; OK",rin:"&#128260; Rinnovo"}[k]}</button>`).join("")}</div><label class="fl">Messaggio (modificabile)</label><textarea id="wamsg" rows="9" style="white-space:pre-wrap;margin-bottom:12px;font-size:13px">${msg}</textarea><div class="ma"><button class="btn bn" onclick="CM()">Chiudi</button><a href="${link}" target="_blank" rel="noreferrer" style="flex:2;text-decoration:none"><button class="btn bg" style="width:100%;justify-content:center">&#128242; Apri WhatsApp</button></a></div></div></div>`;}
 
 const gv=id=>{const e=document.getElementById(id);return e?e.value:"";};
 const gn=id=>{const v=parseFloat(gv(id));return isNaN(v)?null:v;};
@@ -757,7 +1320,7 @@ function OW(cid,k){SID=cid;WK=k;MD="wa";R();}
 function TP(cid){const c=CL.find(x=>x.id===cid);if(c){c.paid=!c.paid;sv();R();}}
 function EC(i){ECI=i;MD="eck";R();}
 function DK(cid,i){if(!confirm("Eliminare questo check?"))return;const c=CL.find(x=>x.id===cid);if(c){c.checks.splice(i,1);sv();R();}}
-function addInteg(cid){const v=prompt("Inserisci integratore (es. Omega-3 2g ai pasti):");if(!v)return;const c=CL.find(x=>x.id===cid);if(c){c.integ.push(v);sv();R();}}
+function addInteg(cid){const v=prompt("Inserisci integratore:");if(!v)return;const c=CL.find(x=>x.id===cid);if(c){c.integ.push(v);sv();R();}}
 function rmInteg(cid,i){const c=CL.find(x=>x.id===cid);if(c){c.integ.splice(i,1);sv();R();}}
 function SUB(){const n=gv("fn"),cg=gv("fc");if(!n||!cg){alert("Nome e cognome obbligatori");return;}const pw=gn("fw");const st=new Date().toISOString().split("T")[0];const ap=gv("fap")||"on_off";CL.push({id:Date.now(),nome:n,cognome:cg,email:gv("fe"),tel:gv("ft"),dob:gv("fd2"),h:parseInt(gv("fh"))||0,sx:"M",obj:gv("fo"),note:"",euro:gn("fp")||0,scadP:gv("fs")||null,paid:document.getElementById("fpd")?.checked||false,start:st,checkFreq:parseInt(gv("ffreq"))||14,approccio:ap,noM:ap==="no_macro",integ:[],macro:{k:2000,p:150,c:200,g:65,w:2.5},checks:pw?[{d:st,w:pw,e:0,s:0,st:0,hy:0,adh:0,rpe:0,pf:"Stabili",sx:"",hs:0,fc:0,umore:0,gonf:0,diff:"",pn:""}]:[]});sv();MD=null;R();}
 function SCK(cid){const c=CL.find(x=>x.id===cid);if(!c)return;const w=gn("cw");if(!w){alert("Peso obbligatorio");return;}c.checks.push({d:gv("cd"),w,e:gi("ce"),s:gn("cs")||0,st:gi("cst"),hy:gn("ch")||0,adh:gi("ca"),rpe:gi("cr"),pf:gv("cp")||"Stabili",pn:gv("cpn"),sx:gv("cx"),hs:gn("co")||0,fc:gi("cfc"),umore:gi("cum"),gonf:gi("cgo"),girovita:gn("cgv")||0,girofianchi:gn("cgh")||0,diff:gv("cdf"),foto:""});sv();MD=null;R();}
